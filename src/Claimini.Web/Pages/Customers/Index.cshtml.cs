@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Claimini.Web.Data;
+
+namespace Claimini.Web.Pages.Customers
+{
+    public class IndexModel : PageModel
+    {
+        private readonly Claimini.Web.Data.ApplicationDbContext _context;
+
+        public IndexModel(Claimini.Web.Data.ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public IList<Customer> Customer { get;set; }
+
+        public async Task OnGetAsync()
+        {
+            Customer = await _context.Customer.ToListAsync();
+        }
+    }
+}
