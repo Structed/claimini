@@ -1,62 +1,83 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Claimini.Web.Data;
+// <copyright file="Edit.cshtml.cs" company="Johannes Ebner">
+// Copyright (c) Johannes Ebner. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root or https://spdx.org/licenses/MIT.html for full license information.
+// </copyright>
 
 namespace Claimini.Web.Pages.Customers
 {
+    using System.Threading.Tasks;
+    using Claimini.Web.Data;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+
+    /// <summary>
+    /// The Customer Edit Model
+    /// </summary>
     public class EditModel : PageModel
     {
-        private readonly Claimini.Web.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext context;
 
-        public EditModel(Claimini.Web.Data.ApplicationDbContext context)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditModel"/> class.
+        /// </summary>
+        /// <param name="context">The database context</param>
+        public EditModel(ApplicationDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
+        /// <summary>
+        /// Gets or sets the Customer
+        /// </summary>
         [BindProperty]
         public Customer Customer { get; set; }
 
+        /// <summary>
+        /// GET Request Handler
+        /// </summary>
+        /// <param name="id">The id of the Customer</param>
+        /// <returns>The page, displaying the customer for edit</returns>
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
-            Customer = await _context.Customer.SingleOrDefaultAsync(m => m.Id == id);
+            this.Customer = await this.context.Customer.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (Customer == null)
+            if (this.Customer == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
-            return Page();
+
+            return this.Page();
         }
 
+        /// <summary>
+        /// POST Request Handler
+        /// </summary>
+        /// <returns>The detail page, if edit was successful. Else, the edit page again</returns>
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return Page();
+                return this.Page();
             }
 
-            _context.Attach(Customer).State = EntityState.Modified;
+            this.context.Attach(this.Customer).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await this.context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                
+                // TODO: handle exception
             }
 
-            return RedirectToPage("./Index");
+            return this.RedirectToPage("./Index");
         }
     }
 }
