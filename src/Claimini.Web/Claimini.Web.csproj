@@ -3,6 +3,12 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-Claimini.Web-810A33A3-F1E2-40CB-A408-338E30B83EDD</UserSecretsId>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.0\Claimini.Web.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp2.0\Claimini.Web.xml</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <Content Remove="stylecop.json" />
   </ItemGroup>
