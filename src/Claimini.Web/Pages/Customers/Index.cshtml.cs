@@ -1,28 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Claimini.Web.Data;
+// <copyright file="Index.cshtml.cs" company="Johannes Ebner">
+// Copyright (c) Johannes Ebner. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root or https://spdx.org/licenses/MIT.html for full license information.
+// </copyright>
 
 namespace Claimini.Web.Pages.Customers
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Data;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+
+    /// <inheritdoc />
     public class IndexModel : PageModel
     {
-        private readonly Claimini.Web.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext context;
 
-        public IndexModel(Claimini.Web.Data.ApplicationDbContext context)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IndexModel"/> class.
+        /// </summary>
+        /// <param name="context">The database context</param>
+        public IndexModel(ApplicationDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
-        public IList<Customer> Customer { get;set; }
+        /// <summary>
+        /// Gets or sets a list of customers
+        /// </summary>
+        public IList<Customer> Customer { get; set; }
 
+        /// <summary>
+        /// GET request handler
+        /// </summary>
+        /// <returns>The page</returns>
         public async Task OnGetAsync()
         {
-            Customer = await _context.Customer.ToListAsync();
+            this.Customer = await this.context.Customer.ToListAsync();
         }
     }
 }

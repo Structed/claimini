@@ -1,51 +1,72 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using Claimini.Web.Data;
+// <copyright file="ResetAuthenticator.cshtml.cs" company="Johannes Ebner">
+// Copyright (c) Johannes Ebner. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root or https://spdx.org/licenses/MIT.html for full license information.
+// </copyright>
 
 namespace Claimini.Web.Pages.Account.Manage
 {
+    using System;
+    using System.Threading.Tasks;
+    using Claimini.Web.Data;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.Extensions.Logging;
+
+    /// <summary>
+    /// Reset Authentication Model
+    /// </summary>
     public class ResetAuthenticatorModel : PageModel
     {
-        UserManager<ApplicationUser> _userManager;
-        ILogger<ResetAuthenticatorModel> _logger;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly ILogger<ResetAuthenticatorModel> logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResetAuthenticatorModel"/> class.
+        /// </summary>
+        /// <param name="userManager">User manager</param>
+        /// <param name="logger">Logger</param>
         public ResetAuthenticatorModel(
             UserManager<ApplicationUser> userManager,
             ILogger<ResetAuthenticatorModel> logger)
         {
-            _userManager = userManager;
-            _logger = logger;
+            this.userManager = userManager;
+            this.logger = logger;
         }
+
+        /// <summary>
+        /// GET Request Handler
+        /// Displays the user to reset the authenticator for
+        /// </summary>
+        /// <returns>The page</returns>
         public async Task<IActionResult> OnGet()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await this.userManager.GetUserAsync(this.User);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
             }
 
-            return Page();
+            return this.Page();
         }
 
+        /// <summary>
+        /// POST Request Handler
+        /// </summary>
+        /// <returns>EnableAuthenticator Page</returns>
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await this.userManager.GetUserAsync(this.User);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Unable to load user with ID '{this.userManager.GetUserId(this.User)}'.");
             }
 
-            await _userManager.SetTwoFactorEnabledAsync(user, false);
-            await _userManager.ResetAuthenticatorKeyAsync(user);
-            _logger.LogInformation("User with ID '{UserId}' has reset their authentication app key.", user.Id);
+            await this.userManager.SetTwoFactorEnabledAsync(user, false);
+            await this.userManager.ResetAuthenticatorKeyAsync(user);
+            this.logger.LogInformation("User with ID '{UserId}' has reset their authentication app key.", user.Id);
 
-            return RedirectToPage("./EnableAuthenticator");
+            return this.RedirectToPage("./EnableAuthenticator");
         }
     }
 }
