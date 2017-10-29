@@ -36,5 +36,10 @@ namespace Claimini.Web.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        /// <summary>
+        /// Gets or sets the Article DbSet
+        /// </summary>
+        public DbSet<Article> Article { get; set; }
     }
 }
