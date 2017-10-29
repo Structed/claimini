@@ -6,10 +6,7 @@ MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{27AC889C-2DDC-4A35-86DD-3B25F841D294}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		build.cake = build.cake
-		build.ps1 = build.ps1
 		claimini-analyzers.ruleset = claimini-analyzers.ruleset
 		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE = LICENSE
@@ -18,19 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Claimini.Web", "src\Claimini.Web\Claimini.Web.csproj", "{698A38BB-D51F-4B3B-985F-1C9E5256574A}"
-EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{698A38BB-D51F-4B3B-985F-1C9E5256574A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{698A38BB-D51F-4B3B-985F-1C9E5256574A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{698A38BB-D51F-4B3B-985F-1C9E5256574A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{698A38BB-D51F-4B3B-985F-1C9E5256574A}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
