@@ -14,7 +14,9 @@ namespace Claimini.Web.Pages.Articles
     /// <summary>
     /// Article Index Model
     /// </summary>
+    #pragma warning disable SA1649 // File name must match first type name
     public class IndexModel : PageModel
+    #pragma warning restore SA1649 // File name must match first type name
     {
         private readonly Claimini.Web.Data.ApplicationDbContext context;
 
