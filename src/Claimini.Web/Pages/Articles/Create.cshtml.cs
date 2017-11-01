@@ -3,6 +3,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root or https://spdx.org/licenses/MIT.html for full license information.
 // </copyright>
 
+using System;
+using NodaTime;
+
 namespace Claimini.Web.Pages.Articles
 {
     using System.Threading.Tasks;
@@ -52,6 +55,8 @@ namespace Claimini.Web.Pages.Articles
             {
                 return this.Page();
             }
+
+            this.Article.CreatedTimestamp = Instant.FromDateTimeUtc(DateTime.UtcNow).ToUnixTimeSeconds();
 
             this.context.Article.Add(this.Article);
             await this.context.SaveChangesAsync();

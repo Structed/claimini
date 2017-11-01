@@ -1,4 +1,4 @@
-﻿@page
+@page
 @model Claimini.Web.Pages.Articles.EditModel
 
 @{
@@ -23,11 +23,6 @@
                 <label asp-for="Article.Price" class="control-label"></label>
                 <input asp-for="Article.Price" class="form-control" />
                 <span asp-validation-for="Article.Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Article.CreatedTimestamp" class="control-label"></label>
-                <input asp-for="Article.CreatedTimestamp" class="form-control" />
-                <span asp-validation-for="Article.CreatedTimestamp" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
