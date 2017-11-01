@@ -3,15 +3,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root or https://spdx.org/licenses/MIT.html for full license information.
 // </copyright>
 
-using System;
-using NodaTime;
-
 namespace Claimini.Web.Pages.Articles
 {
+    using System;
     using System.Threading.Tasks;
     using Claimini.Web.Data;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
+    using NodaTime;
 
     /// <summary>
     /// Article Create Model

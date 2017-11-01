@@ -18,7 +18,7 @@ namespace Claimini.Web.Pages.Articles
     public class IndexModel : PageModel
     #pragma warning restore SA1649 // File name must match first type name
     {
-        private readonly Claimini.Web.Data.ApplicationDbContext context;
+        private readonly ApplicationDbContext context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IndexModel"/> class.
