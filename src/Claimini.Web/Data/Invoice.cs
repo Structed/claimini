@@ -21,13 +21,19 @@ namespace Claimini.Web.Data
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets uNIX Timestamp (seconds) at which the Invoice was created
+        /// Gets or sets the Customer for whom the Invoice was created for
+        /// </summary>
+        [Required]
+        public Customer Customer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the UNIX Timestamp (seconds) at which the Invoice was created
         /// </summary>
         [Required]
         public long CreatedInstant { get; set; }
 
         /// <summary>
-        /// Gets or sets uNIX Timestamp (seconds) at which the Invoice was paid
+        /// Gets or sets the UNIX Timestamp (seconds) at which the Invoice was paid
         /// </summary>
         public long PaidInstant { get; set; }
 
