@@ -41,5 +41,10 @@ namespace Claimini.Web.Data
         /// Gets or sets the Article DbSet
         /// </summary>
         public DbSet<Article> Article { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Article DbSet
+        /// </summary>
+        public DbSet<Claimini.Web.Data.Invoice> Invoice { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace Claimini.Web.Data
         /// <summary>
         /// Gets or sets the Id of the Invoice Item
         /// </summary>
-        public uint Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the Article to which this item relates
@@ -27,7 +27,7 @@ namespace Claimini.Web.Data
         /// Gets or sets the quantity of the given item
         /// </summary>
         [Required]
-        public uint Quantity { get; set; }
+        public int Quantity { get; set; }
 
         /// <summary>
         /// Gets or sets the price of a single item at the Instant the Invoice was created
