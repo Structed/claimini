@@ -3,6 +3,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root or https://spdx.org/licenses/MIT.html for full license information.
 // </copyright>
 
+using System.Collections.Immutable;
+
 namespace Claimini.Web.Pages.Invoices
 {
     using System.Threading.Tasks;
@@ -30,6 +32,7 @@ namespace Claimini.Web.Pages.Invoices
         /// <returns>The Create page</returns>
         public IActionResult OnGet()
         {
+            this.Customers = this.context.Customer.ToImmutableList();
             return this.Page();
         }
 
@@ -38,6 +41,8 @@ namespace Claimini.Web.Pages.Invoices
         /// </summary>
         [BindProperty]
         public Invoice Invoice { get; set; }
+
+        public IImmutableList<Customer> Customers { get; set; }
 
         /// <summary>
         /// POST Request Handler
