@@ -28,6 +28,7 @@ namespace Claimini.Web.Data
         /// Gets or sets the default price of the Article
         /// </summary>
         [Required]
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
         /// <summary>

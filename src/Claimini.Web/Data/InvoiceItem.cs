@@ -33,6 +33,7 @@ namespace Claimini.Web.Data
         /// Gets or sets the price of a single item at the Instant the Invoice was created
         /// </summary>
         [Required]
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
         /// <summary>
@@ -45,6 +46,7 @@ namespace Claimini.Web.Data
         /// <summary>
         /// Gets calculated total price of the items
         /// </summary>
+        [DataType(DataType.Currency)]
         public decimal PriceTotal => this.Price * this.Quantity;
     }
 }
