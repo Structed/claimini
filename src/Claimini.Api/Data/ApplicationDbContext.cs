@@ -11,7 +11,7 @@ namespace Claimini.Api.Data
     /// <summary>
     /// The Application DB Context
     /// </summary>
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : DbContext
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationDbContext"/> class.
@@ -22,11 +22,6 @@ namespace Claimini.Api.Data
         {
         }
 
-        /// <summary>
-        /// Gets or sets the Customer DbSet
-        /// </summary>
-        public DbSet<Customer> Customer { get; set; }
-
         /// <inheritdoc />
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -36,6 +31,11 @@ namespace Claimini.Api.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        /// <summary>
+        /// Gets or sets the Customer DbSet
+        /// </summary>
+        public DbSet<Customer> Customer { get; set; }
 
         /// <summary>
         /// Gets or sets the Article DbSet
