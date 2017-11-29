@@ -51,5 +51,13 @@ namespace Claimini.Api.Services
 
             return true;
         }
+
+        public Customer Update(Customer customer)
+        {
+            this.contactRepository.Update(customer);
+            this.unitOfWork.Commit();
+
+            return customer;
+        }
     }
 }

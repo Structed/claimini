@@ -42,8 +42,17 @@ namespace Claimini.Api.Controllers
 
         // PUT: api/Customers/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]Customer customer)
         {
+            if (this.ModelState.IsValid == false)
+            {
+                return new BadRequestObjectResult(this.ModelState);
+            }
+
+            customer.Id = id;
+            this.customerService.Update(customer);
+
+            return new OkObjectResult(customer);
         }
 
         // DELETE: api/Customers/5

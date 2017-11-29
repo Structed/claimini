@@ -12,5 +12,7 @@ namespace Claimini.Api.Services
         IEnumerable<Customer> GetAll();
 
         bool Delete(int id);
+
+        Customer Update(Customer customer);
     }
 }
