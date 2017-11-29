@@ -36,6 +36,16 @@ namespace Claimini.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]Customer customer)
         {
+            if (customer.Id != 0)
+            {
+                this.ModelState.AddModelError("Id", "Id must not be set");
+            }
+
+            if (this.ModelState.IsValid == false)
+            {
+                return new BadRequestObjectResult(this.ModelState);
+            }
+
             customer = this.customerService.Create(customer);
             return new OkObjectResult(customer);
         }
