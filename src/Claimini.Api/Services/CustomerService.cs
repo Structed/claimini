@@ -1,26 +1,23 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Claimini.Api.Data;
 using Claimini.Api.Repository;
-using Microsoft.EntityFrameworkCore;
 
 namespace Claimini.Api.Services
 {
     public class CustomerService : ICustomerService
     {
         private readonly IUnitOfWork unitOfWork;
-        private readonly IRepository<Customer> contactRepository;
+        private readonly IRepository<Customer> customerRepository;
 
-        public CustomerService(IUnitOfWork unitOfWork, IRepository<Customer> contactRepository)
+        public CustomerService(IUnitOfWork unitOfWork, IRepository<Customer> customerRepository)
         {
             this.unitOfWork = unitOfWork;
-            this.contactRepository = contactRepository;
+            this.customerRepository = customerRepository;
         }
 
         public Customer Create(Customer customer)
         {
-            contactRepository.Add(customer);
+            customerRepository.Add(customer);
             unitOfWork.Commit();
 
             return customer;
@@ -28,25 +25,25 @@ namespace Claimini.Api.Services
 
         public Customer Get(int id)
         {
-            return this.contactRepository.Get(id);
+            return this.customerRepository.Get(id);
         }
 
         public IEnumerable<Customer> GetAll()
         {
-            IEnumerable<Customer> customers = this.contactRepository.GetAll();
+            IEnumerable<Customer> customers = this.customerRepository.GetAll();
             return customers;
         }
 
         public bool Delete(int id)
         {
-            bool exists = this.contactRepository.Exists(customer => customer.Id == id);
+            bool exists = this.customerRepository.Exists(customer => customer.Id == id);
 
             if (!exists)
             {
                 return false;
             }
 
-            this.contactRepository.Delete(new Customer {Id = id});
+            this.customerRepository.Delete(new Customer {Id = id});
             this.unitOfWork.Commit();
 
             return true;
@@ -54,7 +51,7 @@ namespace Claimini.Api.Services
 
         public Customer Update(Customer customer)
         {
-            this.contactRepository.Update(customer);
+            this.customerRepository.Update(customer);
             this.unitOfWork.Commit();
 
             return customer;
