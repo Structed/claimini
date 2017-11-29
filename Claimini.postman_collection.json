@@ -1,0 +1,161 @@
+{
+	"info": {
+		"name": "Claimini",
+		"_postman_id": "77000a14-0c32-4b3e-d16c-443d185d40fd",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"description": "",
+			"item": [
+				{
+					"name": "Add Customer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"let customerId = pm.variables.get(\"customer_id\");",
+									"",
+									"pm.variables.set(\"customer_id\", ++customerId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\": \"Customer 4\",\n\t\"StreetAddress\": \"Teststraße 4\",\n\t\"ZipCode\": \"80807\",\n\t\"Country\": \"Germany\"\n}"
+						},
+						"url": {
+							"raw": "{{apiHostBaseUri}}/customers",
+							"host": [
+								"{{apiHostBaseUri}}"
+							],
+							"path": [
+								"customers"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{apiHostBaseUri}}/customers/:id",
+							"host": [
+								"{{apiHostBaseUri}}"
+							],
+							"path": [
+								"customers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{apiHostBaseUri}}/customers",
+							"host": [
+								"{{apiHostBaseUri}}"
+							],
+							"path": [
+								"customers"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Customer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{apiHostBaseUri}}/customers/:id",
+							"host": [
+								"{{apiHostBaseUri}}"
+							],
+							"path": [
+								"customers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "45"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Customer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"streetAddress\": \"Teststraße 1\",\n    \"streetAddressAdditional\": null,\n    \"zipCode\": \"80807\",\n    \"state\": null,\n    \"country\": \"Germany\"\n}"
+						},
+						"url": {
+							"raw": "{{apiHostBaseUri}}/customers/:id",
+							"host": [
+								"{{apiHostBaseUri}}"
+							],
+							"path": [
+								"customers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
