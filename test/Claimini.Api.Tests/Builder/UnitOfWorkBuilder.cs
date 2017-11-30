@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Claimini.Api.Data;
 using Claimini.Api.Repository;
 using Moq;
 
@@ -17,7 +11,12 @@ namespace Claimini.Api.Tests.Builder
         public UnitOfWorkBuilder(MockRepository mockRepository)
         {
             this.mockRepository = mockRepository;
-            this.mock = mockRepository.Create<IUnitOfWork>();
+            this.mock = this.mockRepository.Create<IUnitOfWork>();
+        }
+
+        public Mock<IUnitOfWork> Build()
+        {
+            return this.mock;
         }
 
         public UnitOfWorkBuilder WithCommitAffectingRows(int affectedRows)
@@ -25,11 +24,6 @@ namespace Claimini.Api.Tests.Builder
             this.mock.Setup(x => x.Commit()).Returns(affectedRows);
 
             return this;
-        }
-
-        public Mock<IUnitOfWork> Build()
-        {
-            return this.mock;
         }
     }
 }
