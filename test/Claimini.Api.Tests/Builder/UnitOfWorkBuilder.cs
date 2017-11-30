@@ -19,6 +19,11 @@ namespace Claimini.Api.Tests.Builder
             return this.mock;
         }
 
+        public IUnitOfWork BuildObject()
+        {
+            return this.mock.Object;
+        }
+
         public UnitOfWorkBuilder WithCommitAffectingRows(int affectedRows)
         {
             this.mock.Setup(x => x.Commit()).Returns(affectedRows);
