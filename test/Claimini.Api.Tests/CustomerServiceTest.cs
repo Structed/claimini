@@ -12,13 +12,14 @@ namespace Claimini.Api.Tests
     public class CustomerServiceTest
     {
         private readonly MockRepository mockRepository = new MockRepository(MockBehavior.Strict);
-        private readonly Mock<IRepository<Customer>> customerRepositoryMock;
         private readonly UnitOfWorkBuilder unitOfWorkMockBuilder;
+        private readonly CustomerRepositoryBuilder customerRepositoryBuilder;
 
         public CustomerServiceTest()
         {
-            unitOfWorkMockBuilder = new UnitOfWorkBuilder(this.mockRepository);
-            customerRepositoryMock = mockRepository.Create<IRepository<Customer>>();
+            this.unitOfWorkMockBuilder = new UnitOfWorkBuilder(this.mockRepository);
+            this.customerRepositoryBuilder = new CustomerRepositoryBuilder(this.mockRepository);
+            //customerRepositoryMock = mockRepository.Create<IRepository<Customer>>();
         }
 
         [Fact]
@@ -26,9 +27,14 @@ namespace Claimini.Api.Tests
         {
             // Arrange
             var customer = new Customer();
-            customerRepositoryMock.Setup(x => x.Add(It.IsAny<Customer>())).Returns(EntityState.Added);
-            Mock<IUnitOfWork> uowMock = this.unitOfWorkMockBuilder.WithCommitAffectingRows(1).Build();
-            var customerService = new CustomerService(uowMock.Object, this.customerRepositoryMock.Object);
+
+            var customerService = new CustomerService(
+                this.unitOfWorkMockBuilder
+                    .WithCommitAffectingRows(1)
+                        .BuildObject(),
+                this.customerRepositoryBuilder
+                    .WithAddReturningEntityStateAdded(customer)
+                        .BuildObject());
 
             // Act
             Customer returnedCustomer = customerService.Create(customer);
@@ -36,7 +42,7 @@ namespace Claimini.Api.Tests
             // Assert
             returnedCustomer.Should()
                 .BeOfType<Customer>(
-                    "The same customer is returned. USually with it's ID updated, but that is not in the scope of the test");
+                    "The same customer is returned. Usually with it's ID updated, but that is not in the scope of the test");
         }
     }
 }
