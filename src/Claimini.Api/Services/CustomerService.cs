@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Claimini.Api.Data;
 using Claimini.Api.Repository;
@@ -17,6 +18,11 @@ namespace Claimini.Api.Services
 
         public Customer Create(Customer customer)
         {
+            if (customer == null)
+            {
+                throw new ArgumentNullException(nameof(customer));
+            }
+
             customerRepository.Add(customer);
             unitOfWork.Commit();
 

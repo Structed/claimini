@@ -1,9 +1,8 @@
+using System;
 using Claimini.Api.Data;
-using Claimini.Api.Repository;
 using Claimini.Api.Services;
 using Claimini.Api.Tests.Builder;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
@@ -42,7 +41,27 @@ namespace Claimini.Api.Tests
             // Assert
             returnedCustomer.Should()
                 .BeOfType<Customer>(
-                    "The same customer is returned. Usually with it's ID updated, but that is not in the scope of the test");
+                    "because the same customer is returned. Usually with it's ID updated, but that is not in the scope of the test");
+        }
+
+        [Fact]
+        public void Create_WithNullCustomer_ThrowsArgumentNullException()
+        {
+            // Arrange
+            var customerService = new CustomerService(
+                this.unitOfWorkMockBuilder
+                    .WithCommitAffectingRows(1)
+                    .BuildObject(),
+                this.customerRepositoryBuilder
+                    .WithAddReturningEntityStateAdded(It.IsAny<Customer>())
+                    .BuildObject());
+
+            // Act
+            Action act = () => customerService.Create(null);
+
+            // Assert
+            act.ShouldThrowExactly<ArgumentNullException>("passing null as a customer is invalid")
+                .And.ParamName.Should().Be("customer");
         }
     }
 }
