@@ -25,7 +25,7 @@ namespace Claimini.Api.Controllers
         }
 
         // GET: api/Customers/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             Customer customer = this.customerService.Get(id);
