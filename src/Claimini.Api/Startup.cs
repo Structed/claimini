@@ -30,6 +30,7 @@ namespace Claimini.Api
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IArticleService, ArticleService>();
 
             services.AddMvc();
         }
