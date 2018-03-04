@@ -31,6 +31,11 @@ namespace Claimini.Api.Services
 
         public Customer Get(int id)
         {
+            if (id < 1)
+            {
+                throw new ArgumentException("The Customer Id must be positive", nameof(id));
+            }
+
             return this.customerRepository.Get(id);
         }
 
