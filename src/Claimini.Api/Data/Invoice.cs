@@ -5,7 +5,12 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 
 namespace Claimini.Api.Data
 {
@@ -13,12 +18,23 @@ namespace Claimini.Api.Data
     /// Represents an Invoice, which contains <see cref="InvoiceItem"/>s
     /// and is associated to a <see cref="Customer"/>
     /// </summary>
-    public class Invoice
+    [NotMapped]
+    public class Invoice : IMongoDocument
     {
         /// <summary>
-        /// Gets or sets the Id of the Invoice
+        /// Gets or sets the identifier.
         /// </summary>
-        public int Id { get; set; }
+        /// <value>
+        /// The identifier.
+        /// </value>
+        [BsonId]
+        [JsonIgnore]
+        [NotMapped]
+        public ObjectId Id { get; set; }
+
+        //[DatabasePrimaryKey(Name = "Id")]
+        [Key]
+        public int IdSql { get; set; }
 
         /// <summary>
         /// Gets or sets the Customer for whom the Invoice was created for
@@ -30,12 +46,12 @@ namespace Claimini.Api.Data
         /// Gets or sets the UNIX Timestamp (seconds) at which the Invoice was created
         /// </summary>
         [Required]
-        public long CreatedInstant { get; set; }
+        public long CreatedTimestamp { get; set; }
 
         /// <summary>
         /// Gets or sets the UNIX Timestamp (seconds) at which the Invoice was paid
         /// </summary>
-        public long PaidInstant { get; set; }
+        public long PaidTimestamp { get; set; }
 
         /// <summary>
         /// Gets or sets the Items of the Invoice
