@@ -4,14 +4,12 @@
 // </copyright>
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Claimini.Api.Data;
 using Claimini.Api.Data.Dto;
 using Claimini.Api.Repository;
-using MongoDB.Bson.IO;
 
 namespace Claimini.Api.Services
 {
@@ -35,8 +33,24 @@ namespace Claimini.Api.Services
 
         public async Task<Invoice> CreateInvoice(InvoiceDto invoiceDto)
         {
+            if (invoiceDto.CustomerId < 1)
+            {
+                throw new Exception("A Customer was not specified");
+            }
+
             Customer customer = this.customerRepository.Get(invoiceDto.CustomerId);
-            IEnumerable<Article> articles = this.articleRepository.FindBy(article => invoiceDto.InvoiceItems.Select(item => item.ArticleId).ToList().Contains(article.Id)).ToList();
+            if (customer == null)
+            {
+                throw new Exception($"Customer with ID {invoiceDto.CustomerId} not found");
+            }
+
+            var articleIds = invoiceDto.InvoiceItems.Select(item => item.ArticleId).ToList();
+            if (articleIds.Count < 1)
+            {
+                throw new Exception("Cannot create an Invoice with less than 1 article");
+            }
+
+            IEnumerable<Article> articles = this.articleRepository.FindBy(article => articleIds.Contains(article.Id)).ToList();
 
 
             List<InvoiceItem> invoiceItems = new List<InvoiceItem>(articles.Count());
@@ -60,6 +74,7 @@ namespace Claimini.Api.Services
                 CreatedTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
                 Items = invoiceItems
             };
+
             await invoiceRepository.InsertAsync(invoice);
             return invoice;
         }

@@ -32,10 +32,6 @@ namespace Claimini.Api.Data
         [NotMapped]
         public ObjectId Id { get; set; }
 
-        //[DatabasePrimaryKey(Name = "Id")]
-        [Key]
-        public int IdSql { get; set; }
-
         /// <summary>
         /// Gets or sets the Customer for whom the Invoice was created for
         /// </summary>

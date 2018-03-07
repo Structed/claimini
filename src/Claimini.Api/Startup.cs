@@ -1,3 +1,4 @@
+using Claimini.Api.Configuration;
 using Claimini.Api.Data;
 using Claimini.Api.Repository;
 using Claimini.Api.Services;
@@ -27,10 +28,15 @@ namespace Claimini.Api
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            MongoConfiguration mongoConfiguration = this.Configuration.GetSection("MongoConfiguration").Get<MongoConfiguration>();
+            var mongoDbContext = new MongoDbContext(mongoConfiguration);
+            services.AddScoped(typeof(IMongoDbContext), provider => mongoDbContext);
+            services.AddScoped(typeof(IMongoRepository<Invoice>), provider => new MongoRepository<Invoice>(mongoDbContext.Invoices));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<IArticleService, ArticleService>();
+            services.AddTransient<IInvoiceService, InvoiceService>();
 
             services.AddMvc();
         }

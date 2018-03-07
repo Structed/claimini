@@ -21,9 +21,9 @@ namespace Claimini.Api.Data
         /// Initializes a new instance of the <see cref="MongoDbContext"/> class.
         /// </summary>
         /// <param name="settings">The settings.</param>
-        public MongoDbContext(IOptions<MongoConfiguration> settings)
+        public MongoDbContext(MongoConfiguration settings)
         {
-            this.mongoConfigurationSettings = settings.Value;
+            this.mongoConfigurationSettings = settings;
             IMongoClient client = new MongoClient(this.mongoConfigurationSettings.ConnectionString);
             this.database = client.GetDatabase(this.mongoConfigurationSettings.Database);
         }
