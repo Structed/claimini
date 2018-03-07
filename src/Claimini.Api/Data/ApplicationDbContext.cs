@@ -42,10 +42,5 @@ namespace Claimini.Api.Data
         /// Gets or sets the Article DbSet
         /// </summary>
         public DbSet<Article> Article { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Article DbSet
-        /// </summary>
-        public DbSet<Invoice> Invoice { get; set; }
     }
 }

@@ -42,83 +42,12 @@ namespace Claimini.Api.Migrations
                 {
                     table.PrimaryKey("PK_Customer", x => x.Id);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Invoice",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedInstant = table.Column<long>(nullable: false),
-                    CustomerId = table.Column<int>(nullable: false),
-                    PaidInstant = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Invoice", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Invoice_Customer_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customer",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "InvoiceItem",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ArticleId = table.Column<int>(nullable: false),
-                    InvoiceId = table.Column<int>(nullable: true),
-                    Price = table.Column<decimal>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    VatPercentage = table.Column<decimal>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InvoiceItem", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_InvoiceItem_Article_ArticleId",
-                        column: x => x.ArticleId,
-                        principalTable: "Article",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_InvoiceItem_Invoice_InvoiceId",
-                        column: x => x.InvoiceId,
-                        principalTable: "Invoice",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Invoice_CustomerId",
-                table: "Invoice",
-                column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_InvoiceItem_ArticleId",
-                table: "InvoiceItem",
-                column: "ArticleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_InvoiceItem_InvoiceId",
-                table: "InvoiceItem",
-                column: "InvoiceId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "InvoiceItem");
-
-            migrationBuilder.DropTable(
                 name: "Article");
-
-            migrationBuilder.DropTable(
-                name: "Invoice");
 
             migrationBuilder.DropTable(
                 name: "Customer");
