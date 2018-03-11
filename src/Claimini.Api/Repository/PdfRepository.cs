@@ -4,6 +4,9 @@
 // </copyright>
 
 using Claimini.Api.Data;
+using Claimini.Api.Repository.Pdf;
+using iText.IO.Image;
+using iText.Kernel.Events;
 using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
@@ -14,11 +17,16 @@ namespace Claimini.Api.Repository
 {
     public class PdfRepository
     {
-        public void WriteInvoicePdf(Invoice invoice, PdfWriter writer)
+        public void WriteInvoicePdf(Invoice invoice, PdfWriter writer, string backgroundImagePath = @"./static/TestBackground.png")
         {
             // Set up document
             var pdf = new PdfDocument(writer);
             var document = new Document(pdf);
+
+            Image backgroundImage = LoadBackgroundImage(backgroundImagePath);
+
+            // Register Event Handlers
+            RegisterEventHandlers(pdf, backgroundImage);
 
             document.SetMargins(20, 20, 20, 20);
 
@@ -30,6 +38,20 @@ namespace Claimini.Api.Repository
 
             // Finih up the document
             document.Close();
+        }
+
+        private static Image LoadBackgroundImage(string backgroundImagePath)
+        {
+            var imageData = ImageDataFactory.Create(backgroundImagePath);
+            var backgroundImage = new Image(imageData);
+            return backgroundImage;
+        }
+
+        private static void RegisterEventHandlers(PdfDocument pdf, Image backgroundImage)
+        {
+            // Adds a background Image to every new page
+            BackgroundEventHandler handler = new BackgroundEventHandler(backgroundImage);
+            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
         }
 
         private static void AddItemTable(Document document, Invoice invoice, PdfFont bold, PdfFont font)
