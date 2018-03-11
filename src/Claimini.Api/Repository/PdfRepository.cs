@@ -8,6 +8,7 @@ using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 
 namespace Claimini.Api.Repository
 {
@@ -33,16 +34,22 @@ namespace Claimini.Api.Repository
 
         private static void AddItemTable(Document document, Invoice invoice, PdfFont bold, PdfFont font)
         {
-            var table = new Table(new float[] {3, 1, 2, 2, 2});
+            var table = new Table(new float[] {3, 1, 2, 2, 2}); // Relative widths to each other - 3 is 3x as wide as 1.
             table.UseAllAvailableWidth();
 
             AddTableHeader(table, bold);
 
             foreach (InvoiceItem item in invoice.Items)
             {
-                AddTableRow(table, item);
+                AddTableRow(table, item, font);
             }
 
+            //Cell cell = CreateCell($"Total Price: {invoice.PriceTotal}", bold);
+            Cell cell = new Cell(0, 4).Add(new Paragraph($"Total Price: {invoice.PriceTotal}").SetFont(bold)).SetTextAlignment(TextAlignment.RIGHT);
+            table.AddCell(cell);
+
+            Cell totalPriceCell = CreateCell(invoice.PriceTotal.ToString(), bold, TextAlignment.RIGHT);
+            table.AddCell(totalPriceCell);
 
             document.Add(table);
         }
@@ -56,18 +63,19 @@ namespace Claimini.Api.Repository
             table.AddHeaderCell(CreateCell(nameof(InvoiceItem.PriceTotal), font));
         }
 
-        private static Cell CreateCell(string text, PdfFont font)
+        private static Cell CreateCell(string text, PdfFont font, TextAlignment? textAlignment = null)
         {
-            return new Cell().Add(new Paragraph(text).SetFont(font));
+            var cell = new Cell().Add(new Paragraph(text).SetFont(font)).SetTextAlignment(textAlignment);
+            return cell;
         }
 
-        private static void AddTableRow(Table table, InvoiceItem item)
+        private static void AddTableRow(Table table, InvoiceItem item, PdfFont font)
         {
-            table.AddCell(item.Article.Name);
-            table.AddCell(item.Quantity.ToString());
-            table.AddCell(item.Price.ToString());
-            table.AddCell(item.VatPercentage.ToString());
-            table.AddCell(item.PriceTotal.ToString());
+            table.AddCell(CreateCell(item.Article.Name, font));
+            table.AddCell(CreateCell(item.Quantity.ToString(), font, TextAlignment.RIGHT));
+            table.AddCell(CreateCell(item.Price.ToString(), font, TextAlignment.RIGHT));
+            table.AddCell(CreateCell(item.VatPercentage.ToString(), font, TextAlignment.RIGHT));
+            table.AddCell(CreateCell(item.PriceTotal.ToString(), font, TextAlignment.RIGHT));
         }
     }
 }
