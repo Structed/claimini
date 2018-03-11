@@ -10,6 +10,7 @@ using iText.Kernel.Events;
 using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
+using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 
@@ -29,6 +30,7 @@ namespace Claimini.Api.Repository
             RegisterEventHandlers(pdf, backgroundImage);
 
             document.SetMargins(20, 20, 20, 20);
+            document.SetFontSize(12);
 
             var font = PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.HELVETICA);
             var bold = PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.HELVETICA_BOLD);
@@ -66,11 +68,16 @@ namespace Claimini.Api.Repository
                 AddTableRow(table, item, font);
             }
 
-            //Cell cell = CreateCell($"Total Price: {invoice.PriceTotal}", bold);
-            Cell cell = new Cell(0, 4).Add(new Paragraph($"Total Price: {invoice.PriceTotal}").SetFont(bold)).SetTextAlignment(TextAlignment.RIGHT);
-            table.AddCell(cell);
+            var noBorderStyle = new Style().SetBorder(Border.NO_BORDER);
 
-            Cell totalPriceCell = CreateCell(invoice.PriceTotal.ToString(), bold, TextAlignment.RIGHT);
+            Cell totalPriceLabelCell = new Cell(0, 4)
+                .Add(new Paragraph($"Total Price:")
+                    .SetFont(bold))
+                .SetTextAlignment(TextAlignment.RIGHT)
+                .AddStyle(noBorderStyle);
+            table.AddCell(totalPriceLabelCell);
+
+            Cell totalPriceCell = CreateCell(invoice.PriceTotal.ToString("C"), bold, TextAlignment.RIGHT).AddStyle(noBorderStyle);
             table.AddCell(totalPriceCell);
 
             document.Add(table);
@@ -95,9 +102,9 @@ namespace Claimini.Api.Repository
         {
             table.AddCell(CreateCell(item.Article.Name, font));
             table.AddCell(CreateCell(item.Quantity.ToString(), font, TextAlignment.RIGHT));
-            table.AddCell(CreateCell(item.Price.ToString(), font, TextAlignment.RIGHT));
-            table.AddCell(CreateCell(item.VatPercentage.ToString(), font, TextAlignment.RIGHT));
-            table.AddCell(CreateCell(item.PriceTotal.ToString(), font, TextAlignment.RIGHT));
+            table.AddCell(CreateCell(item.Price.ToString("C"), font, TextAlignment.RIGHT));
+            table.AddCell(CreateCell(item.VatPercentage.ToString("P"), font, TextAlignment.RIGHT));
+            table.AddCell(CreateCell(item.PriceTotal.ToString("C"), font, TextAlignment.RIGHT));
         }
     }
 }
