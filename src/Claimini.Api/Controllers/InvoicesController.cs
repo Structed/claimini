@@ -1,11 +1,14 @@
-using System;
+// <copyright file="Invoice.cs" company="Johannes Ebner">
+// Copyright (c) Johannes Ebner. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root or https://spdx.org/licenses/MIT.html for full license information.
+// </copyright>
+
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Claimini.Api.Data;
 using Claimini.Api.Data.Dto;
+using Claimini.Api.Repository;
 using Claimini.Api.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Claimini.Api.Controllers
@@ -30,9 +33,10 @@ namespace Claimini.Api.Controllers
 
         // GET: api/Invoices/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public IActionResult Get(string id)
         {
-            return "value";
+            Invoice invoice = this.invoiceService.GetInvoice(id);
+            return new ObjectResult(invoice);
         }
 
         // POST: api/Invoices
