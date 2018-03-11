@@ -16,7 +16,10 @@ namespace Claimini.Api.Services
     public interface IInvoiceService
     {
         Task<Invoice> CreateInvoice(InvoiceDto invoice);
+
         Invoice GetInvoice(string id);
+
+        Task<IEnumerable<Invoice>> GetAllAsync();
     }
 
     public class InvoiceService : IInvoiceService
@@ -83,6 +86,11 @@ namespace Claimini.Api.Services
         public Invoice GetInvoice(string id)
         {
             return this.invoiceRepository.Get(id);
+        }
+
+        public async Task<IEnumerable<Invoice>> GetAllAsync()
+        {
+            return await this.invoiceRepository.GetAllAsync();
         }
     }
 }

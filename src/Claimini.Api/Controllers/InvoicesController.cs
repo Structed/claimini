@@ -26,9 +26,9 @@ namespace Claimini.Api.Controllers
 
         // GET: api/Invoices
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<Invoice>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return await this.invoiceService.GetAllAsync();
         }
 
         // GET: api/Invoices/5
