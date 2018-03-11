@@ -13,8 +13,9 @@ namespace Claimini.Api.Repository
 {
     public class PdfRepository
     {
-        public void WritePdf(Invoice invoice, string destinationPath)
+        public void WriteInvoicePdf(Invoice invoice, string destinationPath)
         {
+            // Set up document
             var writer = new PdfWriter(destinationPath);
             var pdf = new PdfDocument(writer);
             var document = new Document(pdf);
@@ -24,38 +25,50 @@ namespace Claimini.Api.Repository
             var font = PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.HELVETICA);
             var bold = PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.HELVETICA_BOLD);
 
-            var table = new Table(new float[] { 3, 1, 2, 2, 2 });
-            table.UseAllAvailableWidth();
+            // Add Content
+            AddItemTable(document, invoice, bold, font);
 
+            // Finih up the document
+            document.Close();
+        }
+
+        private static void AddItemTable(Document document, Invoice invoice, PdfFont bold, PdfFont font)
+        {
+            var table = new Table(new float[] {3, 1, 2, 2, 2});
+            table.UseAllAvailableWidth();
 
             AddTableHeader(table, bold);
 
             foreach (InvoiceItem item in invoice.Items)
             {
-                AddTableRow(table, item, font);
+                AddTableRow(table, item);
             }
 
 
             document.Add(table);
-            document.Close();
         }
 
-        private static void AddTableHeader(Table table, PdfFont bold)
+        private static void AddTableHeader(Table table, PdfFont font)
         {
-            table.AddHeaderCell(nameof(InvoiceItem.Article)).SetFont(bold);
-            table.AddHeaderCell(nameof(InvoiceItem.Quantity)).SetFont(bold);
-            table.AddHeaderCell(nameof(InvoiceItem.Price)).SetFont(bold);
-            table.AddHeaderCell(nameof(InvoiceItem.VatPercentage)).SetFont(bold);
-            table.AddHeaderCell(nameof(InvoiceItem.PriceTotal)).SetFont(bold);
+            table.AddHeaderCell(CreateCell(nameof(InvoiceItem.Article), font));
+            table.AddHeaderCell(CreateCell(nameof(InvoiceItem.Quantity), font));
+            table.AddHeaderCell(CreateCell(nameof(InvoiceItem.Price), font));
+            table.AddHeaderCell(CreateCell(nameof(InvoiceItem.VatPercentage), font));
+            table.AddHeaderCell(CreateCell(nameof(InvoiceItem.PriceTotal), font));
         }
 
-        private static void AddTableRow(Table table, InvoiceItem item, PdfFont font)
+        private static Cell CreateCell(string text, PdfFont font)
         {
-            table.AddCell(item.Article.Name).SetFont(font);
-            table.AddCell(item.Quantity.ToString()).SetFont(font);
-            table.AddCell(item.Price.ToString()).SetFont(font);
-            table.AddCell(item.VatPercentage.ToString()).SetFont(font);
-            table.AddCell(item.PriceTotal.ToString()).SetFont(font);
+            return new Cell().Add(new Paragraph(text).SetFont(font));
+        }
+
+        private static void AddTableRow(Table table, InvoiceItem item)
+        {
+            table.AddCell(item.Article.Name);
+            table.AddCell(item.Quantity.ToString());
+            table.AddCell(item.Price.ToString());
+            table.AddCell(item.VatPercentage.ToString());
+            table.AddCell(item.PriceTotal.ToString());
         }
     }
 }

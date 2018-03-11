@@ -65,7 +65,7 @@ namespace Claimini.Api.Controllers
             var invoice = this.invoiceService.GetInvoice(id);
 
             var filePath = System.IO.Path.GetTempPath() + "\\test.pdf";
-            pdfRepo.WritePdf(invoice, filePath);
+            pdfRepo.WriteInvoicePdf(invoice, filePath);
             filePath = filePath.Replace("\\\\", "\\");
             return new ObjectResult(filePath);
         }
