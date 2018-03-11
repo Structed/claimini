@@ -63,5 +63,17 @@ namespace Claimini.Api.Controllers
         public void Delete(int id)
         {
         }
+
+        [HttpGet("{id}/pdf")]
+        public IActionResult GetPdf(string id)
+        {
+            var pdfRepo = new PdfRepository();
+            var invoice = this.invoiceService.GetInvoice(id);
+
+            var filePath = System.IO.Path.GetTempPath() + "\\test.pdf";
+            pdfRepo.WritePdf(invoice, filePath);
+            filePath = filePath.Replace("\\\\", "\\");
+            return new ObjectResult(filePath);
+        }
     }
 }
