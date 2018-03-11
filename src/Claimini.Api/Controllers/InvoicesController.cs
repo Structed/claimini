@@ -52,12 +52,6 @@ namespace Claimini.Api.Controllers
             return new ObjectResult(this.ModelState);
         }
 
-        // PUT: api/Invoices/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
