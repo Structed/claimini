@@ -4,11 +4,13 @@
 // </copyright>
 
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Claimini.Api.Data;
 using Claimini.Api.Data.Dto;
 using Claimini.Api.Repository;
 using Claimini.Api.Services;
+using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Claimini.Api.Controllers
@@ -59,15 +61,19 @@ namespace Claimini.Api.Controllers
         }
 
         [HttpGet("{id}/pdf")]
-        public IActionResult GetPdf(string id)
+        public async Task<IActionResult> GetPdf(string id)
         {
-            var pdfRepo = new PdfRepository();
             var invoice = this.invoiceService.GetInvoice(id);
+            var pdfRepo = new PdfRepository();
 
-            var filePath = System.IO.Path.GetTempPath() + "\\test.pdf";
-            pdfRepo.WriteInvoicePdf(invoice, filePath);
-            filePath = filePath.Replace("\\\\", "\\");
-            return new ObjectResult(filePath);
+            var filePath = Path.GetTempFileName();
+
+            var writer = new PdfWriter(filePath);
+            pdfRepo.WriteInvoicePdf(invoice, writer);
+
+            byte[] contents = await System.IO.File.ReadAllBytesAsync(filePath);
+            FileContentResult response = File(contents, "application/pdf");
+            return response;
         }
     }
 }

@@ -13,10 +13,9 @@ namespace Claimini.Api.Repository
 {
     public class PdfRepository
     {
-        public void WriteInvoicePdf(Invoice invoice, string destinationPath)
+        public void WriteInvoicePdf(Invoice invoice, PdfWriter writer)
         {
             // Set up document
-            var writer = new PdfWriter(destinationPath);
             var pdf = new PdfDocument(writer);
             var document = new Document(pdf);
 
