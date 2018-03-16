@@ -3,8 +3,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root or https://spdx.org/licenses/MIT.html for full license information.
 // </copyright>
 
+using System.Collections.Generic;
 using Claimini.Api.Data;
 using Claimini.Api.Repository.Pdf;
+using Claimini.Api.Repository.Pdf.EventHandler;
 using iText.IO.Image;
 using iText.Kernel.Events;
 using iText.Kernel.Font;
@@ -18,16 +20,23 @@ namespace Claimini.Api.Repository
 {
     public class PdfRepository
     {
-        public void WriteInvoicePdf(Invoice invoice, PdfWriter writer, string backgroundImagePath = @"./static/TestBackground.png")
+        public void WriteInvoicePdf(Invoice invoice, PdfWriter writer, List<string> templatePdfPaths = null, string backgroundImagePath = "")
         {
             // Set up document
             var pdf = new PdfDocument(writer);
             var document = new Document(pdf);
 
-            Image backgroundImage = LoadBackgroundImage(backgroundImagePath);
-
             // Register Event Handlers
-            RegisterEventHandlers(pdf, backgroundImage);
+            if (false == string.IsNullOrEmpty(backgroundImagePath))
+            {
+                Image backgroundImage = LoadBackgroundImage(backgroundImagePath);
+                RegisterImageBackgroundEventHandler(pdf, backgroundImage);
+            }
+
+            if (templatePdfPaths != null && templatePdfPaths.Count > 0)
+            {
+                RegisterPdfBackgroundEventHandler(pdf, templatePdfPaths);
+            }
 
             document.SetMargins(20, 20, 20, 20);
             document.SetFontSize(12);
@@ -38,7 +47,7 @@ namespace Claimini.Api.Repository
             // Add Content
             AddItemTable(document, invoice, bold, font);
 
-            // Finih up the document
+            // Finish up the document
             document.Close();
         }
 
@@ -49,10 +58,16 @@ namespace Claimini.Api.Repository
             return backgroundImage;
         }
 
-        private static void RegisterEventHandlers(PdfDocument pdf, Image backgroundImage)
+        private static void RegisterImageBackgroundEventHandler(PdfDocument pdf, Image backgroundImage)
         {
             // Adds a background Image to every new page
-            BackgroundEventHandler handler = new BackgroundEventHandler(backgroundImage);
+            var handler = new BackgroundEventHandler(backgroundImage);
+            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
+        }
+
+        private static void RegisterPdfBackgroundEventHandler(PdfDocument pdf, List<string> templatePdfPaths)
+        {
+            var handler = new PdfBackgroundEventHandler(templatePdfPaths);
             pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
         }
 

@@ -64,13 +64,29 @@ namespace Claimini.Api.Controllers
         public async Task<IActionResult> GetPdf(string id)
         {
             var invoice = this.invoiceService.GetInvoice(id);
-            var pdfRepo = new PdfRepository();
+            var pdfRepository = new PdfRepository();
 
             var filePath = Path.GetTempFileName();
 
-            var writer = new PdfWriter(filePath);
-            pdfRepo.WriteInvoicePdf(invoice, writer);
+            // If this is a non-null, non-empty list, the PDFs will be loaded as background for each page
+            var extraPdfPaths = new List<string>
+            {
+                // You can get great templates for setup here: http://www.r9005.de/wissen/vorlagen-briefbogen.php
+                @"./static/Vorlage-Briefbogen-Form-B.pdf"   // http://www.r9005.de/bilder/wissen/Vorlage-Briefbogen-Form-B.pdf
+            };
 
+            // If a background image is set to a non-empty string, it will be loaded as background for each page
+            var backgroundImagePath = @"./static/TestBackground.png";
+
+            var writer = new PdfWriter(filePath);
+            pdfRepository.WriteInvoicePdf(invoice, writer, extraPdfPaths, backgroundImagePath);
+
+            var response = await CreatePdfFileContentResult(filePath);
+            return response;
+        }
+
+        private async Task<FileContentResult> CreatePdfFileContentResult(string filePath)
+        {
             byte[] contents = await System.IO.File.ReadAllBytesAsync(filePath);
             FileContentResult response = File(contents, "application/pdf");
             return response;
