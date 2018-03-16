@@ -23,12 +23,18 @@ namespace Claimini.Api.Repository.Pdf
 
         public void HandleEvent(Event docEvent)
         {
+            this.AddBackgroundImage(docEvent);
+        }
+
+        private void AddBackgroundImage(Event docEvent)
+        {
             var documentEvent = docEvent as PdfDocumentEvent;
             PdfDocument pdfDocument = documentEvent?.GetDocument();
             PdfPage page = documentEvent?.GetPage();
-            PdfCanvas canvas = new PdfCanvas(page?.NewContentStreamBefore(), page?.GetResources(), pdfDocument);
+            PdfCanvas pdfCanvas = new PdfCanvas(page?.NewContentStreamBefore(), page?.GetResources(), pdfDocument);
             Rectangle area = page?.GetPageSize();
-            new Canvas(canvas, pdfDocument, area).Add(this.image);
+            var canvas = new Canvas(pdfCanvas, pdfDocument, area);
+            canvas.Add(this.image);
         }
     }
 }
