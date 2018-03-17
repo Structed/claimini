@@ -12,11 +12,11 @@ using iText.Layout.Element;
 
 namespace Claimini.Api.Repository.Pdf
 {
-    public class BackgroundEventHandler : IEventHandler
+    public class BackgroundImageEventHandler : IEventHandler
     {
         private readonly Image image;
 
-        public BackgroundEventHandler(Image image)
+        public BackgroundImageEventHandler(Image image)
         {
             this.image = image;
         }

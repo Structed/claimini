@@ -176,7 +176,7 @@ namespace Claimini.Api.Repository
         private static void RegisterImageBackgroundEventHandler(PdfDocument pdf, Image backgroundImage)
         {
             // Adds a background Image to every new page
-            var handler = new BackgroundEventHandler(backgroundImage);
+            var handler = new BackgroundImageEventHandler(backgroundImage);
             pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
         }
 
