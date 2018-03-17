@@ -8,6 +8,7 @@ using Claimini.Api.Data;
 using Claimini.Api.Repository.Pdf;
 using Claimini.Api.Repository.Pdf.EventHandler;
 using iText.IO.Image;
+using iText.Kernel.Colors;
 using iText.Kernel.Events;
 using iText.Kernel.Font;
 using iText.Kernel.Pdf;
@@ -38,42 +39,85 @@ namespace Claimini.Api.Repository
                 RegisterPdfBackgroundEventHandler(pdf, templatePdfPaths);
             }
 
-            document.SetMargins(20, 20, 20, 20);
-            document.SetFontSize(12);
+            float marginBottom = PdfUserUnitUtils.MillimetersToPoints(40);
+            float marginSides = PdfUserUnitUtils.MillimetersToPoints(20);
+            document.SetMargins(0, marginSides, marginBottom, marginSides);
+            document.SetFontSize(10);
+
 
             var font = PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.HELVETICA);
             var bold = PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.HELVETICA_BOLD);
 
             // Add Content
+            AddSenderAddress(document);
+            AddMailingAddress(document, invoice, font);
             AddItemTable(document, invoice, bold, font);
 
             // Finish up the document
             document.Close();
         }
 
-        private static Image LoadBackgroundImage(string backgroundImagePath)
+        private static void AddSenderAddress(Document document)
         {
-            var imageData = ImageDataFactory.Create(backgroundImagePath);
-            var backgroundImage = new Image(imageData);
-            return backgroundImage;
+            var paragraph = new Paragraph("Test & Test * Bahnhofstraße 13337 * 80636 München");
+            paragraph.SetTextAlignment(TextAlignment.CENTER);
+            paragraph.SetVerticalAlignment(VerticalAlignment.MIDDLE);
+            paragraph.SetFontSize(8);
+
+            float marginTop = PdfUserUnitUtils.MillimetersToPoints(45f);
+            float width = PdfUserUnitUtils.MillimetersToPoints(85f);
+            float height = PdfUserUnitUtils.MillimetersToPoints(5f);
+
+            paragraph.SetMarginTop(marginTop);
+            paragraph.SetHeight(height);
+            paragraph.SetWidth(width);
+            paragraph.SetMarginBottom(0f);
+            paragraph.SetBackgroundColor(ColorConstants.GREEN); // Debug Coloring
+
+            document.Add(paragraph);
         }
 
-        private static void RegisterImageBackgroundEventHandler(PdfDocument pdf, Image backgroundImage)
+        private static void AddMailingAddress(Document document, Invoice invoice, PdfFont font)
         {
-            // Adds a background Image to every new page
-            var handler = new BackgroundEventHandler(backgroundImage);
-            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
-        }
+            float width = PdfUserUnitUtils.MillimetersToPoints(85f);
+            float height = PdfUserUnitUtils.MillimetersToPoints(40f);
 
-        private static void RegisterPdfBackgroundEventHandler(PdfDocument pdf, List<string> templatePdfPaths)
-        {
-            var handler = new PdfBackgroundEventHandler(templatePdfPaths);
-            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
+            Div div = new Div();
+
+            div.SetBackgroundColor(ColorConstants.MAGENTA); // Debug Coloring
+            div.SetWidth(width);
+            div.SetHeight(height);
+            div.SetFont(font);
+            div.SetFontSize(10f);
+
+            var customer = invoice.Customer;
+
+            div.Add(new Paragraph(customer.Name));
+            div.Add(new Paragraph(customer.StreetAddress));
+            div.Add(new Paragraph(customer.StreetAddressAdditional ?? ""));
+            div.Add(new Paragraph(customer.State ?? ""));
+            div.Add(new Paragraph(customer.ZipCode));
+            div.Add(new Paragraph(customer.Country));
+
+            var style = new Style();
+            style.SetMargins(0, 0, 0, 0);
+            foreach (var element in div.GetChildren())
+            {
+                if (element.GetType() == typeof(Paragraph)) {
+                    ((Paragraph) element).AddStyle(style);
+                }
+            }
+
+            document.Add(div);
         }
 
         private static void AddItemTable(Document document, Invoice invoice, PdfFont bold, PdfFont font)
         {
             var table = new Table(new float[] {3, 1, 2, 2, 2}); // Relative widths to each other - 3 is 3x as wide as 1.
+
+            float marginTop = PdfUserUnitUtils.MillimetersToPoints(23.5f);
+            table.SetMarginTop(marginTop);
+
             table.UseAllAvailableWidth();
 
             AddTableHeader(table, bold);
@@ -120,6 +164,26 @@ namespace Claimini.Api.Repository
             table.AddCell(CreateCell(item.Price.ToString("C"), font, TextAlignment.RIGHT));
             table.AddCell(CreateCell(item.VatPercentage.ToString("P"), font, TextAlignment.RIGHT));
             table.AddCell(CreateCell(item.PriceTotal.ToString("C"), font, TextAlignment.RIGHT));
+        }
+
+        private static Image LoadBackgroundImage(string backgroundImagePath)
+        {
+            var imageData = ImageDataFactory.Create(backgroundImagePath);
+            var backgroundImage = new Image(imageData);
+            return backgroundImage;
+        }
+
+        private static void RegisterImageBackgroundEventHandler(PdfDocument pdf, Image backgroundImage)
+        {
+            // Adds a background Image to every new page
+            var handler = new BackgroundEventHandler(backgroundImage);
+            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
+        }
+
+        private static void RegisterPdfBackgroundEventHandler(PdfDocument pdf, List<string> templatePdfPaths)
+        {
+            var handler = new PdfBackgroundEventHandler(templatePdfPaths);
+            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
         }
     }
 }
