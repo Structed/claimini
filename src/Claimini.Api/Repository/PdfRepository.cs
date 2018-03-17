@@ -81,10 +81,14 @@ namespace Claimini.Api.Repository
         {
             float width = PdfUserUnitUtils.MillimetersToPoints(85f);
             float height = PdfUserUnitUtils.MillimetersToPoints(40f);
+            float padding = PdfUserUnitUtils.MillimetersToPoints(5f);
+            width -= padding * 2;
+            height -= padding * 2;
 
             Div div = new Div();
 
             div.SetBackgroundColor(ColorConstants.MAGENTA); // Debug Coloring
+            div.SetPadding(padding);
             div.SetWidth(width);
             div.SetHeight(height);
             div.SetFont(font);
