@@ -1,0 +1,52 @@
+@using System.Threading.Tasks
+@using Claimini.BlazorClient.Dto
+@page "/customers"
+@inject HttpClient Http
+
+<h1>Customers</h1>
+<div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-secondary">Left</button>
+    <button type="button" class="btn btn-secondary">Middle</button>
+    <button type="button" class="btn btn-secondary">Right</button>
+</div>
+
+@if (customers == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class='table'>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Street</th>
+            <th>Zip Code</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var customer in customers)
+        {
+            <tr>
+                <td>@customer.Id</td>
+                <td>@customer.Name</td>
+                <td>@customer.StreetAddress</td>
+                <td>@customer.ZipCode</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@functions
+{
+
+    Customer[] customers;
+
+    protected override async Task OnInitAsync()
+    {
+        customers = await Http.GetJsonAsync<Customer[]>("/api/customers");
+    }
+
+}
