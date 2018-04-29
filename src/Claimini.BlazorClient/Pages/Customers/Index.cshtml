@@ -2,17 +2,6 @@
 @using Claimini.BlazorClient.Dto
 @page "/customers"
 @inject HttpClient Http
-<ul class="nav nav-tabs">
-    <li role="presentation" class="@((addCustomerTabEnabled ? "" : "active"))"><a href="/customers">View</a></li>
-    <li role="presentation" class="@((addCustomerTabEnabled ? "active" : ""))"><a onclick="@EnableAddCustomersTab">Add</a></li>
-</ul>
-
-@if (addCustomerTabEnabled)
-{
-    <CustomerForm Title="Test" />
-}
-
-
 
 @if (customers == null)
 {
@@ -45,17 +34,10 @@ else
 @functions
 {
 
-    private bool addCustomerTabEnabled = false;
     Customer[] customers;
 
     protected override async Task OnInitAsync()
     {
         customers = await Http.GetJsonAsync<Customer[]>("/api/customers");
     }
-
-    private void EnableAddCustomersTab()
-    {
-        addCustomerTabEnabled = !addCustomerTabEnabled;
-    }
-
 }
