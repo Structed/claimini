@@ -1,0 +1,21 @@
+<form>
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" class="form-control" placeholder="Name" id="Name">
+    </div>
+    <div class="form-group">
+        <label for="StreetAddress">Street Address</label>
+        <input type="text" class="form-control" placeholder="Test Street 15" id="StreetAddress">
+    </div>
+    <div class="form-group">
+        <label for="StreetAddressAdditional">StreetAddressAdditional</label>
+        <input type="text" class="form-control" placeholder="Apartment 23" id="StreetAddressAdditional">
+    </div>
+    <button type="submit" class="btn btn-default">Save</button>
+</form>
+
+@functions
+{
+    // This is to demonstrate how a parent component can supply parameters
+    public string Title { get; set; }
+}
