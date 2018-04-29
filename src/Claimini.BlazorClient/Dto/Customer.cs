@@ -31,6 +31,11 @@ namespace Claimini.BlazorClient.Dto
         public string ZipCode { get; set; }
 
         /// <summary>
+        /// Gets or sets the City
+        /// </summary>
+        public string City { get; set; }
+
+        /// <summary>
         /// Gets or sets the state in which the customer resides
         /// </summary>
         public string State { get; set; }
