@@ -2,51 +2,60 @@
 @using Claimini.BlazorClient.Dto
 @page "/customers"
 @inject HttpClient Http
+<ul class="nav nav-tabs">
+    <li role="presentation" class="@((addCustomerTabEnabled ? "" : "active"))"><a href="/customers">View</a></li>
+    <li role="presentation" class="@((addCustomerTabEnabled ? "active" : ""))"><a onclick="@EnableAddCustomersTab">Add</a></li>
+</ul>
 
-<h1>Customers</h1>
-<div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-secondary">Left</button>
-    <button type="button" class="btn btn-secondary">Middle</button>
-    <button type="button" class="btn btn-secondary">Right</button>
-</div>
+@if (addCustomerTabEnabled)
+{
+    <CustomerForm Title="Test" />
+}
+
+
 
 @if (customers == null)
 {
-    <p><em>Loading...</em></p>
+    <p><em>Loading Customers...</em></p>
 }
 else
 {
     <table class='table'>
         <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Street</th>
-            <th>Zip Code</th>
-        </tr>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Street</th>
+                <th>Zip Code</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var customer in customers)
-        {
-            <tr>
-                <td>@customer.Id</td>
-                <td>@customer.Name</td>
-                <td>@customer.StreetAddress</td>
-                <td>@customer.ZipCode</td>
-            </tr>
-        }
+            @foreach (var customer in customers)
+            {
+                <tr>
+                    <td>@customer.Id</td>
+                    <td>@customer.Name</td>
+                    <td>@customer.StreetAddress</td>
+                    <td>@customer.ZipCode</td>
+                </tr>
+            }
         </tbody>
     </table>
 }
-
 @functions
 {
 
+    private bool addCustomerTabEnabled = false;
     Customer[] customers;
 
     protected override async Task OnInitAsync()
     {
         customers = await Http.GetJsonAsync<Customer[]>("/api/customers");
+    }
+
+    private void EnableAddCustomersTab()
+    {
+        addCustomerTabEnabled = !addCustomerTabEnabled;
     }
 
 }

@@ -72,6 +72,7 @@ namespace Claimini.Api.Controllers
             var extraPdfPaths = new List<string>
             {
                 // You can get great templates for setup here: http://www.r9005.de/wissen/vorlagen-briefbogen.php
+                //@"./static/DIN_5008_Form_B.pdf",   // http://www.r9005.de/bilder/wissen/Vorlage-Briefbogen-Form-B.pdf
                 @"./static/Vorlage-Briefbogen-Form-B.pdf"   // http://www.r9005.de/bilder/wissen/Vorlage-Briefbogen-Form-B.pdf
             };
 
@@ -79,7 +80,8 @@ namespace Claimini.Api.Controllers
             var backgroundImagePath = @"./static/TestBackground.png";
 
             var writer = new PdfWriter(filePath);
-            pdfRepository.WriteInvoicePdf(invoice, writer, extraPdfPaths, backgroundImagePath);
+            //pdfRepository.WriteInvoicePdf(invoice, writer, extraPdfPaths, backgroundImagePath);
+            pdfRepository.WriteInvoicePdf(invoice, writer, extraPdfPaths);
 
             var response = await CreatePdfFileContentResult(filePath);
             return response;
