@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Blazor.Browser.Rendering;
 using Microsoft.AspNetCore.Blazor.Browser.Services;
-using System;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Claimini.BlazorClient
 {
@@ -11,6 +11,7 @@ namespace Claimini.BlazorClient
             var serviceProvider = new BrowserServiceProvider(configure =>
             {
                 // Add any custom services here
+                configure.AddSingleton<IApiClient, ApiClient>();
             });
 
             new BrowserRenderer(serviceProvider).AddComponent<App>("app");
