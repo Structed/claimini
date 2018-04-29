@@ -1,7 +1,7 @@
 @using System.Threading.Tasks
 @using Claimini.BlazorClient.Dto
 @page "/customers"
-@inject HttpClient http
+@inject IApiClient apiClient;
 
 @if (customers == null)
 {
@@ -41,11 +41,10 @@ else
 }
 @functions
 {
-
     Customer[] customers;
 
     protected override async Task OnInitAsync()
     {
-        customers = await http.GetJsonAsync<Customer[]>("/api/customers");
+        customers = await apiClient.GetCustomers();
     }
 }
