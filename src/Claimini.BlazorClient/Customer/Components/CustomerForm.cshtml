@@ -8,14 +8,25 @@
         <input type="text" class="form-control" placeholder="Test Street 15" id="StreetAddress">
     </div>
     <div class="form-group">
-        <label for="StreetAddressAdditional">StreetAddressAdditional</label>
+        <label for="StreetAddressAdditional">Street Address (optional)</label>
         <input type="text" class="form-control" placeholder="Apartment 23" id="StreetAddressAdditional">
     </div>
-    <button type="submit" class="btn btn-default">Save</button>
-</form>
+    <div class="form-group">
+        <label for="ZipCode">ZIP Code</label>
+        <input type="text" class="form-control" placeholder="80636" id="ZipCode">
+    </div>
+    <div class="form-group">
+        <label for="City">City</label>
+        <input type="text" class="form-control" placeholder="München" id="City">
+    </div>
+    <div class="form-group">
+        <label for="State">State</label>
+        <input type="text" class="form-control" placeholder="Bavaria" id="State">
+    </div>
+    <div class="form-group">
+        <label for="Country">Country</label>
+        <input type="text" class="form-control" placeholder="Germany" id="Country">
+    </div>
 
-@functions
-{
-    // This is to demonstrate how a parent component can supply parameters
-    public string Title { get; set; }
-}
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
