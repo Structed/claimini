@@ -1,7 +1,7 @@
 @using System.Threading.Tasks
 @using Claimini.BlazorClient.Dto
 @page "/customers"
-@inject HttpClient Http
+@inject HttpClient http
 
 @if (customers == null)
 {
@@ -15,7 +15,11 @@ else
                 <th>Id</th>
                 <th>Name</th>
                 <th>Street</th>
+                <th>Street (additional)</th>
                 <th>Zip Code</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Country</th>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +29,11 @@ else
                     <td>@customer.Id</td>
                     <td>@customer.Name</td>
                     <td>@customer.StreetAddress</td>
+                    <td>@customer.StreetAddressAdditional</td>
                     <td>@customer.ZipCode</td>
+                    <td>@customer.City</td>
+                    <td>@customer.State</td>
+                    <td>@customer.Country</td>
                 </tr>
             }
         </tbody>
@@ -38,6 +46,6 @@ else
 
     protected override async Task OnInitAsync()
     {
-        customers = await Http.GetJsonAsync<Customer[]>("/api/customers");
+        customers = await http.GetJsonAsync<Customer[]>("/api/customers");
     }
 }

@@ -47,6 +47,10 @@ namespace Claimini.Api.Data
         [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
 
+        [Required]
+        [StringLength(10)]
+        public string City { get; set; }
+
         /// <summary>
         /// Gets or sets the state in which the customer resides
         /// </summary>
