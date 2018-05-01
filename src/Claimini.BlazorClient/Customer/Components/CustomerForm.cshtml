@@ -1,6 +1,7 @@
 @using System
 @using System.Threading.Tasks
 @using Claimini.BlazorClient.Dto
+
 <div class="form-group">
     <label for="Name">Name</label>
     <input type="text" class="form-control" placeholder="Name" id="Name" bind="@customer.Name" />
@@ -34,12 +35,12 @@
 
 @functions
 {
-    readonly Customer customer = new Customer();
-    public Func<Customer, Task> OnSubmit { get; set; }
+    readonly CustomerDto customer = new CustomerDto();
+    public Func<CustomerDto, Task> OnSubmit { get; set; }
 
     private void Submit()
     {
         Console.WriteLine(customer.Name + customer.StreetAddress);
-        this.OnSubmit?.Invoke(customer);
+        Task result = this.OnSubmit?.Invoke(customer);
     }
 }

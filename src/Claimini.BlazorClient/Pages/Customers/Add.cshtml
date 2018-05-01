@@ -1,3 +1,21 @@
+@using System
+@using System.Threading.Tasks
+@using Claimini.BlazorClient.Dto
 @page "/customers/add"
+@inject IApiClient apiClient;
+
 <h1>Add Customer</h1>
-<CustomerForm />
+<CustomerForm OnSubmit=AddCustomer />
+
+@functions
+{
+
+    private async Task<CustomerDto> AddCustomer(CustomerDto customer)
+    {
+        Console.WriteLine($"Adding customer {customer.Name}");
+        var resultCustomer = await apiClient.PostCustomer(customer);
+        //return customer;
+        return resultCustomer;
+    }
+
+}
