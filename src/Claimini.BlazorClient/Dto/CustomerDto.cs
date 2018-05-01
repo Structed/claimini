@@ -3,7 +3,7 @@ namespace Claimini.BlazorClient.Dto
     /// <summary>
     /// Represents a Customer
     /// </summary>
-    public class Customer
+    public class CustomerDto
     {
         /// <summary>
         /// Gets or sets the Id of the Customer
