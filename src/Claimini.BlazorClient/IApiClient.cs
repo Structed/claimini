@@ -7,6 +7,8 @@ namespace Claimini.BlazorClient
     {
         Task<CustomerDto[]> GetCustomers();
 
+        Task<CustomerDto> GetCustomer(int id);
+
         Task<CustomerDto> PostCustomer(CustomerDto customer);
     }
 }
