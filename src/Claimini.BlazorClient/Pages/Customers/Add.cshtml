@@ -12,9 +12,7 @@
 
     private async Task<CustomerDto> AddCustomer(CustomerDto customer)
     {
-        Console.WriteLine($"Adding customer {customer.Name}");
         var resultCustomer = await apiClient.PostCustomer(customer);
-        //return customer;
         return resultCustomer;
     }
 
