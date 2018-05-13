@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <LangVersion>7.3</LangVersion>
     <UserSecretsId>dd3a6c29-9be5-4f36-a746-1ed67c729b35</UserSecretsId>
   </PropertyGroup>
 
@@ -12,7 +13,7 @@
   <ItemGroup>
     <PackageReference Include="itext7" Version="7.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0-preview2-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Blazor.Server" Version="0.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.Server" Version="0.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.0-preview2-final" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0-preview2-final" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.0-preview2-final" PrivateAssets="All" />
