@@ -1,6 +1,7 @@
 @using System
 @using System.Threading.Tasks
 @using Claimini.BlazorClient.Dto
+@using Microsoft.AspNetCore.Blazor.Components
 
 <div class="form-group">
     <label for="Name">Name</label>
@@ -35,8 +36,11 @@
 
 @functions
 {
-    readonly CustomerDto customer = new CustomerDto();
-    public Func<CustomerDto, Task> OnSubmit { get; set; }
+    private readonly CustomerDto customer = new CustomerDto();
+
+    [Parameter]
+    private Func<CustomerDto, Task> OnSubmit { get; set; }
+
 
     private void Submit()
     {

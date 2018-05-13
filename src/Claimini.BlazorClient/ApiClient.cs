@@ -1,6 +1,4 @@
-using System;
 using System.Net.Http;
-using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using Claimini.BlazorClient.Dto;
 using Microsoft.AspNetCore.Blazor;
@@ -24,10 +22,7 @@ namespace Claimini.BlazorClient
 
         public async Task<CustomerDto> PostCustomer(CustomerDto customer)
         {
-            HttpContent content = new ObjectContent<CustomerDto>(customer, new JsonMediaTypeFormatter());
-            HttpResponseMessage result = await this.httpClient.PostAsync("/api/customers", content);
-            var returnedCustomer = await result.Content.ReadAsAsync<CustomerDto>();
-            Console.WriteLine($"Customer saved with ID {returnedCustomer.Id}");
+            var returnedCustomer = await this.httpClient.PostJsonAsync<CustomerDto>("/api/customers", customer);
             return returnedCustomer;
         }
     }

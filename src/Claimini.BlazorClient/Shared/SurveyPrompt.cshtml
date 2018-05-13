@@ -1,4 +1,5 @@
-﻿<div class="alert alert-survey" role="alert">
+@using Microsoft.AspNetCore.Blazor.Components
+<div class="alert alert-survey" role="alert">
     <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
     <strong>@Title</strong>
 
@@ -12,5 +13,6 @@
 @functions
 {
     // This is to demonstrate how a parent component can supply parameters
-    public string Title { get; set; }
+    [Parameter]
+    private string Title { get; set; }
 }
