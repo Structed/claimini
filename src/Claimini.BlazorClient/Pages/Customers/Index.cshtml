@@ -1,11 +1,16 @@
 @using System.Threading.Tasks
+@using BlazorRedux
+@using Claimini.BlazorClient
+@using Claimini.BlazorClient.ApplicationState
 @using Claimini.BlazorClient.Dto
 @page "/customers"
+@inherits Claimini.BlazorClient.Components.BaseComponent
 @inject IApiClient apiClient;
+@using Claimini.BlazorClient
+@using Claimini.BlazorClient.ApplicationState
 
 <h1>Customers</h1>
-
-@if (customers == null)
+@if (@State.Customers == null)
 {
     <p><em>Loading Customers...</em></p>
 }
@@ -25,7 +30,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var customer in customers)
+            @foreach (var customer in @State.Customers)
             {
                 <tr>
                     <td>@customer.Id</td>
@@ -43,10 +48,10 @@ else
 }
 @functions
 {
-    CustomerDto[] customers;
 
     protected override async Task OnInitAsync()
     {
-        customers = await apiClient.GetCustomers();
+        await ActionCreators.LoadCustomers(Store.Dispatch, apiClient);
+
     }
 }
