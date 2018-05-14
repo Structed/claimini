@@ -1,3 +1,5 @@
+using BlazorRedux;
+using Claimini.BlazorClient.ApplicationState;
 using Microsoft.AspNetCore.Blazor.Browser.Rendering;
 using Microsoft.AspNetCore.Blazor.Browser.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +14,7 @@ namespace Claimini.BlazorClient
             {
                 // Add any custom services here
                 configure.AddSingleton<IApiClient, ApiClient>();
+                configure.AddReduxStore<AppState, IAction>(new AppState(), Reducers.RootReducer);
             });
 
             new BrowserRenderer(serviceProvider).AddComponent<App>("app");
