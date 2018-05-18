@@ -56,7 +56,6 @@ else
 
     protected override async Task OnInitAsync()
     {
-
         var id = int.Parse(CustomerId);
 
         customer = await apiClient.GetCustomer(id);

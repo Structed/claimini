@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using BlazorRedux;
 using Claimini.BlazorClient.Dto;
 
@@ -15,18 +16,18 @@ namespace Claimini.BlazorClient.ApplicationState
             {
                 Location = Location.Reducer(state.Location, action),
                 Customers = CustomersReducer(state.Customers, action),
-                SelectedCustomerIndex = SelectedCustomerIndexReducer(state.SelectedCustomerIndex, action)
+                SelectedCustomer = SelectedCustomerReducer(state.SelectedCustomer, state.Customers, action),
             };
         }
 
-        private static CustomerDto SelectedCustomerIndexReducer(CustomerDto stateSelectedCustomerIndex, IAction action)
+        private static CustomerDto SelectedCustomerReducer(CustomerDto stateSelectedCustomer, CustomerDto[] stateCustomers, IAction action)
         {
             switch (action)
             {
-                case Actions.SelectCustomerReducer selectCustomerReducer:
-                    return selectCustomerReducer.SelectedCustomer;
+                case Actions.SelectCustomerAction selectCustomerReducer:
+                    return stateCustomers.First(e => e.Id == selectCustomerReducer.CustomerId);
                 default:
-                    return stateSelectedCustomerIndex;
+                    return stateSelectedCustomer;
             }
         }
 
