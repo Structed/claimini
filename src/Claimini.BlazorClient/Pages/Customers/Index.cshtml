@@ -3,11 +3,12 @@
 @using Claimini.BlazorClient
 @using Claimini.BlazorClient.ApplicationState
 @using Claimini.BlazorClient.Dto
+@using Claimini.BlazorClient
+@using Claimini.BlazorClient.ApplicationState
 @page "/customers"
 @inherits Claimini.BlazorClient.Components.BaseComponent
 @inject IApiClient apiClient;
-@using Claimini.BlazorClient
-@using Claimini.BlazorClient.ApplicationState
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 
 <h1>Customers</h1>
 @if (@State.Customers == null)
@@ -32,7 +33,7 @@ else
         <tbody>
             @foreach (var customer in @State.Customers)
             {
-                <tr>
+                <tr onclick="@(() => CustomerDetail(customer.Id))">
                     <td>@customer.Id</td>
                     <td>@customer.Name</td>
                     <td>@customer.StreetAddress</td>
@@ -53,5 +54,10 @@ else
     {
         await ActionCreators.LoadCustomers(Store.Dispatch, apiClient);
 
+    }
+
+    protected void CustomerDetail(int customerId)
+    {
+        UriHelper.NavigateTo($"/customers/detail/{customerId}");
     }
 }
