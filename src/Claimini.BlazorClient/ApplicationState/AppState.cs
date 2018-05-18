@@ -1,6 +1,6 @@
 using Claimini.BlazorClient.Dto;
 
-namespace Claimini.BlazorClient
+namespace Claimini.BlazorClient.ApplicationState
 {
     public class AppState
     {
@@ -8,6 +8,6 @@ namespace Claimini.BlazorClient
 
         public CustomerDto[] Customers { get; set; }
 
-        public CustomerDto SelectedCustomerIndex { get; set; }
+        public CustomerDto SelectedCustomer { get; set; }
     }
 }

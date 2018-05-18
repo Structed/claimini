@@ -44,5 +44,10 @@ namespace Claimini.BlazorClient.Dto
         /// Gets or sets the Country in which the Customer resides
         /// </summary>
         public string Country { get; set; }
+
+        public virtual CustomerDto Clone()
+        {
+            return (CustomerDto)this.MemberwiseClone();
+        }
     }
 }

@@ -14,5 +14,13 @@ namespace Claimini.BlazorClient.ApplicationState
                 Customers = customers
             });
         }
+
+        public static void SelectCustomer(Dispatcher<IAction> dispatch, int customerId)
+        {
+            dispatch(new Actions.SelectCustomerAction()
+            {
+                CustomerId = customerId
+            });
+        }
     }
 }

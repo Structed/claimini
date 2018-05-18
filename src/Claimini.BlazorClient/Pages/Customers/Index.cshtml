@@ -58,6 +58,7 @@ else
 
     protected void CustomerDetail(int customerId)
     {
+        ActionCreators.SelectCustomer(Store.Dispatch, customerId);
         UriHelper.NavigateTo($"/customers/detail/{customerId}");
     }
 }

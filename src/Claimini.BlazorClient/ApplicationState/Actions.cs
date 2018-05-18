@@ -10,9 +10,9 @@ namespace Claimini.BlazorClient.ApplicationState
             public CustomerDto[] Customers { get; set; }
         }
 
-        public class SelectCustomerReducer
+        public class SelectCustomerAction : IAction
         {
-            public CustomerDto SelectedCustomer;
+            public int CustomerId;
         }
     }
 }
