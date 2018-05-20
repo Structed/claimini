@@ -15,6 +15,16 @@ namespace Claimini.BlazorClient.ApplicationState
             });
         }
 
+        public static async Task UpdateCustomer(Dispatcher<IAction> dispatch, IApiClient apiClient,
+            CustomerDto customer)
+        {
+            customer = await apiClient.PutCustomer(customer);
+            dispatch(new Actions.UpdateCustomerAction()
+            {
+                Customer = customer
+            });
+        }
+
         public static void SelectCustomer(Dispatcher<IAction> dispatch, int customerId)
         {
             dispatch(new Actions.SelectCustomerAction()

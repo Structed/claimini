@@ -1,8 +1,11 @@
 @using System
 @using System.Threading.Tasks
+@using Claimini.BlazorClient.ApplicationState
 @using Claimini.BlazorClient.Dto
 @page "/customers/add"
+@inherits Claimini.BlazorClient.Components.BaseComponent
 @inject IApiClient apiClient;
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 
 <h1>Add Customer</h1>
 <CustomerForm OnSubmit=AddCustomer />
@@ -10,10 +13,12 @@
 @functions
 {
 
-    private async Task<CustomerDto> AddCustomer(CustomerDto customer)
-    {
-        var resultCustomer = await apiClient.PostCustomer(customer);
-        return resultCustomer;
-    }
+private async Task<CustomerDto> AddCustomer(CustomerDto customer)
+{
+    CustomerDto resultCustomer = await apiClient.PostCustomer(customer);
+    ActionCreators.SelectCustomer(Store.Dispatch, resultCustomer.Id);
+    UriHelper.NavigateTo($"/customers/detail/{resultCustomer.Id}");
+    return resultCustomer;
+}
 
 }

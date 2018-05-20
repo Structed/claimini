@@ -36,7 +36,8 @@
 
 @functions
 {
-    private readonly CustomerDto customer = new CustomerDto();
+    [Parameter]
+    private CustomerDto customer { get; set; } = new CustomerDto();
 
     [Parameter]
     private Func<CustomerDto, Task> OnSubmit { get; set; }
