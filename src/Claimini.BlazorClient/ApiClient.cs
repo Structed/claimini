@@ -32,5 +32,11 @@ namespace Claimini.BlazorClient
             var returnedCustomer = await this.httpClient.PostJsonAsync<CustomerDto>(CustomerApiUri, customer);
             return returnedCustomer;
         }
+
+        public async Task<CustomerDto> PutCustomer(CustomerDto customer)
+        {
+            var returnedCustomer = await this.httpClient.PutJsonAsync<CustomerDto>($"{CustomerApiUri}/{customer.Id}", customer);
+            return returnedCustomer;
+        }
     }
 }

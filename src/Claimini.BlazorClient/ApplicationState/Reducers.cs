@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using BlazorRedux;
 using Claimini.BlazorClient.Dto;
@@ -37,6 +39,11 @@ namespace Claimini.BlazorClient.ApplicationState
             {
                 case Actions.ReceiveCustomersAction customersAction:
                     return customersAction.Customers;
+                case Actions.UpdateCustomerAction customersAction:
+                    int index = stateCustomers.ToList().FindIndex(e => e.Id == customersAction.Customer.Id);
+                    CustomerDto[] clone = (CustomerDto[])stateCustomers.Clone();
+                    clone[index] = customersAction.Customer;
+                    return clone;
                 default:
                     return stateCustomers;
             }

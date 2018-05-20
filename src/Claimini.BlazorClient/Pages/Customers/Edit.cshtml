@@ -1,0 +1,25 @@
+@using BlazorRedux
+@using System.Threading.Tasks
+@using Claimini.BlazorClient.ApplicationState
+@using Claimini.BlazorClient.Dto
+@using Microsoft.AspNetCore.Blazor.Components
+@page "/customers/edit/{customerId}"
+@inherits Claimini.BlazorClient.Components.BaseComponent
+@inject IApiClient apiClient;
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+
+<h1>Edit Customer</h1>
+<CustomerForm OnSubmit=@UpdateCustomer customer="@State.GetCustomerById(int.Parse(this.CustomerId))" />
+
+@functions
+{
+    [Parameter]
+    private string CustomerId { get; set; }
+
+    private async Task<CustomerDto> UpdateCustomer(CustomerDto customer)
+    {
+        ActionCreators.UpdateCustomer(Store.Dispatch, apiClient, customer);
+        return customer;
+    }
+
+}
