@@ -8,14 +8,14 @@ namespace Claimini.BlazorClient.ApplicationState
     {
         public string Location { get; set; }
 
-        public CustomerDto[] Customers { get; set; }
+        public Customer[] Customers { get; set; }
 
-        public CustomerDto SelectedCustomer { get; set; }
+        public Customer SelectedCustomer { get; set; }
 
-        public CustomerDto GetCustomerById(int customerId)
+        public Customer GetCustomerById(int customerId)
         {
-            CustomerDto customerDto = this.Customers.FirstOrDefault(x => x.Id == customerId);
-            if (customerDto == null || customerDto.Equals(default(CustomerDto)))
+            Customer customerDto = this.Customers.FirstOrDefault(x => x.Id == customerId);
+            if (customerDto == null || customerDto.Equals(default(Customer)))
             {
                 // TODO: Load customer
                 Console.WriteLine("Should load customer here");

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Claimini.Api.Data;
 using Claimini.Api.Repository;
+using Claimini.Shared;
 
 namespace Claimini.Api.Services
 {

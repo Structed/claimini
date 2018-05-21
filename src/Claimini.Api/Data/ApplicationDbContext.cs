@@ -4,6 +4,7 @@
 // </copyright>
 
 using Claimini.Api.Repository;
+using Claimini.Shared;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

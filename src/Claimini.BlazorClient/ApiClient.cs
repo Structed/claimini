@@ -15,27 +15,27 @@ namespace Claimini.BlazorClient
             this.httpClient = httpClient;
         }
 
-        public async Task<CustomerDto[]> GetCustomers()
+        public async Task<Customer[]> GetCustomers()
         {
-            var customers = await this.httpClient.GetJsonAsync<CustomerDto[]>(CustomerApiUri);
+            var customers = await this.httpClient.GetJsonAsync<Customer[]>(CustomerApiUri);
             return customers;
         }
 
-        public async Task<CustomerDto> GetCustomer(int id)
+        public async Task<Customer> GetCustomer(int id)
         {
-            var customer = await this.httpClient.GetJsonAsync<CustomerDto>($"{CustomerApiUri}/{id}");
+            var customer = await this.httpClient.GetJsonAsync<Customer>($"{CustomerApiUri}/{id}");
             return customer;
         }
 
-        public async Task<CustomerDto> PostCustomer(CustomerDto customer)
+        public async Task<Customer> PostCustomer(Customer customer)
         {
-            var returnedCustomer = await this.httpClient.PostJsonAsync<CustomerDto>(CustomerApiUri, customer);
+            var returnedCustomer = await this.httpClient.PostJsonAsync<Customer>(CustomerApiUri, customer);
             return returnedCustomer;
         }
 
-        public async Task<CustomerDto> PutCustomer(CustomerDto customer)
+        public async Task<Customer> PutCustomer(Customer customer)
         {
-            var returnedCustomer = await this.httpClient.PutJsonAsync<CustomerDto>($"{CustomerApiUri}/{customer.Id}", customer);
+            var returnedCustomer = await this.httpClient.PutJsonAsync<Customer>($"{CustomerApiUri}/{customer.Id}", customer);
             return returnedCustomer;
         }
     }

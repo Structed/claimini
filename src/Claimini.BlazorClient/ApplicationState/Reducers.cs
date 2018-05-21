@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using BlazorRedux;
 using Claimini.Shared;
@@ -22,7 +20,7 @@ namespace Claimini.BlazorClient.ApplicationState
             };
         }
 
-        private static CustomerDto SelectedCustomerReducer(CustomerDto stateSelectedCustomer, CustomerDto[] stateCustomers, IAction action)
+        private static Customer SelectedCustomerReducer(Customer stateSelectedCustomer, Customer[] stateCustomers, IAction action)
         {
             switch (action)
             {
@@ -33,7 +31,7 @@ namespace Claimini.BlazorClient.ApplicationState
             }
         }
 
-        public static CustomerDto[] CustomersReducer(CustomerDto[] stateCustomers, IAction action)
+        public static Customer[] CustomersReducer(Customer[] stateCustomers, IAction action)
         {
             switch (action)
             {
@@ -41,7 +39,7 @@ namespace Claimini.BlazorClient.ApplicationState
                     return customersAction.Customers;
                 case Actions.UpdateCustomerAction customersAction:
                     int index = stateCustomers.ToList().FindIndex(e => e.Id == customersAction.Customer.Id);
-                    CustomerDto[] clone = (CustomerDto[])stateCustomers.Clone();
+                    Customer[] clone = (Customer[])stateCustomers.Clone();
                     clone[index] = customersAction.Customer;
                     return clone;
                 default:

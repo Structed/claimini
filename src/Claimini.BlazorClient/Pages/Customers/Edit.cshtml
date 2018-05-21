@@ -16,7 +16,7 @@
     [Parameter]
     private string CustomerId { get; set; }
 
-    private async Task<CustomerDto> UpdateCustomer(CustomerDto customer)
+    private async Task<Customer> UpdateCustomer(Customer customer)
     {
         ActionCreators.UpdateCustomer(Store.Dispatch, apiClient, customer);
         return customer;

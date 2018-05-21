@@ -13,9 +13,9 @@
 @functions
 {
 
-private async Task<CustomerDto> AddCustomer(CustomerDto customer)
+private async Task<Customer> AddCustomer(Customer customer)
 {
-    CustomerDto resultCustomer = await apiClient.PostCustomer(customer);
+    Customer resultCustomer = await apiClient.PostCustomer(customer);
     ActionCreators.SelectCustomer(Store.Dispatch, resultCustomer.Id);
     UriHelper.NavigateTo($"/customers/detail/{resultCustomer.Id}");
     return resultCustomer;
