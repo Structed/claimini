@@ -1,6 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using Claimini.BlazorClient.Dto;
+using Claimini.Shared;
 using Microsoft.AspNetCore.Blazor;
 
 namespace Claimini.BlazorClient

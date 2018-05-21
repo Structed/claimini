@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Claimini.Api", "src\Claimin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Claimini.Api.Tests", "test\Claimini.Api.Tests\Claimini.Api.Tests.csproj", "{B7A8E023-C5AB-4AEB-B3C8-04A5859A8E4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Claimini.BlazorClient", "src\Claimini.BlazorClient\Claimini.BlazorClient.csproj", "{0473AE33-FE7B-466D-BD8C-D6C198DA8C60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Claimini.BlazorClient", "src\Claimini.BlazorClient\Claimini.BlazorClient.csproj", "{0473AE33-FE7B-466D-BD8C-D6C198DA8C60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Claimini.Shared", "src\Claimini.Shared\Claimini.Shared.csproj", "{55354EBA-92B9-4F4B-806A-5A36617C70F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{0473AE33-FE7B-466D-BD8C-D6C198DA8C60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0473AE33-FE7B-466D-BD8C-D6C198DA8C60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0473AE33-FE7B-466D-BD8C-D6C198DA8C60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55354EBA-92B9-4F4B-806A-5A36617C70F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55354EBA-92B9-4F4B-806A-5A36617C70F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55354EBA-92B9-4F4B-806A-5A36617C70F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55354EBA-92B9-4F4B-806A-5A36617C70F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BlazorRedux;
-using Claimini.BlazorClient.Dto;
+using Claimini.Shared;
 
 namespace Claimini.BlazorClient.ApplicationState
 {

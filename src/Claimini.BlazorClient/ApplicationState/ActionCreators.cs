@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using BlazorRedux;
-using Claimini.BlazorClient.Dto;
+using Claimini.Shared;
 
 namespace Claimini.BlazorClient.ApplicationState
 {
