@@ -6,10 +6,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Claimini.Api.Data;
-using Claimini.Api.Data.Dto;
 using Claimini.Api.Repository;
 using Claimini.Api.Services;
+using Claimini.Shared;
 using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Mvc;
 

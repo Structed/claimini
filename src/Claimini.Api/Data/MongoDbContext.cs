@@ -4,6 +4,7 @@
 // </copyright>
 
 using Claimini.Api.Configuration;
+using Claimini.Shared;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 

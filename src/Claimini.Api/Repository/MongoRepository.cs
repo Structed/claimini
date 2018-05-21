@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Claimini.Api.Data;
+using Claimini.Shared;
 using MongoDB.Bson;
 using MongoDB.Driver;
 

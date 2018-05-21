@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Claimini.Api.Data;
-using Claimini.Api.Data.Dto;
 using Claimini.Api.Repository;
 using Claimini.Shared;
 

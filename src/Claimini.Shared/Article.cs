@@ -5,7 +5,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace Claimini.Api.Data
+namespace Claimini.Shared
 {
     /// <summary>
     /// Represents an Article, which can be added as a <see cref="Invoice"/>

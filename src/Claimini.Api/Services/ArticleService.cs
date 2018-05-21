@@ -5,9 +5,8 @@
 
 using System;
 using System.Collections.Generic;
-using Claimini.Api.Data;
-using Claimini.Api.Data.Dto;
 using Claimini.Api.Repository;
+using Claimini.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace Claimini.Api.Services

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Claimini.Api.Data;
 using Claimini.Api.Repository.Pdf;
 using Claimini.Api.Repository.Pdf.EventHandler;
+using Claimini.Shared;
 using iText.IO.Image;
 using iText.Kernel.Colors;
 using iText.Kernel.Events;

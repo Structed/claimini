@@ -3,14 +3,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root or https://spdx.org/licenses/MIT.html for full license information.
 // </copyright>
 
-using System.Collections.Generic;
-
-namespace Claimini.Api.Data.Dto
+namespace Claimini.Shared
 {
-    public class InvoiceDto
+    public class InvoiceItemDto
     {
-        public int CustomerId { get; set; }
+        public int ArticleId { get; set; }
 
-        public IEnumerable<InvoiceItemDto> InvoiceItems { get; set; }
+        public int Quantity { get; set; }
     }
 }

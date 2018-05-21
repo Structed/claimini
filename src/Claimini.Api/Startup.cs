@@ -2,6 +2,7 @@ using Claimini.Api.Configuration;
 using Claimini.Api.Data;
 using Claimini.Api.Repository;
 using Claimini.Api.Services;
+using Claimini.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
