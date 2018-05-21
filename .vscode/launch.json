@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/Claimini.Api/bin/Debug/netcoreapp2.0/Claimini.Api.dll",
+            "program": "${workspaceFolder}/src/Claimini.Api/bin/Debug/netcoreapp2.1/Claimini.Api.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/Claimini.Api",
             "stopAtEntry": false,
