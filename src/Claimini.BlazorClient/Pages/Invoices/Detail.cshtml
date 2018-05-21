@@ -5,7 +5,6 @@
 @inherits Claimini.BlazorClient.Components.BaseComponent
 @inject IApiClient apiClient;
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
-
 <h1>Invoice @InvoiceId</h1>
 @if (State.SelectedInvoice == null)
 {
@@ -14,7 +13,7 @@
 else
 {
     <h1>Test</h1>
-    
+
     <table class="table">
         <tr>
             <th>Id</th>
@@ -37,9 +36,9 @@ else
             <td>@State.SelectedInvoice.PriceTotal</td>
         </tr>
     </table>
-    <button type="button" class="btn-primary btn-lg" onclick="@(() => InvoiceEdit(State.SelectedInvoice.Id))">Edit</button>
-}
 
+    <object width="800" height="1200" data="/api/invoices/@InvoiceId/pdf"></object>
+}
 @functions
 {
     [Parameter]
@@ -48,10 +47,5 @@ else
     protected override async Task OnInitAsync()
     {
         ActionCreators.SelectInvoice(Store.Dispatch, apiClient, InvoiceId);
-
-    }
-
-    protected void InvoiceEdit(string invoiceId)
-    {
     }
 }
