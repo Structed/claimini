@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using Claimini.BlazorClient.Dto;
+using Claimini.Shared;
 
 namespace Claimini.BlazorClient.ApplicationState
 {

@@ -1,4 +1,4 @@
-namespace Claimini.BlazorClient.Dto
+namespace Claimini.Shared
 {
     /// <summary>
     /// Represents a Customer
