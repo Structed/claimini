@@ -17,18 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <BlazorGenerate Remove="Pages\Customers\Detail.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Pages\Customers\Detail.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Customers\Detail.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Claimini.Shared\Claimini.Shared.csproj" />
   </ItemGroup>
 </Project>
