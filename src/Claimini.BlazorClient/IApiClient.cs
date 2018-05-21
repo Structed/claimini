@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Claimini.Shared;
 
@@ -12,5 +13,7 @@ namespace Claimini.BlazorClient
         Task<Customer> PostCustomer(Customer customer);
 
         Task<Customer> PutCustomer(Customer customer);
+
+        Task<List<InvoiceFullDto>> GetInvoices();
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BlazorRedux;
 using Claimini.Shared;
 
@@ -18,6 +19,11 @@ namespace Claimini.BlazorClient.ApplicationState
         public class SelectCustomerAction : IAction
         {
             public int CustomerId;
+        }
+
+        public class ReceiveInvoicesAction : IAction
+        {
+            public List<InvoiceFullDto> Invoices { get; set; }
         }
     }
 }

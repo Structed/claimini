@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BlazorRedux;
 using Claimini.Shared;
@@ -29,6 +31,16 @@ namespace Claimini.BlazorClient.ApplicationState
             dispatch(new Actions.SelectCustomerAction()
             {
                 CustomerId = customerId
+            });
+        }
+
+        public static async Task LoadInvoices(Action<IAction> dispatch, IApiClient apiClient)
+        {
+            Console.WriteLine("Starting to call to get Invoices");
+            List <InvoiceFullDto> invoices = await apiClient.GetInvoices();
+            dispatch(new Actions.ReceiveInvoicesAction()
+            {
+                Invoices = invoices
             });
         }
     }

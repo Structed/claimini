@@ -1,23 +1,9 @@
-// <copyright file="Invoice.cs" company="Johannes Ebner">
-// Copyright (c) Johannes Ebner. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root or https://spdx.org/licenses/MIT.html for full license information.
-// </copyright>
-
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace Claimini.Shared
 {
-    /// <summary>
-    /// Represents an Invoice, which contains <see cref="InvoiceItem"/>s
-    /// and is associated to a <see cref="Customer"/>
-    /// </summary>
-    [NotMapped]
-    public class Invoice : IMongoDocument
+    public class InvoiceFullDto
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -25,20 +11,16 @@ namespace Claimini.Shared
         /// <value>
         /// The identifier.
         /// </value>
-        [BsonId]
-        [NotMapped]
-        public ObjectId Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Gets or sets the Customer for whom the Invoice was created for
         /// </summary>
-        [Required]
         public Customer Customer { get; set; }
 
         /// <summary>
         /// Gets or sets the UNIX Timestamp (seconds) at which the Invoice was created
         /// </summary>
-        [Required]
         public long CreatedTimestamp { get; set; }
 
         /// <summary>
@@ -49,7 +31,6 @@ namespace Claimini.Shared
         /// <summary>
         /// Gets or sets the Items of the Invoice
         /// </summary>
-        [Required]
         public IList<InvoiceItem> Items { get; set; }
 
         /// <summary>

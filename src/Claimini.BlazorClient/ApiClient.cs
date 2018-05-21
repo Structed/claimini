@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Claimini.Shared;
@@ -9,6 +11,7 @@ namespace Claimini.BlazorClient
     {
         private readonly HttpClient httpClient;
         private static readonly string CustomerApiUri = "/api/customers";
+        private static readonly string InvoicesApiUri = "/api/invoices";
 
         public ApiClient(HttpClient httpClient)
         {
@@ -37,6 +40,14 @@ namespace Claimini.BlazorClient
         {
             var returnedCustomer = await this.httpClient.PutJsonAsync<Customer>($"{CustomerApiUri}/{customer.Id}", customer);
             return returnedCustomer;
+        }
+
+        public async Task<List<InvoiceFullDto>> GetInvoices()
+        {
+            Console.WriteLine($"Api Client calling {InvoicesApiUri}");
+            List <InvoiceFullDto> invoices = await this.httpClient.GetJsonAsync<List<InvoiceFullDto>>(InvoicesApiUri);
+            Console.WriteLine($"Api Client FINISHED calling {InvoicesApiUri}");
+            return invoices;
         }
     }
 }

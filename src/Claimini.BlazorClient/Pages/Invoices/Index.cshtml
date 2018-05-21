@@ -1,0 +1,55 @@
+@using System
+@using System.Threading.Tasks
+@using Claimini.BlazorClient.ApplicationState
+@using Claimini.Shared
+@page "/invoices"
+@inherits Claimini.BlazorClient.Components.BaseComponent
+@inject IApiClient apiClient;
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+
+<h1>Invoices</h1>
+@if (@State.Invoices == null)
+{
+    <p><em>Loading Invoices...</em></p>
+}
+else
+{
+    <table class='table'>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Customer</th>
+            <th>Created</th>
+            <th>Paid</th>
+            <th>Price (Total)</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (InvoiceFullDto invoice in @State.Invoices)
+        {
+            <tr onclick="@(() => InvoiceDetail(invoice.Id))">
+                <td>@invoice.Id</td>
+                <td>@invoice.Customer.Name</td>
+                <td>@invoice.CreatedTimestamp</td>
+                <td>@invoice.PaidTimestamp</td>
+                <td>@invoice.PriceTotal</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+@functions
+{
+
+    protected override async Task OnInitAsync()
+    {
+        await ActionCreators.LoadInvoices(Store.Dispatch, apiClient);
+        Console.WriteLine($"Loaded {State.Invoices.Count} Invoices!");
+
+    }
+    protected void InvoiceDetail(string invoiceId)
+    {
+        //ActionCreators.SelectCustomer(Store.Dispatch, invoiceId);
+        //UriHelper.NavigateTo($"/customers/detail/{invoiceId}");
+    }
+}
