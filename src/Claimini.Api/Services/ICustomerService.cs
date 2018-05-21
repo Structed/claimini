@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Claimini.Api.Data;
+using Claimini.Shared;
 
 namespace Claimini.Api.Services
 {

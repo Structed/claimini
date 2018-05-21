@@ -5,12 +5,12 @@ namespace Claimini.BlazorClient
 {
     public interface IApiClient
     {
-        Task<CustomerDto[]> GetCustomers();
+        Task<Customer[]> GetCustomers();
 
-        Task<CustomerDto> GetCustomer(int id);
+        Task<Customer> GetCustomer(int id);
 
-        Task<CustomerDto> PostCustomer(CustomerDto customer);
+        Task<Customer> PostCustomer(Customer customer);
 
-        Task<CustomerDto> PutCustomer(CustomerDto customer);
+        Task<Customer> PutCustomer(Customer customer);
     }
 }

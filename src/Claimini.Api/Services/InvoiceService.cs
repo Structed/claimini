@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Claimini.Api.Data;
 using Claimini.Api.Data.Dto;
 using Claimini.Api.Repository;
+using Claimini.Shared;
 
 namespace Claimini.Api.Services
 {

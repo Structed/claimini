@@ -37,10 +37,10 @@
 @functions
 {
     [Parameter]
-    private CustomerDto customer { get; set; } = new CustomerDto();
+    private Customer customer { get; set; } = new Customer();
 
     [Parameter]
-    private Func<CustomerDto, Task> OnSubmit { get; set; }
+    private Func<Customer, Task> OnSubmit { get; set; }
 
 
     private void Submit()
