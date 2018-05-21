@@ -20,6 +20,7 @@ namespace Claimini.BlazorClient.ApplicationState
                 Customers = CustomersReducer(state.Customers, action),
                 SelectedCustomer = SelectedCustomerReducer(state.SelectedCustomer, state.Customers, action),
                 Invoices = InvoicesReducer(state.Invoices, action),
+                SelectedInvoice = SelectedInvoiceReducer(state.SelectedInvoice, action),
             };
         }
 
@@ -47,6 +48,17 @@ namespace Claimini.BlazorClient.ApplicationState
                     return clone;
                 default:
                     return stateCustomers;
+            }
+        }
+
+        public static InvoiceFullDto SelectedInvoiceReducer(InvoiceFullDto stateInvoice, IAction action)
+        {
+            switch (action)
+            {
+                case Actions.SelectInvoiceAction invoiceAction:
+                    return invoiceAction.SelectedInvoice;
+                default:
+                    return stateInvoice;
             }
         }
         

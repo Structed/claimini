@@ -43,5 +43,15 @@ namespace Claimini.BlazorClient.ApplicationState
                 Invoices = invoices
             });
         }
+
+        public static async Task SelectInvoice(Action<IAction> dispatch, IApiClient apiClient, string invoiceId)
+        {
+            var invoice = await apiClient.GetInvoice(invoiceId);
+            dispatch(new Actions.SelectInvoiceAction()
+            {
+                SelectedInvoice = invoice,
+                InvoiceId = invoiceId
+            });
+        }
     }
 }

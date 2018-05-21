@@ -49,7 +49,6 @@ else
     }
     protected void InvoiceDetail(string invoiceId)
     {
-        //ActionCreators.SelectCustomer(Store.Dispatch, invoiceId);
-        //UriHelper.NavigateTo($"/customers/detail/{invoiceId}");
+        UriHelper.NavigateTo($"/invoices/detail/{invoiceId}");
     }
 }

@@ -49,5 +49,10 @@ namespace Claimini.BlazorClient
             Console.WriteLine($"Api Client FINISHED calling {InvoicesApiUri}");
             return invoices;
         }
+
+        public async Task<InvoiceFullDto> GetInvoice(string id)
+        {
+            return await this.httpClient.GetJsonAsync<InvoiceFullDto>($"{InvoicesApiUri}/{id}");
+        }
     }
 }

@@ -25,5 +25,12 @@ namespace Claimini.BlazorClient.ApplicationState
         {
             public List<InvoiceFullDto> Invoices { get; set; }
         }
+
+        public class SelectInvoiceAction : IAction
+        {
+            public InvoiceFullDto SelectedInvoice { get; set; }
+
+            public string InvoiceId { get; set; }
+        }
     }
 }
