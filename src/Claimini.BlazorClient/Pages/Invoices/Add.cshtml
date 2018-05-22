@@ -1,0 +1,27 @@
+@using System.Threading.Tasks
+@using Claimini.BlazorClient.ApplicationState
+@using Claimini.Shared
+@page "/invoices/add"
+@inherits Claimini.BlazorClient.Components.BaseComponent
+@inject IApiClient apiClient;
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+
+<h1>Add Invoice</h1>
+<InvoiceForm OnSubmit=AddInvoice/>
+
+@functions
+{
+    protected override async Task OnInitAsync()
+    {
+        await ActionCreators.LoadCustomers(Store.Dispatch, apiClient);
+    }
+
+    private async Task AddInvoice(InvoiceDto invoice)
+    {
+        //Customer resultCustomer = await apiClient.PostCustomer(invoice);
+        //ActionCreators.SelectCustomer(Store.Dispatch, resultCustomer.Id);
+        //UriHelper.NavigateTo($"/customers/detail/{resultCustomer.Id}");
+        //return resultCustomer;
+    }
+
+}
