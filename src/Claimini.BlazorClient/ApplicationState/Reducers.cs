@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BlazorRedux;
 using Claimini.Shared;
+using Claimini.Shared.Extensions;
 using MongoDB.Bson;
 
 namespace Claimini.BlazorClient.ApplicationState
@@ -24,7 +25,7 @@ namespace Claimini.BlazorClient.ApplicationState
             };
         }
 
-        private static Customer SelectedCustomerReducer(Customer stateSelectedCustomer, Customer[] stateCustomers, IAction action)
+        private static Customer SelectedCustomerReducer(Customer stateSelectedCustomer, List<Customer> stateCustomers, IAction action)
         {
             switch (action)
             {
@@ -35,7 +36,7 @@ namespace Claimini.BlazorClient.ApplicationState
             }
         }
 
-        public static Customer[] CustomersReducer(Customer[] stateCustomers, IAction action)
+        public static List<Customer> CustomersReducer(List<Customer> stateCustomers, IAction action)
         {
             switch (action)
             {
@@ -43,7 +44,7 @@ namespace Claimini.BlazorClient.ApplicationState
                     return customersAction.Customers;
                 case Actions.UpdateCustomerAction customersAction:
                     int index = stateCustomers.ToList().FindIndex(e => e.Id == customersAction.Customer.Id);
-                    Customer[] clone = (Customer[])stateCustomers.Clone();
+                    List<Customer> clone = stateCustomers.ToList(); // Shallow copy!
                     clone[index] = customersAction.Customer;
                     return clone;
                 default:
@@ -87,7 +88,7 @@ namespace Claimini.BlazorClient.ApplicationState
                     return invoicesAction.Invoices;
                 //case Actions.UpdateCustomerAction customersAction:
                 //    int index = stateInvoices.ToList().FindIndex(e => e.Id == customersAction.Customer.Id);
-                //    Customer[] clone = (Customer[])stateInvoices.Clone();
+                //    List<Customer> clone = (List<Customer>)stateInvoices.Clone();
                 //    clone[index] = customersAction.Customer;
                 //    return clone;
                 default:

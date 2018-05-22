@@ -13,7 +13,7 @@ namespace Claimini.BlazorClient.ApplicationState
 
         public InvoiceFullDto SelectedInvoice { get; set; }
 
-        public Customer[] Customers { get; set; }
+        public List<Customer> Customers { get; set; }
 
         public Customer SelectedCustomer { get; set; }
 

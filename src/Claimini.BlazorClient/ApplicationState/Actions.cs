@@ -8,7 +8,7 @@ namespace Claimini.BlazorClient.ApplicationState
     {
         public class ReceiveCustomersAction : IAction
         {
-            public Customer[] Customers { get; set; }
+            public List<Customer> Customers { get; set; }
         }
 
         public class UpdateCustomerAction : IAction

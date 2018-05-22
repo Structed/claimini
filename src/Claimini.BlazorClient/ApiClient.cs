@@ -18,9 +18,9 @@ namespace Claimini.BlazorClient
             this.httpClient = httpClient;
         }
 
-        public async Task<Customer[]> GetCustomers()
+        public async Task<List<Customer>> GetCustomers()
         {
-            var customers = await this.httpClient.GetJsonAsync<Customer[]>(CustomerApiUri);
+            var customers = await this.httpClient.GetJsonAsync<List<Customer>>(CustomerApiUri);
             return customers;
         }
 

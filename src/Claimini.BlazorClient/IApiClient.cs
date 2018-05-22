@@ -6,7 +6,7 @@ namespace Claimini.BlazorClient
 {
     public interface IApiClient
     {
-        Task<Customer[]> GetCustomers();
+        Task<List<Customer>> GetCustomers();
 
         Task<Customer> GetCustomer(int id);
 

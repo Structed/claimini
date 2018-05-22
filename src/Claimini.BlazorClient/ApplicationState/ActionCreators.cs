@@ -10,7 +10,7 @@ namespace Claimini.BlazorClient.ApplicationState
     {
         public static async Task LoadCustomers(Dispatcher<IAction> dispatch, IApiClient apiClient)
         {
-            Customer[] customers = await apiClient.GetCustomers();
+            List<Customer> customers = await apiClient.GetCustomers();
             dispatch(new Actions.ReceiveCustomersAction()
             {
                 Customers = customers
