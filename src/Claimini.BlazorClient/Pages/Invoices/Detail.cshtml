@@ -1,10 +1,11 @@
 @using System.Threading.Tasks
 @using Claimini.BlazorClient.ApplicationState
+@using Microsoft.AspNetCore.Blazor
 @using Microsoft.AspNetCore.Blazor.Components
 @page "/invoices/detail/{invoiceId}"
 @inherits Claimini.BlazorClient.Components.BaseComponent
 @inject IApiClient apiClient;
-@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper uriHelper
 <h1>Invoice @InvoiceId</h1>
 @if (State.SelectedInvoice == null)
 {
@@ -21,7 +22,7 @@ else
         </tr>
         <tr>
             <th>Customer Name</th>
-            <td>@State.SelectedInvoice.Customer.Name</td>
+            <td class="btn-link" onclick="@(() => ViewCustomer(State.SelectedInvoice.Customer.Id))">@State.SelectedInvoice.Customer.Name</td>
         </tr>
         <tr>
             <th>Created at</th>
@@ -37,15 +38,40 @@ else
         </tr>
     </table>
 
-    <object width="800" height="1200" data="/api/invoices/@InvoiceId/pdf"></object>
+    <div>
+        <button class="btn-primary" onclick="@ToggleShowPdf">Show PDF</button>
+    </div>
+    <div style="@PdfContainerStyle">
+        <object width="800" height="1200" data="/api/invoices/@InvoiceId/pdf"></object>
+    </div>
+
 }
 @functions
 {
     [Parameter]
     private string InvoiceId { get; set; }
 
+    private bool showPdf = false;
+
     protected override async Task OnInitAsync()
     {
         ActionCreators.SelectInvoice(Store.Dispatch, apiClient, InvoiceId);
     }
+
+    private void ViewCustomer(int customerId)
+    {
+        uriHelper.NavigateTo($"/customers/detail/{customerId}");
+    }
+
+    private void ToggleShowPdf()
+    {
+        this.showPdf = !this.showPdf;
+        StateHasChanged();
+    }
+
+    private string PdfContainerStyle
+    {
+        get { return showPdf == true ? "" : "display: none"; }
+    }
+
 }
