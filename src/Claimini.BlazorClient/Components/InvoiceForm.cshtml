@@ -11,36 +11,7 @@
     </div>*@
 @if (SelectedCustomer != null)
 {
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <td>@SelectedCustomer.Name</td>
-        </tr>
-        <tr>
-            <th>Address</th>
-            <td>@SelectedCustomer.StreetAddress</td>
-        </tr>
-        <tr>
-            <th>Address (additional)</th>
-            <td>@SelectedCustomer.StreetAddressAdditional</td>
-        </tr>
-        <tr>
-            <th>Zip Code</th>
-            <td>@SelectedCustomer.ZipCode</td>
-        </tr>
-        <tr>
-            <th>City</th>
-            <td>@SelectedCustomer.City</td>
-        </tr>
-        <tr>
-            <th>State</th>
-            <td>@SelectedCustomer.State</td>
-        </tr>
-        <tr>
-            <th>Country</th>
-            <td>@SelectedCustomer.Country</td>
-        </tr>
-    </table>
+    <CustomerComponent Customer=SelectedCustomer />
 }
 else
 {

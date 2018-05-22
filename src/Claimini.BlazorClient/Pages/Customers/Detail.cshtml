@@ -14,40 +14,7 @@
 }
 else
 {
-    <table class="table">
-        <tr>
-            <th>Id</th>
-            <td>@customer.Id</td>
-        </tr>
-        <tr>
-            <th>Name</th>
-            <td>@customer.Name</td>
-        </tr>
-        <tr>
-            <th>Address</th>
-            <td>@customer.StreetAddress</td>
-        </tr>
-        <tr>
-            <th>Additional Address</th>
-            <td>@customer.StreetAddressAdditional</td>
-        </tr>
-        <tr>
-            <th>Zip</th>
-            <td>@customer.ZipCode</td>
-        </tr>
-        <tr>
-            <th>City</th>
-            <td>@customer.City</td>
-        </tr>
-        <tr>
-            <th>State</th>
-            <td>@customer.State</td>
-        </tr>
-        <tr>
-            <th>Country</th>
-            <td>@customer.Country</td>
-        </tr>
-    </table>
+    <CustomerComponent Customer=customer />
     <button type="button" class="btn-primary btn-lg" onclick="@(() => CustomerEdit(customer.Id))">Edit</button>
 }
 
