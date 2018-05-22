@@ -15,12 +15,15 @@
 }
 else
 {
-    <div class="form-group">
-        <label for="CustomerSearch">Select Customer</label>
-        <input type="search" id="CustomerSearch" onchange="@Search" />
+    <h2>Select a Customer:</h2>
+    <div class="input-group">
+        <input type="search" class="form-control" placeholder="Customer Name" onchange="@Search" />
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary oi oi-loop-circular" type="button" onclick="@ClearFoundCustomers">Clear</button>
+        </div>
     </div>
 
-    if (foundCustomers != null)
+    if (FoundCustomers != null)
     {
         <table class="table">
             <tr>
@@ -30,7 +33,7 @@ else
                 <th>City</th>
                 <th>Country</th>
             </tr>
-            @foreach (var customer in foundCustomers)
+            @foreach (var customer in FoundCustomers)
             {
                 <tr onclick=@(() => SelectCustomer(customer.Id))>
                     <td>@customer.Id</td>
@@ -56,13 +59,21 @@ else
     [Parameter]
     private Customer SelectedCustomer { get; set; }
 
-    private List<Customer> foundCustomers;
+    [Parameter]
+    private List<Customer> FoundCustomers { get; set; }
 
     private void Search(UIChangeEventArgs args)
     {
         Console.WriteLine($"Search Args: {args.Value}");
 
-        this.foundCustomers = State.Customers.FindAll(x => x.Name.Contains(args.Value.ToString()));
+        this.FoundCustomers = State.Customers.FindAll(x => x.Name.Contains(args.Value.ToString()));
+    }
+
+    private void ClearFoundCustomers()
+    {
+        this.FoundCustomers = State.Customers;
+
+        StateHasChanged();
     }
 
     private void Submit()
