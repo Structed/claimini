@@ -1,5 +1,6 @@
 @using System.Threading.Tasks
 @using Claimini.BlazorClient.ApplicationState
+@using Claimini.Shared.Extensions
 @using Microsoft.AspNetCore.Blazor
 @using Microsoft.AspNetCore.Blazor.Components
 @page "/invoices/detail/{invoiceId}"
@@ -26,11 +27,11 @@ else
         </tr>
         <tr>
             <th>Created at</th>
-            <td>@State.SelectedInvoice.CreatedTimestamp</td>
+            <td>@State.SelectedInvoice.CreatedTimestamp.UnixTimeStampToDateTime().ToLocalTime()</td>
         </tr>
         <tr>
             <th>Paid at</th>
-            <td>@State.SelectedInvoice.PaidTimestamp</td>
+            <td>@State.SelectedInvoice.PaidTimestamp.UnixTimeStampToDateTime().ToLocalTime()</td>
         </tr>
         <tr>
             <th>Price (Total)</th>
