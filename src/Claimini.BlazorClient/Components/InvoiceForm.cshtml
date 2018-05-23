@@ -15,36 +15,7 @@
 }
 else
 {
-    <h2>Select a Customer:</h2>
-    <div class="input-group">
-        <input type="search" class="form-control" placeholder="Customer Name" onchange="@Search" />
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary oi oi-loop-circular" type="button" onclick="@ClearFoundCustomers">Clear</button>
-        </div>
-    </div>
-
-    if (FoundCustomers != null)
-    {
-        <table class="table">
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Country</th>
-            </tr>
-            @foreach (var customer in FoundCustomers)
-            {
-                <tr onclick=@(() => SelectCustomer(customer.Id))>
-                    <td>@customer.Id</td>
-                    <td>@customer.Name</td>
-                    <td>@customer.StreetAddress</td>
-                    <td>@customer.City</td>
-                    <td>@customer.Country</td>
-                </tr>
-            }
-        </table>
-    }
+    <SelectCustomerComponent AvailableCustomers=AvailableCustomers OnCustomerSelected=OnSelectCustomer />
 }
 <button type="submit" class="btn btn-success" onclick="@Submit">Save</button>
 
@@ -60,21 +31,7 @@ else
     private Customer SelectedCustomer { get; set; }
 
     [Parameter]
-    private List<Customer> FoundCustomers { get; set; }
-
-    private void Search(UIChangeEventArgs args)
-    {
-        Console.WriteLine($"Search Args: {args.Value}");
-
-        this.FoundCustomers = State.Customers.FindAll(x => x.Name.Contains(args.Value.ToString()));
-    }
-
-    private void ClearFoundCustomers()
-    {
-        this.FoundCustomers = State.Customers;
-
-        StateHasChanged();
-    }
+    private List<Customer> AvailableCustomers { get; set; }
 
     private void Submit()
     {
@@ -82,17 +39,17 @@ else
         Task result = this.OnSubmit?.Invoke(invoice);
     }
 
-    private void SelectCustomer(int customerId)
+    private async Task OnSelectCustomer(Customer customer)
     {
-        this.SelectedCustomer = State.Customers.Find(x => x.Id == customerId);
-
-        if (this.SelectedCustomer == null)
+        if (customer == null)
         {
-            Console.WriteLine($"Could not select customer with Id {customerId}");
+            Console.WriteLine($"Invoice Form: Could not select customer");
             return;
         }
 
-        Console.WriteLine($"Selected customer: {this.SelectedCustomer.Id} {this.SelectedCustomer.Name}");
-    }
+        this.SelectedCustomer = customer;
+        StateHasChanged();
 
+        Console.WriteLine($"Invoice Form: Selected customer: {customer.Id} {customer.Name}");
+    }
 }

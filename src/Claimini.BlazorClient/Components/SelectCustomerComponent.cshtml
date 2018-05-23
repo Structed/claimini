@@ -1,0 +1,88 @@
+@using System
+@using System.Collections.Generic
+@using System.Threading.Tasks
+@using Claimini.Shared
+@using Microsoft.AspNetCore.Blazor
+@using Microsoft.AspNetCore.Blazor.Components
+@inherits Claimini.BlazorClient.Components.BaseComponent
+
+<h2>Select a Customer:</h2>
+<div class="input-group">
+    <input type="search" class="form-control" placeholder="Customer Name" onchange="@Search" />
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary oi oi-loop-circular" type="button" onclick="@ClearFoundCustomers">Clear</button>
+    </div>
+</div>
+
+@if (FoundCustomers != null)
+{
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Country</th>
+        </tr>
+        @foreach (var customer in FoundCustomers)
+        {
+            <tr onclick=@(() => SelectCustomer(customer.Id))>
+                <td>@customer.Id</td>
+                <td>@customer.Name</td>
+                <td>@customer.StreetAddress</td>
+                <td>@customer.City</td>
+                <td>@customer.Country</td>
+            </tr>
+        }
+    </table>
+}
+
+@functions
+{
+    [Parameter]
+    private Func<Customer, Task> OnCustomerSelected { get; set; }
+
+    [Parameter]
+    private List<Customer> AvailableCustomers { get; set; }
+
+    [Parameter]
+    private Customer SelectedCustomer { get; set; }
+
+    [Parameter]
+    private List<Customer> FoundCustomers { get; set; }
+
+    protected override void OnInit()
+    {
+        this.FoundCustomers = this.AvailableCustomers;
+    }
+
+    private void Search(UIChangeEventArgs args)
+    {
+        Console.WriteLine($"Search Args: {args.Value}");
+
+        this.FoundCustomers = this.AvailableCustomers.FindAll(x => x.Name.Contains(args.Value.ToString()));
+    }
+
+    private void ClearFoundCustomers()
+    {
+        this.FoundCustomers = this.AvailableCustomers;
+
+        StateHasChanged();
+    }
+
+    private void SelectCustomer(int customerId)
+    {
+        this.SelectedCustomer = this.AvailableCustomers.Find(x => x.Id == customerId);
+
+        if (this.SelectedCustomer == null)
+        {
+            Console.WriteLine($"Select Customer Component: Could not select customer with Id {customerId}");
+            return;
+        }
+
+        Console.WriteLine($"Select Customer Component: Selected customer: {this.SelectedCustomer.Id} {this.SelectedCustomer.Name}");
+
+        Task result = this.OnCustomerSelected?.Invoke(this.SelectedCustomer);
+    }
+
+}
