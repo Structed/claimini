@@ -22,7 +22,24 @@ namespace Claimini.BlazorClient.ApplicationState
                 SelectedCustomer = SelectedCustomerReducer(state.SelectedCustomer, state.Customers, action),
                 Invoices = InvoicesReducer(state.Invoices, action),
                 SelectedInvoice = SelectedInvoiceReducer(state.SelectedInvoice, action),
+                Articles = ArticlesReducer(state.Articles, action),
             };
+        }
+
+        private static List<Article> ArticlesReducer(List<Article> stateArticles, IAction action)
+        {
+            switch (action)
+            {
+                case Actions.ReceiveArticlesAction customersAction:
+                    return customersAction.Articles;
+                //case Actions.UpdateCustomerAction customersAction:
+                //    int index = stateArticles.ToList().FindIndex(e => e.Id == customersAction.Customer.Id);
+                //    List<Article> clone = stateArticles.ToList(); // Shallow copy!
+                //    clone[index] = customersAction.Customer;
+                //    return clone;
+                default:
+                    return stateArticles;
+            }
         }
 
         private static Customer SelectedCustomerReducer(Customer stateSelectedCustomer, List<Customer> stateCustomers, IAction action)

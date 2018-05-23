@@ -53,5 +53,12 @@ namespace Claimini.BlazorClient.ApplicationState
                 InvoiceId = invoiceId
             });
         }
+
+        public static async Task LoadArticles(Action<IAction> dispatch, IApiClient apiClient)
+        {
+            Console.WriteLine("Starting to call to get Articles");
+            List<Article> articles = await apiClient.GetArticles();
+            dispatch(new Actions.ReceiveArticlesAction(articles));
+        }
     }
 }

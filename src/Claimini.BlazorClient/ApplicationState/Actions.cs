@@ -32,5 +32,15 @@ namespace Claimini.BlazorClient.ApplicationState
 
             public string InvoiceId { get; set; }
         }
+
+        public class ReceiveArticlesAction : IAction
+        {
+            public List<Article> Articles { get; }
+
+            public ReceiveArticlesAction(List<Article> articles)
+            {
+                Articles = articles;
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace Claimini.BlazorClient
     {
         private readonly HttpClient httpClient;
         private static readonly string CustomerApiUri = "/api/customers";
+        private static readonly string ArticlesApiUri = "/api/articles";
         private static readonly string InvoicesApiUri = "/api/invoices";
 
         public ApiClient(HttpClient httpClient)
@@ -53,6 +54,11 @@ namespace Claimini.BlazorClient
         public async Task<InvoiceFullDto> GetInvoice(string id)
         {
             return await this.httpClient.GetJsonAsync<InvoiceFullDto>($"{InvoicesApiUri}/{id}");
+        }
+
+        public async Task<List<Article>> GetArticles()
+        {
+            return await this.httpClient.GetJsonAsync<List<Article>>($"{ArticlesApiUri}");
         }
     }
 }
