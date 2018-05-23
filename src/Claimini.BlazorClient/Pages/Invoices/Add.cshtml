@@ -1,3 +1,4 @@
+@using System
 @using System.Threading.Tasks
 @using Claimini.BlazorClient.ApplicationState
 @using Claimini.Shared
@@ -6,29 +7,38 @@
 @inject IApiClient apiClient;
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 
-@if (State.Customers == null)
+<h1>Create Invoice</h1>
+
+@if (State.Customers == null || State.Articles == null)
 {
-    <p><em>Loading Customers...</em></p>
+    <p><em>Loading Customers & Articles...</em></p>
 }
 else
 {
-    <h1>Create Invoice</h1>
-    <InvoiceForm OnSubmit=AddInvoice AvailableCustomers="@State.Customers"/>
+    <InvoiceForm OnSubmit=AddInvoice AvailableCustomers="@State.Customers" AvailableArticles="@State.Articles" />
 }
 
 @functions
 {
-    protected override async Task OnInitAsync()
-    {
-        await ActionCreators.LoadCustomers(Store.Dispatch, apiClient);
-    }
+protected override async Task OnInitAsync()
+{
+    await ActionCreators.LoadCustomers(Store.Dispatch, apiClient);
+    await ActionCreators.LoadArticles(Store.Dispatch, apiClient);
+}
 
-    private async Task AddInvoice(InvoiceDto invoice)
+private async Task AddInvoice(InvoiceDto invoice)
+{
+    if (invoice == null)
     {
-        //Customer resultCustomer = await apiClient.PostCustomer(invoice);
-        //ActionCreators.SelectCustomer(Store.Dispatch, resultCustomer.Id);
-        //UriHelper.NavigateTo($"/customers/detail/{resultCustomer.Id}");
-        //return resultCustomer;
+        Console.WriteLine("Invoice Add: No invoice given to save!");
+        return;
     }
+    Console.WriteLine("Invoice Add: This could be the place to implement saving!");
+
+    //Customer resultCustomer = await apiClient.PostCustomer(invoice);
+    //ActionCreators.SelectCustomer(Store.Dispatch, resultCustomer.Id);
+    //UriHelper.NavigateTo($"/customers/detail/{resultCustomer.Id}");
+    //return resultCustomer;
+}
 
 }

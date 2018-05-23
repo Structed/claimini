@@ -2,12 +2,14 @@
 @using System.Collections.Generic
 @using System.Threading.Tasks
 @using Claimini.Shared
+@using Claimini.Shared.Extensions
 @using Microsoft.AspNetCore.Blazor.Components
 @inherits Claimini.BlazorClient.Components.BaseComponent
 @*<div class="form-group">
         <label for="PriceTotal">Created at</label>
         <label type="text" class="form-control" placeholder="Test Street 15" id="PriceTotal" bind="@invoice.StreetAddress" />
     </div>*@
+
 @if (SelectedCustomer != null)
 {
     <CustomerComponent Customer=SelectedCustomer />
@@ -16,6 +18,35 @@ else
 {
     <SelectCustomerComponent AvailableCustomers=AvailableCustomers OnCustomerSelected=OnSelectCustomer />
 }
+
+@if (AvailableArticles != null)
+{
+    <h2>Select Articles:</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var article in AvailableArticles)
+            {
+                <tr>
+                    <td><button type="button" class="btn btn-info oi oi-plus"></button></td>
+                    <td>@article.Id</td>
+                    <td>@article.Name</td>
+                    <td>@article.Price</td>
+                    <td>@article.CreatedTimestamp.UnixTimeStampToDateTime().ToLocalTime()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 <button type="submit" class="btn btn-success" onclick="@Submit">Save</button>
 
 @functions
@@ -32,6 +63,9 @@ else
     [Parameter]
     private List<Customer> AvailableCustomers { get; set; }
 
+    [Parameter]
+    private List<Article> AvailableArticles { get; set; }
+
     private void Submit()
     {
         //Console.WriteLine(invoice.Name + invoice.StreetAddress);
@@ -42,13 +76,10 @@ else
     {
         if (customer == null)
         {
-            Console.WriteLine($"Invoice Form: Could not select customer");
             return;
         }
 
         this.SelectedCustomer = customer;
         StateHasChanged();
-
-        Console.WriteLine($"Invoice Form: Selected customer: {customer.Id} {customer.Name}");
     }
 }
