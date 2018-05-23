@@ -15,24 +15,28 @@
 
 @if (FoundCustomers != null)
 {
-    <table class="table">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>Country</th>
-        </tr>
-        @foreach (var customer in FoundCustomers)
-        {
-            <tr onclick=@(() => SelectCustomer(customer.Id))>
-                <td>@customer.Id</td>
-                <td>@customer.Name</td>
-                <td>@customer.StreetAddress</td>
-                <td>@customer.City</td>
-                <td>@customer.Country</td>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Country</th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var customer in FoundCustomers)
+            {
+                <tr onclick=@(() => SelectCustomer(customer.Id))>
+                    <td>@customer.Id</td>
+                    <td>@customer.Name</td>
+                    <td>@customer.StreetAddress</td>
+                    <td>@customer.City</td>
+                    <td>@customer.Country</td>
+                </tr>
+            }
+        </tbody>
     </table>
 }
 
