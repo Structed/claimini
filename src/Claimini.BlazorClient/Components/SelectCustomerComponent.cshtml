@@ -40,7 +40,7 @@
 @functions
 {
     [Parameter]
-    private Func<Customer, Task> OnCustomerSelected { get; set; }
+    private Action<Customer> OnCustomerSelected { get; set; }
 
     [Parameter]
     private List<Customer> AvailableCustomers { get; set; }
@@ -82,7 +82,7 @@
 
         Console.WriteLine($"Select Customer Component: Selected customer: {this.SelectedCustomer.Id} {this.SelectedCustomer.Name}");
 
-        Task result = this.OnCustomerSelected?.Invoke(this.SelectedCustomer);
+        this.OnCustomerSelected?.Invoke(this.SelectedCustomer);
     }
 
 }

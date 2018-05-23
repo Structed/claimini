@@ -39,7 +39,7 @@ else
         Task result = this.OnSubmit?.Invoke(invoice);
     }
 
-    private async Task OnSelectCustomer(Customer customer)
+    private void OnSelectCustomer(Customer customer)
     {
         if (customer == null)
         {
