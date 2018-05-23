@@ -36,7 +36,6 @@ namespace Claimini.BlazorClient.ApplicationState
 
         public static async Task LoadInvoices(Action<IAction> dispatch, IApiClient apiClient)
         {
-            Console.WriteLine("Starting to call to get Invoices");
             List <InvoiceFullDto> invoices = await apiClient.GetInvoices();
             dispatch(new Actions.ReceiveInvoicesAction()
             {
@@ -56,7 +55,6 @@ namespace Claimini.BlazorClient.ApplicationState
 
         public static async Task LoadArticles(Action<IAction> dispatch, IApiClient apiClient)
         {
-            Console.WriteLine("Starting to call to get Articles");
             List<Article> articles = await apiClient.GetArticles();
             dispatch(new Actions.ReceiveArticlesAction(articles));
         }
