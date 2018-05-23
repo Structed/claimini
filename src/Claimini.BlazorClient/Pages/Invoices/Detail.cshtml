@@ -55,6 +55,7 @@ else
 
     protected override async Task OnInitAsync()
     {
+        State.SelectedInvoice = null;   // TODO for future self: check, if this is really a good idea. I don't think so.
         ActionCreators.SelectInvoice(Store.Dispatch, apiClient, InvoiceId);
     }
 
