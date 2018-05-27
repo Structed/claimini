@@ -1,0 +1,58 @@
+@using System
+@using System.Collections.Generic
+@using System.Runtime.CompilerServices
+@using System.Threading.Tasks
+@using Claimini.Shared
+@using Claimini.Shared.Extensions
+@using Microsoft.AspNetCore.Blazor.Components
+@inherits Claimini.BlazorClient.Components.BaseComponent
+
+
+@if (AvailableArticles != null)
+{
+    <h2>Select Articles:</h2>
+    <table class="table table-hover table-sm table-striped">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var article in AvailableArticles)
+        {
+            <tr onclick="@(() =>  OnClickArticle(article))">
+                <td><button type="button" class="btn btn-info oi oi-plus"></button></td>
+                <td>@article.Name</td>
+                <td>@article.Price</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+
+@functions
+{
+
+    [Parameter]
+    private List<Article> AvailableArticles { get; set; }
+
+    [Parameter]
+    private Action<Article> OnSelect { get; set; }
+
+    private void OnClickArticle(Article article)
+    {
+        if (article == null)
+        {
+            Console.WriteLine("Clicked Article was null");
+            return;
+        }
+
+        Console.WriteLine($"Invoking OnSelect after clicking on Article {article.Id}:{article.Name} in {this.GetType()}");
+        this.OnSelect?.Invoke(article);
+
+        StateHasChanged();
+    }
+}
