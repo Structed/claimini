@@ -14,7 +14,6 @@
     <table class="table table-hover table-sm table-striped">
         <thead>
         <tr>
-            <th></th>
             <th>Name</th>
             <th>Price</th>
         </tr>
@@ -23,7 +22,6 @@
         @foreach (var article in AvailableArticles)
         {
             <tr onclick="@(() =>  OnClickArticle(article))">
-                <td><button type="button" class="btn btn-info oi oi-plus"></button></td>
                 <td>@article.Name</td>
                 <td>@article.Price</td>
             </tr>
