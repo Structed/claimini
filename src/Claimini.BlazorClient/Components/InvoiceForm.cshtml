@@ -21,8 +21,8 @@ else
 
 @if (AvailableArticles != null)
 {
-    <ArticleSelectComponent AvailableArticles="AvailableArticles" OnSelect="OnSelectArticle" />
-    <ArticleSelectComponent AvailableArticles="SelectedArticles" OnSelect="OnRemoveArticle" />
+    <ArticleSelectComponent AvailableArticles="AvailableArticles" OnSelect="@((Article article) => OnSelectArticle(article, true))" />
+    <ArticleSelectComponent AvailableArticles="SelectedArticles" OnSelect="@((Article article) => OnSelectArticle(article, false))" />
 }
 
 <button type="submit" class="btn btn-success" onclick="@Submit">Save</button>
@@ -65,7 +65,7 @@ else
         StateHasChanged();
     }
 
-    private void OnSelectArticle(Article article)
+    private void OnSelectArticle(Article article, bool addToInvoice)
     {
         if (article == null)
         {
@@ -74,22 +74,18 @@ else
         }
 
         Console.WriteLine($"Select Click handler for {article.Id}:{article.Name} in {this.GetType()}");
-        this.SelectedArticles.Add(article);
-        this.AvailableArticles.Remove(article);
-        StateHasChanged();
-    }
 
-    private void OnRemoveArticle(Article article)
-    {
-        if (article == null)
+        if (addToInvoice)
         {
-            Console.WriteLine("Article was null");
-            return;
+            this.SelectedArticles.Add(article);
+            this.AvailableArticles.Remove(article);
+        }
+        else
+        {
+            this.AvailableArticles.Add(article);
+            this.SelectedArticles.Remove(article);
         }
 
-        Console.WriteLine($"Remove Click handler for {article.Id}:{article.Name} in {this.GetType()}");
-        this.AvailableArticles.Add(article);
-        this.SelectedArticles.Remove(article);
         StateHasChanged();
     }
 }
