@@ -83,6 +83,7 @@ else
         else
         {
             this.AvailableArticles.Add(article);
+            this.AvailableArticles.Sort((a, b) => a.Id.CompareTo(b.Id));
             this.SelectedArticles.Remove(article);
         }
 
