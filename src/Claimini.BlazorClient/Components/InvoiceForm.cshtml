@@ -21,7 +21,10 @@ else
 
 @if (AvailableArticles != null)
 {
+    <h2>Add Articles to Invoice:</h2>
     <ArticleSelectComponent AvailableArticles="AvailableArticles" OnSelect="@((Article article) => OnSelectArticle(article, true))" />
+
+    <h2>Selected Articles:</h2>
     <ArticleSelectComponent AvailableArticles="SelectedArticles" OnSelect="@((Article article) => OnSelectArticle(article, false))" />
 }
 
