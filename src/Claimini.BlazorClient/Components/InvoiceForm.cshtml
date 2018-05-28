@@ -1,25 +1,22 @@
-@using System
-@using System.Collections.Generic
-@using System.Runtime.CompilerServices
-@using System.Threading.Tasks
 @using Claimini.Shared
-@using Claimini.Shared.Extensions
 @using Microsoft.AspNetCore.Blazor.Components
 @inherits Claimini.BlazorClient.Components.BaseComponent
 
 @if (SelectedCustomer != null)
 {
-    @*<CustomerComponent Customer=SelectedCustomer />*@
-    <p>
-        Customer: @SelectedCustomer.Name
-    </p>
+    <div container>
+        <span>
+            <strong>Customer:</strong> @SelectedCustomer.Name
+        </span>
+        <button type="button" class="btn btn-light" onclick="@(() => SelectedCustomer = null)">Re-select customer</button>
+    </div>
 }
 else
 {
     <SelectCustomerComponent AvailableCustomers=AvailableCustomers OnCustomerSelected=OnSelectCustomer />
 }
 
-@if (AvailableArticles != null)
+@if (AvailableArticles != null && SelectedCustomer != null)
 {
     <h2>Add Articles to Invoice:</h2>
     <ArticleSelectComponent AvailableArticles="AvailableArticles" OnSelect="@((Article article) => OnSelectArticle(article, true))" />
