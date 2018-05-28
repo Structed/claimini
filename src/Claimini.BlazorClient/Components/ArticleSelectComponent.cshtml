@@ -18,7 +18,7 @@
         {
             <tr onclick="@(() =>  OnClickArticle(article))">
                 <td>@article.Name</td>
-                <td class="text-right">@(article.Price.ToCurrency("de-DE"))</td>
+                <td class="text-right">@(article.Price.ToCurrency(Constants.Locale))</td>
             </tr>
         }
         </tbody>
