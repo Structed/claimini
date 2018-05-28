@@ -24,10 +24,13 @@
         }
         </tbody>
         <tfoot>
-        <tr>
-            <td><strong>Total:</strong></td>
-            <td class="text-right">@AvailableArticles.Sum(article => article.Price).ToCurrency(Constants.Locale)</td>
-        </tr>
+        @if (DisplayTotalPrice)
+        {
+            <tr>
+                <td><strong>Total:</strong></td>
+                <td class="text-right"><strong>@AvailableArticles.Sum(article => article.Price).ToCurrency(Constants.Locale)</strong></td>
+            </tr>
+        }
         </tfoot>
     </table>
 }
@@ -41,6 +44,9 @@
 
     [Parameter]
     private Action<Article> OnSelect { get; set; }
+
+    [Parameter]
+    private bool DisplayTotalPrice { get; set; } = true;
 
     private void OnClickArticle(Article article)
     {
