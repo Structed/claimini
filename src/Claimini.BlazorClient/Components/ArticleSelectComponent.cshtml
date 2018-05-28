@@ -1,3 +1,4 @@
+@using Claimini.BlazorClient
 @using Claimini.Shared
 @using Claimini.Shared.Extensions
 @using Microsoft.AspNetCore.Blazor.Components
@@ -22,6 +23,12 @@
             </tr>
         }
         </tbody>
+        <tfoot>
+        <tr>
+            <td><strong>Total:</strong></td>
+            <td class="text-right">@AvailableArticles.Sum(article => article.Price).ToCurrency(Constants.Locale)</td>
+        </tr>
+        </tfoot>
     </table>
 }
 
