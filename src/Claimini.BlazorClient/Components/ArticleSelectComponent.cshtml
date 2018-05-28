@@ -1,5 +1,5 @@
-@using System.Globalization
 @using Claimini.Shared
+@using Claimini.Shared.Extensions
 @using Microsoft.AspNetCore.Blazor.Components
 @inherits Claimini.BlazorClient.Components.BaseComponent
 
@@ -10,7 +10,7 @@
         <thead>
         <tr>
             <th>Name</th>
-            <th>Price</th>
+            <th class="text-right">Price</th>
         </tr>
         </thead>
         <tbody>
@@ -18,7 +18,7 @@
         {
             <tr onclick="@(() =>  OnClickArticle(article))">
                 <td>@article.Name</td>
-                <td>@article.Price</td>
+                <td class="text-right">@(article.Price.ToCurrency("de-DE"))</td>
             </tr>
         }
         </tbody>
