@@ -4,6 +4,7 @@
 // </copyright>
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Claimini.Shared
 {
@@ -12,5 +13,10 @@ namespace Claimini.Shared
         public int CustomerId { get; set; }
 
         public IEnumerable<InvoiceItemDto> InvoiceItems { get; set; }
+
+        public bool IsValid()
+        {
+            return this.CustomerId > 0 && this.InvoiceItems.Any();
+        }
     }
 }

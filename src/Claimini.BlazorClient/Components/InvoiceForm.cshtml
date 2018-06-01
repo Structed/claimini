@@ -57,6 +57,11 @@ else
         var list = new List<InvoiceItemDto>(SelectedArticles.Count);
         foreach (var article in this.SelectedArticles)
         {
+            if (article.Quantity < 1)
+            {
+                continue;
+            }
+
             list.Add(new InvoiceItemDto
             {
                 Id = article.Id,
@@ -67,7 +72,10 @@ else
         this.invoice.CustomerId = this.SelectedCustomer.Id;
         this.invoice.InvoiceItems = list;
 
-        this.OnSubmit?.Invoke(invoice);
+        if (this.invoice.IsValid())
+        {
+            this.OnSubmit?.Invoke(invoice);
+        }
     }
 
     private void OnSelectCustomer(Customer customer)
