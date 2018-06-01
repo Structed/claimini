@@ -14,5 +14,15 @@ namespace Claimini.Shared.Extensions
         {
             return number.ToString("C", new CultureInfo(locale, false));
         }
+
+        /// <summary>
+        /// Returns a percentage representation of the decimal
+        /// </summary>
+        /// <param name="number">The percentage as decimal fraction</param>
+        /// <returns></returns>
+        public static string ToPercentage(this decimal number)
+        {
+            return (number * 100).ToString();
+        }
     }
 }

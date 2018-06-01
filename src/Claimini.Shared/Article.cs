@@ -32,10 +32,17 @@ namespace Claimini.Shared
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
+        [Required]
+        public decimal TaxPercentage { get; set; }
+
         /// <summary>
         /// Gets or sets the UNIX Timestamp (seconds) the Article was created
         /// </summary>
         [Required]
         public long CreatedTimestamp { get; set; }
+
+        public decimal TaxValue => this.Price * this.TaxPercentage;
+
+        public decimal NetPrice => this.Price + this.TaxValue;
     }
 }
