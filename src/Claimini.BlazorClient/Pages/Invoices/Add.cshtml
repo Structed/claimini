@@ -20,25 +20,23 @@ else
 
 @functions
 {
-protected override async Task OnInitAsync()
-{
-    await ActionCreators.LoadCustomers(Store.Dispatch, apiClient);
-    await ActionCreators.LoadArticles(Store.Dispatch, apiClient);
-}
-
-private async Task AddInvoice(InvoiceDto invoice)
-{
-    if (invoice == null)
+    protected override async Task OnInitAsync()
     {
-        Console.WriteLine("Invoice Add: No invoice given to save!");
-        return;
+        await ActionCreators.LoadCustomers(Store.Dispatch, apiClient);
+        await ActionCreators.LoadArticles(Store.Dispatch, apiClient);
     }
-    Console.WriteLine("Invoice Add: This could be the place to implement saving!");
 
-    //Customer resultCustomer = await apiClient.PostCustomer(invoice);
-    //ActionCreators.SelectCustomer(Store.Dispatch, resultCustomer.Id);
-    //UriHelper.NavigateTo($"/customers/detail/{resultCustomer.Id}");
-    //return resultCustomer;
-}
+    private async void AddInvoice(InvoiceDto invoice)
+    {
+        if (invoice == null)
+        {
+            Console.WriteLine("Invoice Add: No invoice given to save!");
+            return;
+        }
+
+        InvoiceFullDto resultInvoice = await apiClient.PostInvoice(invoice);
+        ActionCreators.SelectInvoice(Store.Dispatch, apiClient, resultInvoice.Id);
+        UriHelper.NavigateTo($"/invoices/detail/{resultInvoice.Id}");
+    }
 
 }

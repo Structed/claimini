@@ -58,5 +58,11 @@ namespace Claimini.BlazorClient
         {
             return await this.httpClient.GetJsonAsync<List<Article>>($"{ArticlesApiUri}");
         }
+
+        public async Task<InvoiceFullDto> PostInvoice(InvoiceDto invoice)
+        {
+            var invoiceFullDto = await this.httpClient.PostJsonAsync<InvoiceFullDto>(InvoicesApiUri, invoice);
+            return invoiceFullDto;
+        }
     }
 }

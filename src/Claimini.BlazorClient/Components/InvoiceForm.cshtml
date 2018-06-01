@@ -25,9 +25,11 @@ else
     <h2>Selected Articles:</h2>
     <div>Click item to remove it from the invoice</div>
     <ArticleSelectComponent AvailableArticles="SelectedArticles" OnSelect="@((Article article) => OnSelectArticle(article, false))" WithQuantity="@true" />
+
+    <button type="submit" class="btn btn-success" onclick="@Submit">Save</button>
 }
 
-<button type="submit" class="btn btn-success" onclick="@Submit">Save</button>
+
 
 @functions
 {
@@ -35,7 +37,7 @@ else
     private InvoiceDto invoice { get; set; } = new InvoiceDto();
 
     [Parameter]
-    private Func<InvoiceDto, Task> OnSubmit { get; set; }
+    private Action<InvoiceDto> OnSubmit { get; set; }
 
     [Parameter]
     private Customer SelectedCustomer { get; set; }
@@ -52,8 +54,20 @@ else
 
     private void Submit()
     {
+        var list = new List<InvoiceItemDto>(SelectedArticles.Count);
+        foreach (var article in this.SelectedArticles)
+        {
+            list.Add(new InvoiceItemDto
+            {
+                ArticleId = article.Id,
+                Quantity = article.Quantity
+            });
+        }
+
+        this.invoice.CustomerId = this.SelectedCustomer.Id;
+        this.invoice.InvoiceItems = list;
         //Console.WriteLine(invoice.Name + invoice.StreetAddress);
-        Task result = this.OnSubmit?.Invoke(invoice);
+        this.OnSubmit?.Invoke(invoice);
     }
 
     private void OnSelectCustomer(Customer customer)

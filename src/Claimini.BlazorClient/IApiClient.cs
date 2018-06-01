@@ -19,5 +19,7 @@ namespace Claimini.BlazorClient
         Task<InvoiceFullDto> GetInvoice(string invoiceId);
 
         Task<List<Article>> GetArticles();
+
+        Task<InvoiceFullDto> PostInvoice(InvoiceDto invoice);
     }
 }
