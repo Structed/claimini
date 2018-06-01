@@ -59,14 +59,14 @@ else
         {
             list.Add(new InvoiceItemDto
             {
-                ArticleId = article.Id,
+                Id = article.Id,
                 Quantity = article.Quantity
             });
         }
 
         this.invoice.CustomerId = this.SelectedCustomer.Id;
         this.invoice.InvoiceItems = list;
-        //Console.WriteLine(invoice.Name + invoice.StreetAddress);
+
         this.OnSubmit?.Invoke(invoice);
     }
 

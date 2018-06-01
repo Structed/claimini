@@ -12,7 +12,7 @@ namespace Claimini.Shared
     /// Represents an Article, which can be added as a <see cref="Invoice"/>
     /// to an <see cref="InvoiceItem"/>
     /// </summary>
-    public class Article
+    public class Article : IInvoiceItem
     {
         /// <summary>
         /// Gets or sets the Id of the Article

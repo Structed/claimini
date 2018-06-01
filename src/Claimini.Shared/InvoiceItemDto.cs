@@ -5,9 +5,9 @@
 
 namespace Claimini.Shared
 {
-    public class InvoiceItemDto
+    public class InvoiceItemDto : IInvoiceItem
     {
-        public int ArticleId { get; set; }
+        public int Id { get; set; }
 
         public int Quantity { get; set; }
     }

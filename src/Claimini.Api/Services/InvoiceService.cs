@@ -47,7 +47,7 @@ namespace Claimini.Api.Services
                 throw new Exception($"Customer with ID {invoiceDto.CustomerId} not found");
             }
 
-            var articleIds = invoiceDto.InvoiceItems.Select(item => item.ArticleId).ToList();
+            var articleIds = invoiceDto.InvoiceItems.Select(item => item.Id).ToList();
             if (articleIds.Count < 1)
             {
                 throw new Exception("Cannot create an Invoice with less than 1 article");
@@ -59,7 +59,7 @@ namespace Claimini.Api.Services
             List<InvoiceItem> invoiceItems = new List<InvoiceItem>(articles.Count());
             foreach (var article in articles)
             {
-                InvoiceItemDto invoiceItemDto = invoiceDto.InvoiceItems.FirstOrDefault(dto => dto.ArticleId == article.Id);
+                InvoiceItemDto invoiceItemDto = invoiceDto.InvoiceItems.FirstOrDefault(dto => dto.Id == article.Id);
                 int quantity = invoiceItemDto?.Quantity ?? 0;
 
                 InvoiceItem invoiceItem = new InvoiceItem
