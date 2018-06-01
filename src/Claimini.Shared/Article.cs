@@ -4,6 +4,7 @@
 // </copyright>
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Claimini.Shared
 {
@@ -41,8 +42,17 @@ namespace Claimini.Shared
         [Required]
         public long CreatedTimestamp { get; set; }
 
+        [NotMapped]
+        public int Quantity { get; set; }
+
         public decimal TaxValue => this.Price * this.TaxPercentage;
 
         public decimal NetPrice => this.Price + this.TaxValue;
+
+        public decimal TotalPrice => this.Price * Quantity;
+
+        public decimal TotalTaxValue => this.TotalPrice * this.TaxPercentage;
+
+        public decimal TotalNetPrice => this.Price * Quantity + this.TotalTaxValue;
     }
 }

@@ -20,11 +20,11 @@ else
 {
     <h2>Add Articles to Invoice:</h2>
     <div>Click item to add it to the invoice</div>
-    <ArticleSelectComponent AvailableArticles="AvailableArticles" OnSelect="@((Article article) => OnSelectArticle(article, true))" DisplayTotalPrice="@false" />
+    <ArticleSelectComponent AvailableArticles="AvailableArticles" OnSelect="@((Article article) => OnSelectArticle(article, true))" WithQuantity="@false" />
 
     <h2>Selected Articles:</h2>
     <div>Click item to remove it from the invoice</div>
-    <ArticleSelectComponent AvailableArticles="SelectedArticles" OnSelect="@((Article article) => OnSelectArticle(article, false))" DisplayTotalPrice="@true" />
+    <ArticleSelectComponent AvailableArticles="SelectedArticles" OnSelect="@((Article article) => OnSelectArticle(article, false))" WithQuantity="@true" />
 }
 
 <button type="submit" class="btn btn-success" onclick="@Submit">Save</button>

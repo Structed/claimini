@@ -10,34 +10,61 @@
     <table class="table table-hover table-sm table-striped">
         <thead>
             <tr>
+                <th></th>
                 <th>Name</th>
                 <th class="text-right">Price</th>
                 <th class="text-right">Tax (%)</th>
                 <th class="text-right">Tax (&euro;)</th>
                 <th class="text-right">Net Price</th>
+                @if (WithQuantity)
+                {
+                    <th>Quantity</th>
+                    <th class="text-right">Row Total (&euro;)</th>
+                    <th class="text-right">Row Net Total (&euro;)</th>
+                }
             </tr>
         </thead>
         <tbody>
         @foreach (var article in AvailableArticles)
         {
-            <tr onclick="@(() =>  OnClickArticle(article))">
-                <td>@article.Name</td>
-                <td class="text-right">@(article.Price.ToCurrency(Constants.Locale))</td>
-                <td class="text-right">@(article.TaxPercentage.ToPercentage())</td>
-                <td class="text-right">@(article.TaxValue.ToCurrency(Constants.Locale))</td>
-                <td class="text-right">@(article.NetPrice.ToCurrency(Constants.Locale))</td>
-            </tr>
+            <tr>
+                <td>
+                    @if (WithQuantity)
+                    {
+                        <button type="button" class="btn btn-danger" onclick="@(() => OnClickArticle(article))"><span class="oi oi-x" aria-hidden="true"></span></button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-success" onclick="@(() => OnClickArticle(article))"><span class="oi oi-plus" aria-hidden="true"></span></button>
+                    }
+                </td>
+                    <td>@article.Name</td>
+                    <td class="text-right">@(article.Price.ToCurrency(Constants.Locale))</td>
+                    <td class="text-right">@(article.TaxPercentage.ToPercentage())</td>
+                    <td class="text-right">@(article.TaxValue.ToCurrency(Constants.Locale))</td>
+                    <td class="text-right">@(article.NetPrice.ToCurrency(Constants.Locale))</td>
+                    @if (WithQuantity)
+                    {
+                        <td><input type="number" bind=@article.Quantity /></td>
+                        <td class="text-right">@article.TotalPrice.ToCurrency(Constants.Locale)</td>
+                        <td class="text-right">@article.TotalNetPrice.ToCurrency(Constants.Locale)</td>
+                    }
+                </tr>
         }
         </tbody>
         <tfoot>
-        @if (DisplayTotalPrice)
+        @if (WithQuantity)
         {
             <tr>
-                <td><strong>Total:</strong></td>
-                <td class="text-right"><strong>@AvailableArticles.Sum(article => article.Price).ToCurrency(Constants.Locale)</strong></td>
                 <td></td>
-                <td class="text-right"><strong>@AvailableArticles.Sum(article => article.TaxValue).ToCurrency(Constants.Locale)</strong></td>
-                <td class="text-right"><strong>@AvailableArticles.Sum(article => article.NetPrice).ToCurrency(Constants.Locale)</strong></td>
+                <td><strong>Total:</strong></td>
+                <td class="text-right"><strong>@AvailableArticles.Sum(article => article.TotalPrice).ToCurrency(Constants.Locale)</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-right"><strong>@AvailableArticles.Sum(article => article.TotalTaxValue).ToCurrency(Constants.Locale)</strong></td>
+                <td class="text-right"><strong>@AvailableArticles.Sum(article => article.TotalNetPrice).ToCurrency(Constants.Locale)</strong></td>
             </tr>
         }
         </tfoot>
@@ -55,7 +82,7 @@
     private Action<Article> OnSelect { get; set; }
 
     [Parameter]
-    private bool DisplayTotalPrice { get; set; } = true;
+    private bool WithQuantity { get; set; } = true;
 
     private void OnClickArticle(Article article)
     {
