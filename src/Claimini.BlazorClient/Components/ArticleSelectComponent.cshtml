@@ -19,8 +19,9 @@
                 @if (WithQuantity)
                 {
                     <th>Quantity</th>
-                    <th class="text-right">Row Total (&euro;)</th>
-                    <th class="text-right">Row Net Total (&euro;)</th>
+                    <th class="text-right">Total (&euro;)</th>
+                    <th class="text-right">Total Tax (&euro;)</th>
+                    <th class="text-right">Net Total (&euro;)</th>
                 }
             </tr>
         </thead>
@@ -38,18 +39,20 @@
                         <button type="button" class="btn btn-success" onclick="@(() => OnClickArticle(article))"><span class="oi oi-plus" aria-hidden="true"></span></button>
                     }
                 </td>
-                    <td>@article.Name</td>
-                    <td class="text-right">@(article.Price.ToCurrency(Constants.Locale))</td>
-                    <td class="text-right">@(article.TaxPercentage.ToPercentage())</td>
-                    <td class="text-right">@(article.TaxValue.ToCurrency(Constants.Locale))</td>
-                    <td class="text-right">@(article.NetPrice.ToCurrency(Constants.Locale))</td>
-                    @if (WithQuantity)
-                    {
-                        <td><input type="number" bind=@article.Quantity /></td>
-                        <td class="text-right">@article.TotalPrice.ToCurrency(Constants.Locale)</td>
-                        <td class="text-right">@article.TotalNetPrice.ToCurrency(Constants.Locale)</td>
-                    }
-                </tr>
+                <td>@article.Name</td>
+                <td class="text-right">@(article.Price.ToCurrency(Constants.Locale))</td>
+                <td class="text-right">@(article.TaxPercentage.ToPercentage())</td>
+                <td class="text-right">@(article.TaxValue.ToCurrency(Constants.Locale))</td>
+                <td class="text-right">@(article.NetPrice.ToCurrency(Constants.Locale))</td>
+
+                @if (WithQuantity)
+                {
+                    <td><input type="number" bind=@article.Quantity /></td>
+                    <td class="text-right">@article.TotalPrice.ToCurrency(Constants.Locale)</td>
+                    <td class="text-right">@article.TotalTaxValue.ToCurrency(Constants.Locale)</td>
+                    <td class="text-right">@article.TotalNetPrice.ToCurrency(Constants.Locale)</td>
+                }
+            </tr>
         }
         </tbody>
         <tfoot>
@@ -63,6 +66,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td class="text-right"><strong>@AvailableArticles.Sum(article => article.TotalPrice).ToCurrency(Constants.Locale)</strong></td>
                 <td class="text-right"><strong>@AvailableArticles.Sum(article => article.TotalTaxValue).ToCurrency(Constants.Locale)</strong></td>
                 <td class="text-right"><strong>@AvailableArticles.Sum(article => article.TotalNetPrice).ToCurrency(Constants.Locale)</strong></td>
             </tr>
