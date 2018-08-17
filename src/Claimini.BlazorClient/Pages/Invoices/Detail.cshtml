@@ -39,7 +39,7 @@ else
     </table>
 
     <div>
-        <button class="btn-primary" onclick="@ToggleShowPdf">Show PDF</button>
+        <button class="btn btn-primary" onclick="@ToggleShowPdf">Show PDF</button>
     </div>
     <div style="@PdfContainerStyle">
         <object width="800" height="1200" data="/api/invoices/@InvoiceId/pdf"></object>
@@ -70,9 +70,5 @@ else
         StateHasChanged();
     }
 
-    private string PdfContainerStyle
-    {
-        get { return showPdf == true ? "" : "display: none"; }
-    }
-
+    private string PdfContainerStyle => showPdf == true ? "" : "display: none";
 }
