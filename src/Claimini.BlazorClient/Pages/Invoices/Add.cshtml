@@ -7,16 +7,20 @@
 @inject IApiClient apiClient;
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 
-<h1>Create Invoice</h1>
 
-@if (State.Customers == null || State.Articles == null)
-{
-    <p><em>Loading Customers & Articles...</em></p>
-}
-else
-{
-    <InvoiceForm OnSubmit=AddInvoice AvailableCustomers="@State.Customers" AvailableArticles="@State.Articles" />
-}
+<div class="container">
+    <h1 class="header">Create Invoice</h1>
+</div>
+<div class="container">
+    @if (State.Customers == null || State.Articles == null)
+    {
+        <p><em>Loading Customers & Articles...</em></p>
+    }
+    else
+    {
+        <InvoiceForm OnSubmit=AddInvoice AvailableCustomers="@State.Customers" AvailableArticles="@State.Articles"/>
+    }
+</div>
 
 @functions
 {

@@ -84,6 +84,30 @@ app {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+h1.header {
+    /*thi is basically: <h1 class="text-center card-header mt-2 mb-5">*/
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom-color: rgba(0, 0, 0, 0.125);
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    box-sizing: border-box;
+    color: rgb(33, 37, 41);
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 48px;
+    margin-bottom: 48px;
+    margin-top: 8px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 12px;
+    text-align: center;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row {
         display: none;

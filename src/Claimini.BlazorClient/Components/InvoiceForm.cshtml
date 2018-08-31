@@ -2,32 +2,40 @@
 @using Microsoft.AspNetCore.Blazor.Components
 @inherits Claimini.BlazorClient.Components.BaseComponent
 
-@if (SelectedCustomer != null)
-{
-    <div container>
-        <span>
-            <strong>Customer:</strong> @SelectedCustomer.Name
-        </span>
-        <button type="button" class="btn btn-light" onclick="@(() => SelectedCustomer = null)">Re-select customer</button>
-    </div>
-}
-else
-{
-    <SelectCustomerComponent AvailableCustomers=AvailableCustomers OnCustomerSelected=OnSelectCustomer />
-}
+<div class="container">
+    @if (SelectedCustomer != null)
+    {
+        <div>
+            <span>
+                <strong>Customer:</strong> @SelectedCustomer.Name
+            </span>
+        </div>
+        <div>
+            <span>
+                <button type="button" class="btn btn-sm btn-outline-primary" onclick="@(() => SelectedCustomer = null)">Re-select customer</button>
+            </span>
+        </div>
+    }
+    else
+    {
+        <SelectCustomerComponent AvailableCustomers=AvailableCustomers OnCustomerSelected=OnSelectCustomer />
+    }
+</div>
 
-@if (AvailableArticles != null && SelectedCustomer != null)
-{
-    <h2>Add Articles to Invoice:</h2>
-    <div>Click item to add it to the invoice</div>
-    <ArticleSelectComponent AvailableArticles="AvailableArticles" OnSelect="@((Article article) => OnSelectArticle(article, true))" WithQuantity="@false" />
+<div class="container">
+    @if (AvailableArticles != null && SelectedCustomer != null)
+    {
+        <h2>Add Articles to Invoice:</h2>
+        <div>Click item to add it to the invoice</div>
+        <ArticleSelectComponent AvailableArticles="AvailableArticles" OnSelect="@((Article article) => OnSelectArticle(article, true))" WithQuantity="@false" />
 
-    <h2>Selected Articles:</h2>
-    <div>Click item to remove it from the invoice</div>
-    <ArticleSelectComponent AvailableArticles="SelectedArticles" OnSelect="@((Article article) => OnSelectArticle(article, false))" WithQuantity="@true" />
+        <h2>Selected Articles:</h2>
+        <div>Click item to remove it from the invoice</div>
+        <ArticleSelectComponent AvailableArticles="SelectedArticles" OnSelect="@((Article article) => OnSelectArticle(article, false))" WithQuantity="@true" />
 
-    <button type="submit" class="btn btn-success" onclick="@Submit">Save</button>
-}
+        <button type="submit" class="btn btn-success" onclick="@Submit">Save</button>
+    }
+</div>
 
 
 
