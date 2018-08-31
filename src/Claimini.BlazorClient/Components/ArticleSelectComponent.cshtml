@@ -41,7 +41,7 @@
                 </td>
                 <td>@article.Name</td>
                 <td class="text-right">@(article.Price.ToCurrency(Constants.Locale))</td>
-                <td class="text-right">@(article.TaxPercentage.ToPercentage())</td>
+                <td class="text-right">@(article.TaxPercentage.ToPercentage(Constants.Locale))</td>
                 <td class="text-right">@(article.TaxValue.ToCurrency(Constants.Locale))</td>
                 <td class="text-right">@(article.NetPrice.ToCurrency(Constants.Locale))</td>
 

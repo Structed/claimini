@@ -19,10 +19,11 @@ namespace Claimini.Shared.Extensions
         /// Returns a percentage representation of the decimal
         /// </summary>
         /// <param name="number">The percentage as decimal fraction</param>
+        /// <param name="locale">The Percentage's desired Locale</param>
         /// <returns></returns>
-        public static string ToPercentage(this decimal number)
+        public static string ToPercentage(this decimal number, string locale)
         {
-            return (number * 100).ToString();
+            return (number).ToString("p", new CultureInfo(locale, false));
         }
     }
 }
