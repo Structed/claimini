@@ -35,12 +35,15 @@ namespace Claimini.Shared
 
         /// <summary>
         /// Gets or sets the Tax (VAT) percentage
+        /// <example>i.e. 0.19m in Germany</example>
         /// </summary>
         [Required]
         public decimal TaxPercentage { get; set; } = 0.19m;
 
         /// <summary>
-        /// Gets or sets the quantity of the given item
+        /// Gets or sets the quantity of the given item.
+        /// Only relevant in th UI. Should perhaps be extracted in a view model...
+        /// TODO: Extract to ViewModel
         /// </summary>
         [NotMapped]
         public int Quantity { get; set; }
