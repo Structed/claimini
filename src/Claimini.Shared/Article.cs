@@ -33,6 +33,9 @@ namespace Claimini.Shared
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Tax (VAT) percentage
+        /// </summary>
         [Required]
         public decimal TaxPercentage { get; set; }
 
