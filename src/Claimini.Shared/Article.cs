@@ -40,13 +40,16 @@ namespace Claimini.Shared
         public decimal TaxPercentage { get; set; } = 0.19m;
 
         /// <summary>
+        /// Gets or sets the quantity of the given item
+        /// </summary>
+        [NotMapped]
+        public int Quantity { get; set; }
+
+        /// <summary>
         /// Gets or sets the UNIX Timestamp (seconds) the Article was created
         /// </summary>
         [Required]
         public long CreatedTimestamp { get; set; }
-
-        [NotMapped]
-        public int Quantity { get; set; }
 
         public decimal TaxValue => this.Price * this.TaxPercentage;
 
