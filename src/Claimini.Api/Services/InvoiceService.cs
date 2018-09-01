@@ -47,18 +47,21 @@ namespace Claimini.Api.Services
                 throw new Exception($"Customer with ID {invoiceDto.CustomerId} not found");
             }
 
+            // Get the Id of all articles for this invoice, to later query the DB for them with teh full details:
             var articleIds = invoiceDto.InvoiceItems.Select(item => item.Id).ToList();
             if (articleIds.Count < 1)
             {
                 throw new Exception("Cannot create an Invoice with less than 1 article");
             }
 
+            // Query the database for the full Articles
             IEnumerable<Article> articles = this.articleRepository.FindBy(article => articleIds.Contains(article.Id)).ToList();
 
 
             List<InvoiceItem> invoiceItems = new List<InvoiceItem>(articles.Count());
             foreach (var article in articles)
             {
+                // Fetch the invoiceItem which has the Article's Id
                 InvoiceItemDto invoiceItemDto = invoiceDto.InvoiceItems.FirstOrDefault(dto => dto.Id == article.Id);
                 int quantity = invoiceItemDto?.Quantity ?? 0;
 
