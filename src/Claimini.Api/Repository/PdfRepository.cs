@@ -4,7 +4,6 @@
 // </copyright>
 
 using System.Collections.Generic;
-using Claimini.Api.Data;
 using Claimini.Api.Repository.Pdf;
 using Claimini.Api.Repository.Pdf.EventHandler;
 using Claimini.Shared;
@@ -22,6 +21,9 @@ namespace Claimini.Api.Repository
 {
     public class PdfRepository
     {
+        private PdfFont normalFont;
+        private PdfFont boldFont;
+
         public void WriteInvoicePdf(Invoice invoice, PdfWriter writer, List<string> templatePdfPaths = null, string backgroundImagePath = "")
         {
             // Set up document
@@ -46,13 +48,13 @@ namespace Claimini.Api.Repository
             document.SetFontSize(10);
 
 
-            var font = PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.HELVETICA);
-            var bold = PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.HELVETICA_BOLD);
+            this.normalFont = PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.HELVETICA);
+            this.boldFont = PdfFontFactory.CreateFont(iText.IO.Font.Constants.StandardFonts.HELVETICA_BOLD);
 
             // Add Content
             AddSenderAddress(document);
-            AddMailingAddress(document, invoice, font);
-            AddItemTable(document, invoice, bold, font);
+            AddMailingAddress(document, invoice);
+            AddItemTable(document, invoice);
 
             // Finish up the document
             document.Close();
@@ -78,7 +80,7 @@ namespace Claimini.Api.Repository
             document.Add(paragraph);
         }
 
-        private static void AddMailingAddress(Document document, Invoice invoice, PdfFont font)
+        private void AddMailingAddress(Document document, Invoice invoice)
         {
             float width = PdfUserUnitUtils.MillimetersToPoints(85f);
             float height = PdfUserUnitUtils.MillimetersToPoints(40f);
@@ -92,7 +94,7 @@ namespace Claimini.Api.Repository
             div.SetPadding(padding);
             div.SetWidth(width);
             div.SetHeight(height);
-            div.SetFont(font);
+            div.SetFont(this.normalFont);
             div.SetFontSize(10f);
 
             var customer = invoice.Customer;
@@ -116,7 +118,7 @@ namespace Claimini.Api.Repository
             document.Add(div);
         }
 
-        private static void AddItemTable(Document document, Invoice invoice, PdfFont bold, PdfFont font)
+        private void AddItemTable(Document document, Invoice invoice)
         {
             var table = new Table(new float[] {3, 1, 2, 2, 2}); // Relative widths to each other - 3 is 3x as wide as 1.
 
@@ -125,24 +127,14 @@ namespace Claimini.Api.Repository
 
             table.UseAllAvailableWidth();
 
-            AddTableHeader(table, bold);
+            AddTableHeader(table, this.boldFont);
 
             foreach (InvoiceItem item in invoice.Items)
             {
-                AddTableRow(table, item, font);
+                AddTableRow(table, item, this.normalFont);
             }
 
-            var noBorderStyle = new Style().SetBorder(Border.NO_BORDER);
-
-            Cell totalPriceLabelCell = new Cell(0, 4)
-                .Add(new Paragraph($"Total Price:")
-                    .SetFont(bold))
-                .SetTextAlignment(TextAlignment.RIGHT)
-                .AddStyle(noBorderStyle);
-            table.AddCell(totalPriceLabelCell);
-
-            Cell totalPriceCell = CreateCell(invoice.PriceTotal.ToString("C"), bold, TextAlignment.RIGHT).AddStyle(noBorderStyle);
-            table.AddCell(totalPriceCell);
+            AddTableFooter(invoice, this.boldFont, table);
 
             document.Add(table);
         }
@@ -156,12 +148,6 @@ namespace Claimini.Api.Repository
             table.AddHeaderCell(CreateCell(nameof(InvoiceItem.PriceTotal), font));
         }
 
-        private static Cell CreateCell(string text, PdfFont font, TextAlignment? textAlignment = null)
-        {
-            var cell = new Cell().Add(new Paragraph(text).SetFont(font)).SetTextAlignment(textAlignment);
-            return cell;
-        }
-
         private static void AddTableRow(Table table, InvoiceItem item, PdfFont font)
         {
             table.AddCell(CreateCell(item.Article.Name, font));
@@ -169,6 +155,29 @@ namespace Claimini.Api.Repository
             table.AddCell(CreateCell(item.Article.Price.ToString("C"), font, TextAlignment.RIGHT));
             table.AddCell(CreateCell(item.Article.TaxPercentage.ToString("P"), font, TextAlignment.RIGHT));
             table.AddCell(CreateCell(item.PriceTotal.ToString("C"), font, TextAlignment.RIGHT));
+        }
+        
+        private static void AddTableFooter(Invoice invoice, PdfFont bold, Table table)
+        {
+            var noBorderStyle = new Style().SetBorder(Border.NO_BORDER);
+
+            // Total Price
+            string label = $"Total Price:";
+            Cell totalPriceLabelCell = new Cell(0, 4)
+                .Add(new Paragraph(label)
+                    .SetFont(bold))
+                .SetTextAlignment(TextAlignment.RIGHT)
+                .AddStyle(noBorderStyle);
+            table.AddCell(totalPriceLabelCell);
+
+            Cell totalPriceCell = CreateCell(invoice.PriceTotal.ToString("C"), bold, TextAlignment.RIGHT).AddStyle(noBorderStyle);
+            table.AddCell(totalPriceCell);
+        }
+        
+        private static Cell CreateCell(string text, PdfFont font, TextAlignment? textAlignment = null)
+        {
+            var cell = new Cell().Add(new Paragraph(text).SetFont(font)).SetTextAlignment(textAlignment);
+            return cell;
         }
 
         private static Image LoadBackgroundImage(string backgroundImagePath)
