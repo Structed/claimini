@@ -24,12 +24,6 @@ namespace Claimini.Shared
         public Article Article { get; set; }
 
         /// <summary>
-        /// Gets or sets the quantity of the given item
-        /// </summary>
-        [Required]
-        public int Quantity { get; set; }
-
-        /// <summary>
         /// Gets or sets the price of a single item at the Instant the Invoice was created
         /// </summary>
         [Required]
@@ -42,6 +36,12 @@ namespace Claimini.Shared
         /// </summary>
         [Required]
         public decimal VatPercentage { get; set; } = 0.19m;
+
+        /// <summary>
+        /// Gets or sets the quantity of the given item
+        /// </summary>
+        [Required]
+        public int Quantity { get; set; }
 
         /// <summary>
         /// Gets calculated total price of the items
