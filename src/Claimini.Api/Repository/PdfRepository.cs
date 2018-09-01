@@ -151,8 +151,8 @@ namespace Claimini.Api.Repository
         {
             table.AddHeaderCell(CreateCell(nameof(InvoiceItem.Article), font));
             table.AddHeaderCell(CreateCell(nameof(InvoiceItem.Quantity), font));
-            table.AddHeaderCell(CreateCell(nameof(InvoiceItem.Price), font));
-            table.AddHeaderCell(CreateCell(nameof(InvoiceItem.VatPercentage), font));
+            table.AddHeaderCell(CreateCell(nameof(InvoiceItem.Article.Price), font));
+            table.AddHeaderCell(CreateCell(nameof(InvoiceItem.Article.TaxPercentage), font));
             table.AddHeaderCell(CreateCell(nameof(InvoiceItem.PriceTotal), font));
         }
 
@@ -166,8 +166,8 @@ namespace Claimini.Api.Repository
         {
             table.AddCell(CreateCell(item.Article.Name, font));
             table.AddCell(CreateCell(item.Quantity.ToString(), font, TextAlignment.RIGHT));
-            table.AddCell(CreateCell(item.Price.ToString("C"), font, TextAlignment.RIGHT));
-            table.AddCell(CreateCell(item.VatPercentage.ToString("P"), font, TextAlignment.RIGHT));
+            table.AddCell(CreateCell(item.Article.Price.ToString("C"), font, TextAlignment.RIGHT));
+            table.AddCell(CreateCell(item.Article.TaxPercentage.ToString("P"), font, TextAlignment.RIGHT));
             table.AddCell(CreateCell(item.PriceTotal.ToString("C"), font, TextAlignment.RIGHT));
         }
 

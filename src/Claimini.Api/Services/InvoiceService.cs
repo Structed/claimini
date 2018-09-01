@@ -68,7 +68,6 @@ namespace Claimini.Api.Services
                 InvoiceItem invoiceItem = new InvoiceItem
                 {
                     Article = article,
-                    Price = article.Price,
                     Quantity = quantity
                 };
                 invoiceItems.Add(invoiceItem);
