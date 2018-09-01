@@ -37,7 +37,7 @@ namespace Claimini.Shared
         /// Gets or sets the Tax (VAT) percentage
         /// </summary>
         [Required]
-        public decimal TaxPercentage { get; set; }
+        public decimal TaxPercentage { get; set; } = 0.19m;
 
         /// <summary>
         /// Gets or sets the UNIX Timestamp (seconds) the Article was created
