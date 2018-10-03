@@ -25,5 +25,8 @@ namespace Claimini.Shared
         [Required]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
+
+        [Required]
+        public decimal TaxPercentage { get; set; }
     }
 }

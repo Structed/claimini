@@ -1,0 +1,52 @@
+@using System.Threading.Tasks
+@using Claimini.BlazorClient.ApplicationState
+@page "/articles"
+@inherits Claimini.BlazorClient.Components.BaseComponent
+@inject IApiClient apiClient;
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+
+<h1>Articles</h1>
+@if (@State.Articles == null)
+{
+<p><em>Loading Articles...</em></p>
+}
+else
+{
+<table class='table table-hover table-responsive'>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Tax Percentage</th>
+        <th>Created</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var article in @State.Articles)
+    {
+    <tr onclick="@(() => Detail(article.Id))">
+        <td>@article.Id</td>
+        <td>@article.Name</td>
+        <td>@article.Price</td>
+        <td>@article.TaxPercentage</td>
+        <td>@article.CreatedTimestamp</td>
+    </tr>
+    }
+    </tbody>
+</table>
+}
+@functions
+{
+
+protected override async Task OnInitAsync()
+{
+    await ActionCreators.LoadArticles(Store.Dispatch, apiClient);
+}
+
+protected void Detail(int id)
+{
+    ActionCreators.SelectArticle(Store.Dispatch, id);
+    UriHelper.NavigateTo($"/articles/detail/{id}");
+}
+}

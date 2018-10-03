@@ -17,5 +17,7 @@ namespace Claimini.Api.Services
         IEnumerable<Article> FindAll();
 
         void Delete(int id);
+        
+        Article Update(Article article);
     }
 }

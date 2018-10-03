@@ -1,0 +1,32 @@
+@using Claimini.Shared
+@using Microsoft.AspNetCore.Blazor.Components
+    <table class="table">
+    <tr>
+        <th>Id</th>
+        <td>@Article.Id</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>@Article.Name</td>
+        </tr>
+        <tr>
+            <th>Price</th>
+            <td>@Article.Price</td>
+        </tr>
+        <tr>
+            <th>Tax Percentage</th>
+            <td>@Article.TaxPercentage</td>
+        </tr>
+        <tr>
+            <th>Created Timestamp</th>
+            <td>@Article.CreatedTimestamp</td>
+        </tr>
+    </table>
+
+@functions
+{
+
+    [Parameter]
+    private Article Article { get; set; }
+
+}

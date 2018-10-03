@@ -8,6 +8,7 @@ namespace Claimini.BlazorClient.ApplicationState
 {
     public class ActionCreators
     {
+        // Customers
         public static async Task LoadCustomers(Dispatcher<IAction> dispatch, IApiClient apiClient)
         {
             List<Customer> customers = await apiClient.GetCustomers();
@@ -33,7 +34,32 @@ namespace Claimini.BlazorClient.ApplicationState
                 CustomerId = customerId
             });
         }
+        
+        // Articles
+        public static async Task LoadArticles(Action<IAction> dispatch, IApiClient apiClient)
+        {
+            List<Article> articles = await apiClient.GetArticles();
+            dispatch(new Actions.ReceiveArticlesAction(articles));
+        }
 
+        public static void SelectArticle(Dispatcher<IAction> dispatch, int articleId)
+        {
+            dispatch(new Actions.SelectArticleAction()
+            {
+                ArticleId = articleId
+            });
+        }
+
+        public static async Task UpdateArticle(Dispatcher<IAction> dispatch, IApiClient apiClient, Article article)
+        {
+            article = await apiClient.PutArticle(article);
+            dispatch(new Actions.UpdateArticleAction()
+            {
+                Article = article
+            });
+        }
+
+        // Invoices
         public static async Task LoadInvoices(Action<IAction> dispatch, IApiClient apiClient)
         {
             List <InvoiceFullDto> invoices = await apiClient.GetInvoices();
@@ -51,12 +77,6 @@ namespace Claimini.BlazorClient.ApplicationState
                 SelectedInvoice = invoice,
                 InvoiceId = invoiceId
             });
-        }
-
-        public static async Task LoadArticles(Action<IAction> dispatch, IApiClient apiClient)
-        {
-            List<Article> articles = await apiClient.GetArticles();
-            dispatch(new Actions.ReceiveArticlesAction(articles));
         }
     }
 }

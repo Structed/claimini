@@ -54,8 +54,17 @@ namespace Claimini.Api.Controllers
 
         // PUT: api/Articles/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]Article article)
         {
+            if (this.ModelState.IsValid == false)
+            {
+                return new BadRequestObjectResult(this.ModelState);
+            }
+
+            article.Id = id;
+            this.articleService.Update(article);
+
+            return new OkObjectResult(article);
         }
 
         // DELETE: api/ApiWithActions/5

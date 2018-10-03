@@ -23,7 +23,7 @@ namespace Claimini.Shared
         /// Gets or sets the Name
         /// </summary>
         [Required]
-        [StringLength(maximumLength: 30, MinimumLength = 51)]
+        [StringLength(maximumLength: 30, MinimumLength = 1)]
         public string Name { get; set; }
 
         /// <summary>

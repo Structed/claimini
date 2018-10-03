@@ -43,6 +43,16 @@ namespace Claimini.BlazorClient
             return returnedCustomer;
         }
 
+        public async Task<Article> PostArticle(Article article)
+        {
+            return await this.httpClient.PostJsonAsync<Article>(ArticlesApiUri, article);
+        }
+
+        public async Task<Article> PutArticle(Article article)
+        {
+            return await this.httpClient.PutJsonAsync<Article>($"{ArticlesApiUri}/{article.Id}", article);
+        }
+
         public async Task<List<InvoiceFullDto>> GetInvoices()
         {
             List <InvoiceFullDto> invoices = await this.httpClient.GetJsonAsync<List<InvoiceFullDto>>(InvoicesApiUri);
@@ -57,6 +67,11 @@ namespace Claimini.BlazorClient
         public async Task<List<Article>> GetArticles()
         {
             return await this.httpClient.GetJsonAsync<List<Article>>($"{ArticlesApiUri}");
+        }
+
+        public async Task<Article> GetArticle(int id)
+        {
+            return await this.httpClient.GetJsonAsync<Article>($"{ArticlesApiUri}/{id}");
         }
 
         public async Task<InvoiceFullDto> PostInvoice(InvoiceDto invoice)

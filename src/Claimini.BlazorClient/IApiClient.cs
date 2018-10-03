@@ -6,6 +6,7 @@ namespace Claimini.BlazorClient
 {
     public interface IApiClient
     {
+        // Customers
         Task<List<Customer>> GetCustomers();
 
         Task<Customer> GetCustomer(int id);
@@ -14,11 +15,21 @@ namespace Claimini.BlazorClient
 
         Task<Customer> PutCustomer(Customer customer);
 
+        
+        // Articles
+        Task<List<Article>> GetArticles();
+        
+        Task<Article> GetArticle(int id);
+
+        Task<Article> PutArticle(Article article);
+
+        Task<Article> PostArticle(Article article);
+
+        
+        // Invoices
         Task<List<InvoiceFullDto>> GetInvoices();
 
         Task<InvoiceFullDto> GetInvoice(string invoiceId);
-
-        Task<List<Article>> GetArticles();
 
         Task<InvoiceFullDto> PostInvoice(InvoiceDto invoice);
     }

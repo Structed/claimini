@@ -6,6 +6,7 @@ namespace Claimini.BlazorClient.ApplicationState
 {
     public class Actions
     {
+        // Custoemrs
         public class ReceiveCustomersAction : IAction
         {
             public List<Customer> Customers { get; set; }
@@ -21,6 +22,28 @@ namespace Claimini.BlazorClient.ApplicationState
             public int CustomerId;
         }
 
+        // Articles
+        public class ReceiveArticlesAction : IAction
+        {
+            public List<Article> Articles { get; }
+
+            public ReceiveArticlesAction(List<Article> articles)
+            {
+                Articles = articles;
+            }
+        }
+
+        public class SelectArticleAction : IAction
+        {
+            public int ArticleId;
+        }
+
+        public class UpdateArticleAction : IAction
+        {
+            public Article Article { get; set; }
+        }
+
+        // Invoices
         public class ReceiveInvoicesAction : IAction
         {
             public List<InvoiceFullDto> Invoices { get; set; }
@@ -31,16 +54,6 @@ namespace Claimini.BlazorClient.ApplicationState
             public InvoiceFullDto SelectedInvoice { get; set; }
 
             public string InvoiceId { get; set; }
-        }
-
-        public class ReceiveArticlesAction : IAction
-        {
-            public List<Article> Articles { get; }
-
-            public ReceiveArticlesAction(List<Article> articles)
-            {
-                Articles = articles;
-            }
         }
     }
 }
