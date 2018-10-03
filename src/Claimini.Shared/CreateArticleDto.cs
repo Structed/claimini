@@ -5,7 +5,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace Claimini.Api.Data.Dto
+namespace Claimini.Shared
 {
     /// <summary>
     /// Represents the data to create an <see cref="Article"/>

@@ -4,9 +4,8 @@
 // </copyright>
 
 using System.Collections.Generic;
-using Claimini.Api.Data;
-using Claimini.Api.Data.Dto;
 using Claimini.Api.Services;
+using Claimini.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Claimini.Api.Controllers

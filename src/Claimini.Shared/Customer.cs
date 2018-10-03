@@ -3,9 +3,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root or https://spdx.org/licenses/MIT.html for full license information.
 // </copyright>
 
+using System;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
 
-namespace Claimini.Api.Data
+namespace Claimini.Shared
 {
     /// <summary>
     /// Represents a Customer
@@ -46,6 +48,10 @@ namespace Claimini.Api.Data
         [StringLength(10)]
         [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        public string City { get; set; }
 
         /// <summary>
         /// Gets or sets the state in which the customer resides

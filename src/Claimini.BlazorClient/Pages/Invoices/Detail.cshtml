@@ -1,0 +1,74 @@
+@using System.Threading.Tasks
+@using Claimini.BlazorClient.ApplicationState
+@using Claimini.Shared.Extensions
+@using Microsoft.AspNetCore.Blazor
+@using Microsoft.AspNetCore.Blazor.Components
+@page "/invoices/detail/{invoiceId}"
+@inherits Claimini.BlazorClient.Components.BaseComponent
+@inject IApiClient apiClient;
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper uriHelper
+<h1>Invoice @InvoiceId</h1>
+@if (State.SelectedInvoice == null)
+{
+    <p><em>Loading Invoice...</em></p>
+}
+else
+{
+    <h2>Customer:</h2>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <td>@State.SelectedInvoice.Id</td>
+        </tr>
+        <tr>
+            <th>Customer Name</th>
+            <td class="btn-link" onclick="@(() => ViewCustomer(State.SelectedInvoice.Customer.Id))">@State.SelectedInvoice.Customer.Name</td>
+        </tr>
+        <tr>
+            <th>Created at</th>
+            <td>@State.SelectedInvoice.CreatedTimestamp.UnixTimeStampToDateTime().ToLocalTime()</td>
+        </tr>
+        <tr>
+            <th>Paid at</th>
+            <td>@State.SelectedInvoice.PaidTimestamp.UnixTimeStampToDateTime().ToLocalTime()</td>
+        </tr>
+        <tr>
+            <th>Price (Total)</th>
+            <td>@State.SelectedInvoice.PriceTotal</td>
+        </tr>
+    </table>
+
+    <div>
+        <button class="btn" onclick="@ToggleShowPdf">Show PDF</button>
+    </div>
+    <div style="@PdfContainerStyle">
+        <object width="800" height="1200" data="/api/invoices/@InvoiceId/pdf"></object>
+    </div>
+
+}
+@functions
+{
+    [Parameter]
+    private string InvoiceId { get; set; }
+
+    private bool showPdf = false;
+
+    protected override async Task OnInitAsync()
+    {
+        State.SelectedInvoice = null;   // TODO for future self: check, if this is really a good idea. I don't think so.
+        ActionCreators.SelectInvoice(Store.Dispatch, apiClient, InvoiceId);
+    }
+
+    private void ViewCustomer(int customerId)
+    {
+        uriHelper.NavigateTo($"/customers/detail/{customerId}");
+    }
+
+    private void ToggleShowPdf()
+    {
+        this.showPdf = !this.showPdf;
+        StateHasChanged();
+    }
+
+    private string PdfContainerStyle => showPdf == true ? "" : "display: none";
+}

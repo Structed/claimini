@@ -1,0 +1,59 @@
+@using System.Threading.Tasks
+@using Claimini.BlazorClient.ApplicationState
+@page "/customers"
+@inherits Claimini.BlazorClient.Components.BaseComponent
+@inject IApiClient apiClient;
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+
+<h1>Customers</h1>
+@if (@State.Customers == null)
+{
+    <p><em>Loading Customers...</em></p>
+}
+else
+{
+    <table class='table table-hover table-responsive'>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Street</th>
+                <th>Street (additional)</th>
+                <th>Zip Code</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in @State.Customers)
+            {
+                <tr onclick="@(() => CustomerDetail(customer.Id))">
+                    <td>@customer.Id</td>
+                    <td>@customer.Name</td>
+                    <td>@customer.StreetAddress</td>
+                    <td>@customer.StreetAddressAdditional</td>
+                    <td>@customer.ZipCode</td>
+                    <td>@customer.City</td>
+                    <td>@customer.State</td>
+                    <td>@customer.Country</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@functions
+{
+
+    protected override async Task OnInitAsync()
+    {
+        await ActionCreators.LoadCustomers(Store.Dispatch, apiClient);
+
+    }
+
+    protected void CustomerDetail(int customerId)
+    {
+        ActionCreators.SelectCustomer(Store.Dispatch, customerId);
+        UriHelper.NavigateTo($"/customers/detail/{customerId}");
+    }
+}

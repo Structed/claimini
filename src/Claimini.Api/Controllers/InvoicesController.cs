@@ -6,10 +6,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Claimini.Api.Data;
-using Claimini.Api.Data.Dto;
 using Claimini.Api.Repository;
 using Claimini.Api.Services;
+using Claimini.Shared;
 using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Mvc;
 
@@ -72,6 +71,7 @@ namespace Claimini.Api.Controllers
             var extraPdfPaths = new List<string>
             {
                 // You can get great templates for setup here: http://www.r9005.de/wissen/vorlagen-briefbogen.php
+                //@"./static/DIN_5008_Form_B.pdf",   // http://www.r9005.de/bilder/wissen/Vorlage-Briefbogen-Form-B.pdf
                 @"./static/Vorlage-Briefbogen-Form-B.pdf"   // http://www.r9005.de/bilder/wissen/Vorlage-Briefbogen-Form-B.pdf
             };
 
@@ -79,7 +79,8 @@ namespace Claimini.Api.Controllers
             var backgroundImagePath = @"./static/TestBackground.png";
 
             var writer = new PdfWriter(filePath);
-            pdfRepository.WriteInvoicePdf(invoice, writer, extraPdfPaths, backgroundImagePath);
+            //pdfRepository.WriteInvoicePdf(invoice, writer, extraPdfPaths, backgroundImagePath);
+            pdfRepository.WriteInvoicePdf(invoice, writer, extraPdfPaths);
 
             var response = await CreatePdfFileContentResult(filePath);
             return response;

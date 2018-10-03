@@ -4,8 +4,7 @@
 // </copyright>
 
 using System.Collections.Generic;
-using Claimini.Api.Data;
-using Claimini.Api.Data.Dto;
+using Claimini.Shared;
 
 namespace Claimini.Api.Services
 {

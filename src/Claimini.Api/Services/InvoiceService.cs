@@ -7,9 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Claimini.Api.Data;
-using Claimini.Api.Data.Dto;
 using Claimini.Api.Repository;
+using Claimini.Shared;
 
 namespace Claimini.Api.Services
 {
@@ -48,25 +47,27 @@ namespace Claimini.Api.Services
                 throw new Exception($"Customer with ID {invoiceDto.CustomerId} not found");
             }
 
-            var articleIds = invoiceDto.InvoiceItems.Select(item => item.ArticleId).ToList();
+            // Get the Id of all articles for this invoice, to later query the DB for them with teh full details:
+            var articleIds = invoiceDto.InvoiceItems.Select(item => item.Id).ToList();
             if (articleIds.Count < 1)
             {
                 throw new Exception("Cannot create an Invoice with less than 1 article");
             }
 
+            // Query the database for the full Articles
             IEnumerable<Article> articles = this.articleRepository.FindBy(article => articleIds.Contains(article.Id)).ToList();
 
 
             List<InvoiceItem> invoiceItems = new List<InvoiceItem>(articles.Count());
             foreach (var article in articles)
             {
-                InvoiceItemDto invoiceItemDto = invoiceDto.InvoiceItems.FirstOrDefault(dto => dto.ArticleId == article.Id);
+                // Fetch the invoiceItem which has the Article's Id
+                InvoiceItemDto invoiceItemDto = invoiceDto.InvoiceItems.FirstOrDefault(dto => dto.Id == article.Id);
                 int quantity = invoiceItemDto?.Quantity ?? 0;
 
                 InvoiceItem invoiceItem = new InvoiceItem
                 {
                     Article = article,
-                    Price = article.Price,
                     Quantity = quantity
                 };
                 invoiceItems.Add(invoiceItem);

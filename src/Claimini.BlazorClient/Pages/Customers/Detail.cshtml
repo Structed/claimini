@@ -1,0 +1,40 @@
+@using System.Threading.Tasks
+@using Claimini.BlazorClient.ApplicationState
+@using Claimini.Shared
+@using Microsoft.AspNetCore.Blazor.Components
+@page "/customers/detail/{customerId}"
+@inherits Claimini.BlazorClient.Components.BaseComponent
+@inject IApiClient apiClient;
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+
+<h1>Customer @CustomerId</h1>
+@if (customer == null)
+{
+    <p><em>Loading Customer...</em></p>
+}
+else
+{
+    <CustomerComponent Customer=customer />
+    <button type="button" class="btn" onclick="@(() => CustomerEdit(customer.Id))">Edit</button>
+}
+
+@functions
+{
+    [Parameter]
+    private string CustomerId { get; set; }
+
+    private Customer customer;
+
+    protected override async Task OnInitAsync()
+    {
+        var id = int.Parse(CustomerId);
+
+        customer = await apiClient.GetCustomer(id);
+    }
+
+    protected void CustomerEdit(int customerId)
+    {
+        ActionCreators.SelectCustomer(Store.Dispatch, customerId);
+        UriHelper.NavigateTo($"/customers/edit/{customerId}");
+    }
+}

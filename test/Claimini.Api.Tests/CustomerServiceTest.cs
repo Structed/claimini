@@ -3,6 +3,7 @@ using Claimini.Api.Data;
 using Claimini.Api.Repository;
 using Claimini.Api.Services;
 using Claimini.Api.Tests.Builder;
+using Claimini.Shared;
 using FluentAssertions;
 using Moq;
 using Xunit;

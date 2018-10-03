@@ -2,6 +2,7 @@ using Claimini.Api.Configuration;
 using Claimini.Api.Data;
 using Claimini.Api.Repository;
 using Claimini.Api.Services;
+using Claimini.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +39,13 @@ namespace Claimini.Api
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<IInvoiceService, InvoiceService>();
 
-            services.AddMvc();
+            services
+                .AddMvc()
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ContractResolver
+                        = new Newtonsoft.Json.Serialization.DefaultContractResolver();
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +57,7 @@ namespace Claimini.Api
             }
 
             app.UseMvc();
+            app.UseBlazor<BlazorClient.Program>();
         }
     }
 }

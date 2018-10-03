@@ -1,6 +1,6 @@
 using MongoDB.Bson;
 
-namespace Claimini.Api.Data
+namespace Claimini.Shared
 {
     public interface IMongoDocument
     {

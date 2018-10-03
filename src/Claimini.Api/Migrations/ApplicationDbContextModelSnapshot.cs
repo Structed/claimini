@@ -3,10 +3,7 @@ using Claimini.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
-using System;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Claimini.Api.Migrations
 {
@@ -17,13 +14,15 @@ namespace Claimini.Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
+                .HasAnnotation("ProductVersion", "2.1.0-rc1-32029")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Claimini.Api.Data.Article", b =>
+            modelBuilder.Entity("Claimini.Shared.Article", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<long>("CreatedTimestamp");
 
@@ -33,15 +32,22 @@ namespace Claimini.Api.Migrations
 
                     b.Property<decimal>("Price");
 
+                    b.Property<decimal>("TaxPercentage");
+
                     b.HasKey("Id");
 
                     b.ToTable("Article");
                 });
 
-            modelBuilder.Entity("Claimini.Api.Data.Customer", b =>
+            modelBuilder.Entity("Claimini.Shared.Customer", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(10);
 
                     b.Property<string>("Country")
                         .IsRequired()

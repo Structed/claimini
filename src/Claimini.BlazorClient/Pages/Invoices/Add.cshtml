@@ -1,0 +1,46 @@
+@using System
+@using System.Threading.Tasks
+@using Claimini.BlazorClient.ApplicationState
+@using Claimini.Shared
+@page "/invoices/add"
+@inherits Claimini.BlazorClient.Components.BaseComponent
+@inject IApiClient apiClient;
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+
+
+<div class="container">
+    <h1 class="header">Create Invoice</h1>
+</div>
+<div class="container">
+    @if (State.Customers == null || State.Articles == null)
+    {
+        <p><em>Loading Customers & Articles...</em></p>
+    }
+    else
+    {
+        <InvoiceForm OnSubmit=AddInvoice AvailableCustomers="@State.Customers" AvailableArticles="@State.Articles"/>
+    }
+</div>
+
+@functions
+{
+    protected override async Task OnInitAsync()
+    {
+        await ActionCreators.LoadCustomers(Store.Dispatch, apiClient);
+        await ActionCreators.LoadArticles(Store.Dispatch, apiClient);
+    }
+
+    private async void AddInvoice(InvoiceDto invoice)
+    {
+        if (invoice == null)
+        {
+            Console.WriteLine("Invoice Add: No invoice given to save!");
+            return;
+        }
+
+        InvoiceFullDto resultInvoice = await apiClient.PostInvoice(invoice);
+        ActionCreators.SelectInvoice(Store.Dispatch, apiClient, resultInvoice.Id);
+        UriHelper.NavigateTo($"/invoices/detail/{resultInvoice.Id}");
+    }
+
+}

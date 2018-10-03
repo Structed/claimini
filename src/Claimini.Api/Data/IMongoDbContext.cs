@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+using Claimini.Shared;
+using MongoDB.Driver;
 
 namespace Claimini.Api.Data
 {

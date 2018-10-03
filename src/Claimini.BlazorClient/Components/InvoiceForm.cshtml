@@ -1,0 +1,124 @@
+@using Claimini.Shared
+@using Microsoft.AspNetCore.Blazor.Components
+@inherits Claimini.BlazorClient.Components.BaseComponent
+
+<div class="container">
+    @if (SelectedCustomer != null)
+    {
+        <div>
+            <span>
+                <strong>Customer:</strong> @SelectedCustomer.Name
+            </span>
+        </div>
+        <div>
+            <span>
+                <button type="button" class="btn btn-sm btn-outline-primary" onclick="@(() => SelectedCustomer = null)">Re-select customer</button>
+            </span>
+        </div>
+    }
+    else
+    {
+        <SelectCustomerComponent AvailableCustomers=AvailableCustomers OnCustomerSelected=OnSelectCustomer />
+    }
+</div>
+
+<div class="container">
+    @if (AvailableArticles != null && SelectedCustomer != null)
+    {
+        <h2>Add Articles to Invoice:</h2>
+        <div>Click item to add it to the invoice</div>
+        <ArticleSelectComponent AvailableArticles="AvailableArticles" OnSelect="@((Article article) => OnSelectArticle(article, true))" WithQuantity="@false" />
+
+        <h2>Selected Articles:</h2>
+        <div>Click item to remove it from the invoice</div>
+        <ArticleSelectComponent AvailableArticles="SelectedArticles" OnSelect="@((Article article) => OnSelectArticle(article, false))" WithQuantity="@true" />
+
+        <button type="submit" class="btn btn-success" onclick="@Submit">Save</button>
+    }
+</div>
+
+
+
+@functions
+{
+    [Parameter]
+    private InvoiceDto invoice { get; set; } = new InvoiceDto();
+
+    [Parameter]
+    private Action<InvoiceDto> OnSubmit { get; set; }
+
+    [Parameter]
+    private Customer SelectedCustomer { get; set; }
+
+    [Parameter]
+    private List<Customer> AvailableCustomers { get; set; }
+
+    [Parameter]
+    private List<Article> AvailableArticles { get; set; }
+
+
+    private List<Article> SelectedArticles { get; set; } = new List<Article>();
+
+
+    private void Submit()
+    {
+        var list = new List<InvoiceItemDto>(SelectedArticles.Count);
+        foreach (var article in this.SelectedArticles)
+        {
+            if (article.Quantity < 1)
+            {
+                continue;
+            }
+
+            list.Add(new InvoiceItemDto
+            {
+                Id = article.Id,
+                Quantity = article.Quantity
+            });
+        }
+
+        this.invoice.CustomerId = this.SelectedCustomer.Id;
+        this.invoice.InvoiceItems = list;
+
+        if (this.invoice.IsValid())
+        {
+            this.OnSubmit?.Invoke(invoice);
+        }
+    }
+
+    private void OnSelectCustomer(Customer customer)
+    {
+        if (customer == null)
+        {
+            return;
+        }
+
+        this.SelectedCustomer = customer;
+        StateHasChanged();
+    }
+
+    private void OnSelectArticle(Article article, bool addToInvoice)
+    {
+        if (article == null)
+        {
+            Console.WriteLine("Article was null");
+            return;
+        }
+
+        Console.WriteLine($"Select Click handler for {article.Id}:{article.Name} in {this.GetType()}");
+
+        if (addToInvoice)
+        {
+            this.SelectedArticles.Add(article);
+            this.AvailableArticles.Remove(article);
+        }
+        else
+        {
+            this.AvailableArticles.Add(article);
+            this.AvailableArticles.Sort((a, b) => a.Id.CompareTo(b.Id));
+            this.SelectedArticles.Remove(article);
+        }
+
+        StateHasChanged();
+    }
+}
