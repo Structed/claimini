@@ -1,0 +1,26 @@
+@using BlazorRedux
+@using System.Threading.Tasks
+@using Claimini.BlazorClient.ApplicationState
+@using Claimini.Shared
+@using Microsoft.AspNetCore.Blazor.Components
+@page "/articles/edit/{articleId}"
+@inherits Claimini.BlazorClient.Components.BaseComponent
+@inject IApiClient apiClient;
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+
+<h1>Edit Article</h1>
+<ArticleForm OnSubmit=@Update article="@State.GetArticleById(int.Parse(this.ArticleId))" />
+
+@functions
+{
+    [Parameter]
+    private string ArticleId { get; set; }
+
+    private async Task<Article> Update(Article article)
+    {
+        ActionCreators.UpdateArticle(Store.Dispatch, apiClient, article);
+        UriHelper.NavigateTo($"/articles/detail/{article.Id}");
+        return article;
+    }
+
+}

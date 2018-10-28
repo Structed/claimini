@@ -28,7 +28,8 @@ namespace Claimini.Api.Services
             {
                 CreatedTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
                 Name = articleDto.Name,
-                Price = articleDto.Price
+                Price = articleDto.Price,
+                TaxPercentage = articleDto.TaxPercentage
             };
 
             if (articleRepository.Exists(a => a.Name == article.Name))
@@ -60,6 +61,14 @@ namespace Claimini.Api.Services
             var article = new Article{Id = id};
             this.articleRepository.Delete(article);
             this.unitOfWork.Commit();
+        }
+
+        public Article Update(Article article)
+        {
+            this.articleRepository.Update(article);
+            this.unitOfWork.Commit();
+
+            return article;
         }
     }
 }

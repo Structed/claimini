@@ -1,0 +1,40 @@
+@using System.Threading.Tasks
+@using Claimini.BlazorClient.ApplicationState
+@using Claimini.Shared
+@using Microsoft.AspNetCore.Blazor.Components
+@page "/articles/detail/{articleId}"
+@inherits Claimini.BlazorClient.Components.BaseComponent
+@inject IApiClient apiClient;
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+
+<h1>Article @ArticleId</h1>
+@if (article == null)
+{
+    <p><em>Loading Article...</em></p>
+}
+else
+{
+    <ArticleComponent Article=article />
+    <button type="button" class="btn" onclick="@(() => Edit(article.Id))">Edit</button>
+}
+
+@functions
+{
+    [Parameter]
+    private string ArticleId { get; set; }
+
+    private Article article;
+
+    protected override async Task OnInitAsync()
+    {
+        var id = int.Parse(ArticleId);
+
+        article = await apiClient.GetArticle(id);
+    }
+
+    protected void Edit(int id)
+    {
+        ActionCreators.SelectArticle(Store.Dispatch, id);
+        UriHelper.NavigateTo($"/articles/edit/{id}");
+    }
+}

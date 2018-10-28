@@ -19,16 +19,28 @@ namespace Claimini.BlazorClient.ApplicationState
 
         public Customer SelectedCustomer { get; set; }
 
-        public Customer GetCustomerById(int customerId)
+        public Customer GetCustomerById(int id)
         {
-            Customer customerDto = this.Customers.FirstOrDefault(x => x.Id == customerId);
-            if (customerDto == null || customerDto.Equals(default(Customer)))
+            Customer dto = this.Customers.FirstOrDefault(x => x.Id == id);
+            if (dto == null || dto.Equals(default(Customer)))
             {
                 // TODO: Load customer
-                Console.WriteLine("Should load customer here");
+                Console.WriteLine("Should load Customer here");
             }
 
-            return customerDto;
+            return dto;
+        }
+
+        public Article GetArticleById(int id)
+        {
+            Article dto = this.Articles.FirstOrDefault(x => x.Id == id);
+            if (dto == null || dto.Equals(default(Article)))
+            {
+                // TODO: Load Article
+                Console.WriteLine("Should load Article here");
+            }
+
+            return dto;
         }
     }
 }
