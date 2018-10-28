@@ -25,7 +25,7 @@ namespace Claimini.BlazorClient.ApplicationState
             if (dto == null || dto.Equals(default(Customer)))
             {
                 // TODO: Load customer
-                Console.WriteLine("Should load customer here");
+                Console.WriteLine("Should load Customer here");
             }
 
             return dto;
@@ -37,7 +37,7 @@ namespace Claimini.BlazorClient.ApplicationState
             if (dto == null || dto.Equals(default(Article)))
             {
                 // TODO: Load Article
-                Console.WriteLine("Should load customer here");
+                Console.WriteLine("Should load Article here");
             }
 
             return dto;
