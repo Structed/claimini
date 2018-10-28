@@ -311,3 +311,4 @@ tools/
 src/Claimini.Web/wwwroot/lib/
 src/Claimini.Api/static/Vorlage-Briefbogen-Form-B.pdf
 !lib/**
+src/Claimini.Api/appsettings.Development.json
