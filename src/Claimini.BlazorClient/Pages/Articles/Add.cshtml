@@ -16,6 +16,7 @@
 private async Task<Article> AddArticle(Article article)
 {
     Article resultArticle = await apiClient.PostArticle(article);
+    State.Articles.Add(resultArticle);
     ActionCreators.SelectArticle(Store.Dispatch, resultArticle.Id);
     UriHelper.NavigateTo($"/articles/detail/{resultArticle.Id}");
     return resultArticle;
