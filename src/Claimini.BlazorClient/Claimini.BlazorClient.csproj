@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazor-Redux" Version="0.0.5" />
+    <!--<PackageReference Include="Blazor-Redux" Version="0.0.5" />-->
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Browser" Version="0.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="0.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="all" />
@@ -21,5 +21,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Claimini.Shared\Claimini.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BlazorRedux, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\lib\Blazor-Redux\Blazor-Redux.0.0.6-structed-0\BlazorRedux.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
