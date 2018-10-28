@@ -19,6 +19,7 @@
     private async Task<Article> Update(Article article)
     {
         ActionCreators.UpdateArticle(Store.Dispatch, apiClient, article);
+        UriHelper.NavigateTo($"/articles/detail/{article.Id}");
         return article;
     }
 
