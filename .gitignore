@@ -310,3 +310,4 @@ tools/
 .dotnet/
 src/Claimini.Web/wwwroot/lib/
 src/Claimini.Api/static/Vorlage-Briefbogen-Form-B.pdf
+!lib/**

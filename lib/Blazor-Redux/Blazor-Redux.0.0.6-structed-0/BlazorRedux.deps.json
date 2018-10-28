@@ -1,0 +1,152 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.0/",
+    "signature": "1cb6c3000673dc3bd245e034e96c45c150801061"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.0": {},
+    ".NETStandard,Version=v2.0/": {
+      "BlazorRedux/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Blazor.Browser": "0.6.0",
+          "NETStandard.Library": "2.0.3"
+        },
+        "runtime": {
+          "BlazorRedux.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Blazor/0.6.0": {
+        "dependencies": {
+          "Microsoft.JSInterop": "0.6.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.dll": {
+            "assemblyVersion": "0.6.0.0",
+            "fileVersion": "0.6.0.18275"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Blazor.Browser/0.6.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Blazor": "0.6.0",
+          "Microsoft.Extensions.DependencyInjection": "2.1.0",
+          "Mono.WebAssembly.Interop": "0.6.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Blazor.Browser.dll": {
+            "assemblyVersion": "0.6.0.0",
+            "fileVersion": "0.6.0.18275"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/2.1.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.18136"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/2.1.0": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.18136"
+          }
+        }
+      },
+      "Microsoft.JSInterop/0.6.0": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.JSInterop.dll": {
+            "assemblyVersion": "0.6.0.0",
+            "fileVersion": "0.6.0.18275"
+          }
+        }
+      },
+      "Microsoft.NETCore.Platforms/1.1.0": {},
+      "Mono.WebAssembly.Interop/0.6.0": {
+        "dependencies": {
+          "Microsoft.JSInterop": "0.6.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Mono.WebAssembly.Interop.dll": {
+            "assemblyVersion": "0.6.0.0",
+            "fileVersion": "0.6.0.18275"
+          }
+        }
+      },
+      "NETStandard.Library/2.0.3": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BlazorRedux/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.AspNetCore.Blazor/0.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mUQvDWBVQ46/aOVhujfn3zJ80Ti7KQeQdFQdt9c4hOsF/PTOHq7m0DgtzaceL+ZmNEvdJVt3B4zvanR0s65RQ==",
+      "path": "microsoft.aspnetcore.blazor/0.6.0",
+      "hashPath": "microsoft.aspnetcore.blazor.0.6.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Blazor.Browser/0.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-F870chKPsvDdiQgBxdwor8mt1j+CS3pQEHZl//ShgSDZWl0FTDYR959mIlM7KyFLugo558rrpYzQ/Bv2DWBzjA==",
+      "path": "microsoft.aspnetcore.blazor.browser/0.6.0",
+      "hashPath": "microsoft.aspnetcore.blazor.browser.0.6.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection/2.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gqQviLfuA31PheEGi+XJoZc1bc9H9RsPa9Gq9XuDct7XGWSR9eVXjK5Sg7CSUPhTFHSuxUFY12wcTYLZ4zM1hg==",
+      "path": "microsoft.extensions.dependencyinjection/2.1.0",
+      "hashPath": "microsoft.extensions.dependencyinjection.2.1.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/2.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8/CtASu80UIoyG+r8FstrmZW5GLtXxzoYpjj3jV0FKZCL5CiFgSH3pAmqut/dC68mu7N1bU6v0UtKKL3gCUQGQ==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/2.1.0",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512"
+    },
+    "Microsoft.JSInterop/0.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/jVU7s5SCwgyXR3GYcOEIzBa9DbIWRjt9dK3T53P6QH4xmlCtmEnfFLgcS96VvHYmiWf8GWySIlwVGoFVEvzxw==",
+      "path": "microsoft.jsinterop/0.6.0",
+      "hashPath": "microsoft.jsinterop.0.6.0.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
+      "path": "microsoft.netcore.platforms/1.1.0",
+      "hashPath": "microsoft.netcore.platforms.1.1.0.nupkg.sha512"
+    },
+    "Mono.WebAssembly.Interop/0.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FMW0cmZ71foTLgH7RXKAwbxXUFHGSue5PcUFHCUfEWLBH9IVA+Ezu6TsvdLNeqVPRoSMhYWXHo5fNYKC9XPosA==",
+      "path": "mono.webassembly.interop/0.6.0",
+      "hashPath": "mono.webassembly.interop.0.6.0.nupkg.sha512"
+    },
+    "NETStandard.Library/2.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-R73gEjqCkI2Nw/IlN8QvcgPNklqQiPowp47JwvW0Bnp/RZnjN4UrJwEvWVJWRK1MsQ+HIfGe9i4aQlfK+ei9jA==",
+      "path": "netstandard.library/2.0.3",
+      "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    }
+  }
+}
