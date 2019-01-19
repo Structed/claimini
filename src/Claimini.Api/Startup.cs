@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using Claimini.Api.Configuration;
 using Claimini.Api.Data;
@@ -5,8 +7,10 @@ using Claimini.Api.Repository;
 using Claimini.Api.Services;
 using Claimini.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Blazor.Server;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -66,7 +70,7 @@ namespace Claimini.Api
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = this.Configuration["Jwt:Issuer"],
                         ValidAudience = this.Configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
                     };
                 });
         }
