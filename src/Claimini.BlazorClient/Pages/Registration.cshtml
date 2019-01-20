@@ -6,16 +6,18 @@
 
 <div class="container">
     <h1>Register for Claimini</h1>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email" placeholder="Email" class="form-control" bind="@Email"/>
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" placeholder="Password" class="form-control" bind="@Password" />
-    </div>
+    <form method="post">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" placeholder="Email" class="form-control" bind="@Email"/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password" class="form-control" bind="@Password" />
+        </div>
     
-    <button onclick="@SubmitForm">Submit</button>
+        <input type="submit" onclick="@SubmitForm" value="Submit" />
+    </form>
 </div>
 
 @functions
@@ -33,7 +35,7 @@
         };
 
         await Http.PostJsonAsync("http://localhost:65366/api/token/registration", viewModel);
-//        UriHelper.NavigateTo("/login");    // Does not work right now
+        UriHelper.NavigateTo("/login");    // Does not work right now
     }
 
 }
