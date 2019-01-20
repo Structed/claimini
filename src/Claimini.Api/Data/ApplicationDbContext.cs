@@ -13,7 +13,7 @@ namespace Claimini.Api.Data
     /// <summary>
     /// The Application DB Context
     /// </summary>
-    public class ApplicationDbContext : DbContext, IApplicationDbContext
+    public class ApplicationDbContext : IdentityDbContext, IApplicationDbContext
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationDbContext"/> class.
