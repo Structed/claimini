@@ -1,5 +1,7 @@
+using System.Threading.Tasks;
 using Claimini.Api.Services;
 using Claimini.Shared;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Claimini.Api.Controllers
@@ -8,18 +10,57 @@ namespace Claimini.Api.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-        private readonly IJwtTokenService _tokenService;
-        public TokenController(IJwtTokenService tokenService)
+        private readonly IJwtTokenService tokenService;
+        private readonly UserManager<IdentityUser> userManager;
+
+        public TokenController(IJwtTokenService tokenService, UserManager<IdentityUser> userManager)
         {
-            _tokenService = tokenService;
+            this.tokenService = tokenService;
+            this.userManager = userManager;
         }
 
-        [HttpPost]
-        public IActionResult GenerateToken([FromBody] TokenViewModel vm)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] TokenViewModel vm)
         {
-            var token = _tokenService.BuildToken(vm.Email);
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest();
+            }
 
-            return Ok(new {token});
+            var user = await this.userManager.FindByEmailAsync(vm.Email);
+            var correctUser = await this.userManager.CheckPasswordAsync(user, vm.Password);
+
+            if (correctUser == false)
+            {
+                return BadRequest("Username or password is incorrect");
+            }
+
+            return Ok(new
+            {
+                token = this.tokenService.BuildToken(vm.Email)
+            });
+        }
+
+        [HttpPost("registration")]
+        public async Task<IActionResult> Registration([FromBody] TokenViewModel vm)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest();
+            }
+
+            var result = await this.userManager.CreateAsync(new IdentityUser()
+            {
+                UserName = vm.Email,
+                Email = vm.Email,
+            }, vm.Password);
+
+            if (result.Succeeded == false)
+            {
+                return StatusCode(500);
+            }
+
+            return Ok();
         }
     }
 }

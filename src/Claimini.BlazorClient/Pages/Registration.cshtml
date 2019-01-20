@@ -1,11 +1,11 @@
-@page "/login"
+@page "/registration"
 @using Claimini.Shared
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 @inject IApiClient apiClient;
 @inject HttpClient Http
 
-
 <div class="container">
-    <h1>Log in to Claimini</h1>
+    <h1>Register for Claimini</h1>
     <div class="form-group">
         <label for="email">Email</label>
         <input type="text" name="email" id="email" placeholder="Email" class="form-control" bind="@Email"/>
@@ -23,7 +23,6 @@
 
     public string Email { get; set; } = "";
     public string Password { get; set; } = "";
-    public string Token { get; set; } = "";
 
     private async Task SubmitForm()
     {
@@ -33,9 +32,8 @@
             Password = Password
         };
 
-        var response = await Http.PostJsonAsync<object>("http://localhost:65366/api/token/login", viewModel);
-        Console.WriteLine($"{Email} and {Password}");
-//        Console.WriteLine(response);
+        await Http.PostJsonAsync("http://localhost:65366/api/token/registration", viewModel);
+//        UriHelper.NavigateTo("/login");    // Does not work right now
     }
 
 }
