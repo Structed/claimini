@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Claimini.Api.Data;
 using Claimini.Api.Services;
 using Claimini.Shared;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,4 @@
-namespace Claimini.Api.Model
+namespace Claimini.Shared
 {
     public class TokenViewModel
     {

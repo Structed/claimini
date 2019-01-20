@@ -1,5 +1,5 @@
-using Claimini.Api.Model;
 using Claimini.Api.Services;
+using Claimini.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Claimini.Api.Controllers
