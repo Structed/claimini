@@ -1,5 +1,3 @@
-@using System
-@using System.Threading.Tasks
 @using Claimini.BlazorClient.ApplicationState
 @using Claimini.Shared
 @page "/customers/add"
@@ -8,7 +6,7 @@
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 
 <h1>Add Customer</h1>
-<CustomerForm OnSubmit=AddCustomer />
+<CustomerForm OnSubmit=@AddCustomer />
 
 @functions
 {
