@@ -6,12 +6,14 @@
 using System.Collections.Generic;
 using Claimini.Api.Services;
 using Claimini.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Claimini.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/Articles")]
+    [Authorize]
     public class ArticlesController : Controller
     {
         private readonly IArticleService articleService;

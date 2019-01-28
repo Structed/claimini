@@ -8,6 +8,8 @@ namespace Claimini.BlazorClient.ApplicationState
     public class AppState
     {
         public string Location { get; set; }
+        
+        public string BearerToken { get; set; }
 
         public List<InvoiceFullDto> Invoices { get; set; }
 

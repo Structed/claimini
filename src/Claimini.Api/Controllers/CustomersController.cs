@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using Claimini.Api.Services;
 using Claimini.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Claimini.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/Customers")]
+    [Authorize]
     public class CustomersController : Controller
     {
         private readonly ICustomerService customerService;

@@ -35,10 +35,12 @@ namespace Claimini.Api.Controllers
                 return BadRequest("Username or password is incorrect");
             }
 
-            return Ok(new
+            string token = this.tokenService.BuildToken(vm.Email);
+            var tokenResponse = new TokenResponse
             {
-                token = this.tokenService.BuildToken(vm.Email)
-            });
+                BearerToken = token
+            };
+            return new OkObjectResult(tokenResponse);
         }
 
         [HttpPost("registration")]

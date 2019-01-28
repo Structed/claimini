@@ -8,6 +8,15 @@ namespace Claimini.BlazorClient.ApplicationState
 {
     public class ActionCreators
     {
+        public static async Task GetbearerToken(Dispatcher<IAction> dispatch, IApiClient apiClient, TokenViewModel tokenViewModel)
+        {
+            string bearerToken = await apiClient.Login(tokenViewModel);
+            dispatch(new Actions.ReceiveBearerTokenAction()
+            {
+                BearerToken = bearerToken
+            });
+        }
+        
         // Customers
         public static async Task LoadCustomers(Dispatcher<IAction> dispatch, IApiClient apiClient)
         {
