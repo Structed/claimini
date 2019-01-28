@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,6 +16,16 @@ namespace Claimini.BlazorClient
         public ApiClient(HttpClient httpClient)
         {
             this.httpClient = httpClient;
+        }
+
+        public async Task RegisterUser(TokenViewModel viewModel)
+        {
+            await this.httpClient.PostJsonAsync("/api/token/registration", viewModel);
+        }
+
+        public async Task Login(TokenViewModel viewModel)
+        {
+            await this.httpClient.PostJsonAsync("/api/token/login", viewModel);
         }
 
         public async Task<List<Customer>> GetCustomers()
