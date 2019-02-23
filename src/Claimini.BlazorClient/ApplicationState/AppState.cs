@@ -11,6 +11,8 @@ namespace Claimini.BlazorClient.ApplicationState
         
         public string BearerToken { get; set; }
 
+        public bool IsAuthenticated { get; set; } = false;
+
         public List<InvoiceFullDto> Invoices { get; set; }
 
         public InvoiceFullDto SelectedInvoice { get; set; }

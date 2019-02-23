@@ -17,12 +17,24 @@ namespace Claimini.BlazorClient.ApplicationState
             {
                 Location = Location.Reducer(state.Location, action),
                 BearerToken = BearerTokenReducer(state.BearerToken, action),
+                IsAuthenticated = IsAuthenticatedReducer(state.IsAuthenticated, action),
                 Customers = CustomersReducer(state.Customers, action),
                 SelectedCustomer = SelectedCustomerReducer(state.SelectedCustomer, state.Customers, action),
                 Invoices = InvoicesReducer(state.Invoices, action),
                 SelectedInvoice = SelectedInvoiceReducer(state.SelectedInvoice, action),
                 Articles = ArticlesReducer(state.Articles, action),
             };
+        }
+
+        private static bool IsAuthenticatedReducer(bool stateIsAuthenticated, IAction action)
+        {
+            switch (action)
+            {
+                case Actions.ReceiveBearerTokenAction receiveBearerTokenAction:
+                    return true;
+                default:
+                    return stateIsAuthenticated;
+            }
         }
 
         private static string BearerTokenReducer(string bearerToken, IAction action)
