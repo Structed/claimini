@@ -1,0 +1,22 @@
+@inherits Claimini.BlazorClient.Components.BaseComponent
+
+@if (!State.IsAuthenticated)
+{
+    <menuitem Href="/users/registration" Label="Register" CssClass="oi-home"/>
+        
+    <menuitem Href="/users/login" Label="Login" CssClass="oi-home"/>
+}
+else
+{
+    <menuitem Href="/articles" Label="Articles" CssClass="oi-document">
+        <menuitem Href="/articles/add" Label="Add" CssClass="oi-plus"/>
+    </menuItem>
+    
+    <menuitem Href="/customers" Label="Customers" CssClass="oi-people">
+        <menuitem Href="/customers/add" Label="Add" CssClass="oi-plus"/>
+    </menuItem>
+    
+    <menuitem Href="/invoices" Label="Invoices" CssClass="oi-list-rich">
+        <menuitem Href="/invoices/add" Label="Add" CssClass="oi-plus"/>
+    </menuItem>
+}

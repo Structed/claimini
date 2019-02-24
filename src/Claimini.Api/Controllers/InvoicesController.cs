@@ -10,12 +10,14 @@ using Claimini.Api.Repository;
 using Claimini.Api.Services;
 using Claimini.Shared;
 using iText.Kernel.Pdf;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Claimini.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/Invoices")]
+    [Authorize]
     public class InvoicesController : Controller
     {
         private readonly IInvoiceService invoiceService;

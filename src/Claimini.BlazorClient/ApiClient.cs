@@ -1,7 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Ardalis.GuardClauses;
 using Claimini.Shared;
 using Microsoft.AspNetCore.Blazor;
 
@@ -17,6 +18,24 @@ namespace Claimini.BlazorClient
         public ApiClient(HttpClient httpClient)
         {
             this.httpClient = httpClient;
+        }
+
+        public void SetAuthorizationHeader(string token)
+        {
+            Guard.Against.NullOrWhiteSpace(token, nameof(token));
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
+
+        public async Task RegisterUser(TokenViewModel viewModel)
+        {
+            await this.httpClient.PostJsonAsync("/api/token/registration", viewModel);
+        }
+
+        public async Task<string> Login(TokenViewModel viewModel)
+        {
+            var tokenResponse = await this.httpClient.PostJsonAsync<TokenResponse>("/api/token/login", viewModel);
+            this.SetAuthorizationHeader(tokenResponse.BearerToken);
+            return tokenResponse.BearerToken;
         }
 
         public async Task<List<Customer>> GetCustomers()

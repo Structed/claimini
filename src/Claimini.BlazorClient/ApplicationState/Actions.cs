@@ -6,7 +6,12 @@ namespace Claimini.BlazorClient.ApplicationState
 {
     public class Actions
     {
-        // Custoemrs
+        public class ReceiveBearerTokenAction : IAction
+        {
+            public string BearerToken { get; set; }
+        }
+        
+        // Customers
         public class ReceiveCustomersAction : IAction
         {
             public List<Customer> Customers { get; set; }

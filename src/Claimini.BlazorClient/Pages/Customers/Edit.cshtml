@@ -18,7 +18,8 @@
 
     private async Task<Customer> UpdateCustomer(Customer customer)
     {
-        ActionCreators.UpdateCustomer(Store.Dispatch, apiClient, customer);
+        await ActionCreators.UpdateCustomer(Store.Dispatch, apiClient, customer);
+        UriHelper.NavigateTo($"/customers/detail/{customer.Id}");
         return customer;
     }
 

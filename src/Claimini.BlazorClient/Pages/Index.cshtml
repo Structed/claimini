@@ -1,8 +1,9 @@
 @page "/"
+@inherits Claimini.BlazorClient.Components.BaseComponent
 
-<h1>Hello, world!</h1>
+<h1>Welcome to Claimini!</h1>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-<p>Really good!</p>
+@if (!State.IsAuthenticated)
+{
+    <div class="alert alert-warning">Please <NavLink class="navbar-text" href="/users/registration/">Register</NavLink> or <NavLink class="navbar-text" href="/users/login">Login</NavLink></div>
+}

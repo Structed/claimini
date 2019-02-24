@@ -1,0 +1,43 @@
+@page "/users/login"
+@using Claimini.BlazorClient.ApplicationState
+@using Claimini.Shared
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+@inject IApiClient apiClient;
+@inherits Claimini.BlazorClient.Components.BaseComponent
+
+
+<div class="container">
+    <h1>Log in to Claimini</h1>
+    <div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" placeholder="Email" class="form-control" bind="@Email"/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password" class="form-control" bind="@Password" />
+        </div>
+    
+        <button type="submit" onclick="@SubmitForm">Login</button>
+    </div>
+</div>
+
+@functions
+{
+    
+    public string Email { get; set; } = "";
+    public string Password { get; set; } = "";
+    public string Token { get; set; } = "";
+
+    private async Task SubmitForm()
+    {
+        var viewModel = new TokenViewModel
+        {
+            Email = Email,
+            Password = Password
+        };
+
+        await ActionCreators.GetbearerToken(Store.Dispatch, apiClient, viewModel);
+        UriHelper.NavigateTo("/");
+    }
+}
