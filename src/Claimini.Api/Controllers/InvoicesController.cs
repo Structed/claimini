@@ -62,6 +62,7 @@ namespace Claimini.Api.Controllers
         }
 
         [HttpGet("{id}/pdf")]
+        [Produces("application/json")]
         public async Task<IActionResult> GetPdf(string id)
         {
             var invoice = this.invoiceService.GetInvoice(id);
