@@ -55,7 +55,7 @@ namespace Claimini.Api.Controllers
             return new ObjectResult(this.ModelState);
         }
 
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/Invoices/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
