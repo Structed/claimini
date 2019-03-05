@@ -4,6 +4,8 @@
 @inherits Claimini.BlazorClient.Components.BaseComponent
 @inject IApiClient apiClient;
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper uriHelper
+
+
 <h1>Invoice @InvoiceId</h1>
 @if (State.SelectedInvoice == null)
 {
@@ -39,7 +41,7 @@ else
         <button class="btn" onclick="@ToggleShowPdf">Show PDF</button>
     </div>
     <div style="@PdfContainerStyle">
-        <object width="800" height="1200" data="/api/invoices/@InvoiceId/pdf"></object>
+        <object width="800" height="1200" data="data:application/pdf;base64,@pdf"></object>
     </div>
 
 }
@@ -50,10 +52,14 @@ else
 
     private bool showPdf = false;
 
+    private string pdf;
+
     protected override async Task OnInitAsync()
     {
         State.SelectedInvoice = null;   // TODO for future self: check, if this is really a good idea. I don't think so.
-        ActionCreators.SelectInvoice(Store.Dispatch, apiClient, InvoiceId);
+        await ActionCreators.SelectInvoice(Store.Dispatch, apiClient, InvoiceId);
+
+        this.pdf = await this.apiClient.GetInvoicePdfBas64(this.InvoiceId);
     }
 
     private void ViewCustomer(int customerId)
