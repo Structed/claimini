@@ -31,6 +31,20 @@ namespace Claimini.BlazorClient
 
         Task<InvoiceFullDto> GetInvoice(string invoiceId);
 
+        /// <summary>
+        /// Retrieves an Invoice PDF as byte array
+        /// </summary>
+        /// <param name="invoiceId"></param>
+        /// <returns></returns>
+        Task<byte[]> GetInvoicePdf(string invoiceId);
+
+        /// <summary>
+        /// Retrieves an Invoice PDF as Base64 encoded string
+        /// </summary>
+        /// <param name="id">The Invoice ID</param>
+        /// <returns>A Base64 encoded string</returns>
+        Task<string> GetInvoicePdfBas64(string id);
+
         Task<InvoiceFullDto> PostInvoice(InvoiceDto invoice);
         
         Task RegisterUser(TokenViewModel viewModel);

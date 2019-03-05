@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -81,6 +82,18 @@ namespace Claimini.BlazorClient
         public async Task<InvoiceFullDto> GetInvoice(string id)
         {
             return await this.httpClient.GetJsonAsync<InvoiceFullDto>($"{InvoicesApiUri}/{id}");
+        }
+
+        public async Task<byte[]> GetInvoicePdf(string id)
+        {
+            var bytes = await this.httpClient.GetByteArrayAsync($"{InvoicesApiUri}/{id}/pdf");
+            return bytes;
+        }
+        
+        public async Task<string> GetInvoicePdfBas64(string id)
+        {
+            var bytes = await this.GetInvoicePdf(id);
+            return Convert.ToBase64String(bytes);
         }
 
         public async Task<List<Article>> GetArticles()
