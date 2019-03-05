@@ -2,21 +2,21 @@
 
 @if (!State.IsAuthenticated)
 {
-    <menuitem Href="/users/registration" Label="Register" CssClass="oi-home"/>
+    <MenuItemComponent Href="/users/registration" Label="Register" CssClass="oi-home"/>
         
-    <menuitem Href="/users/login" Label="Login" CssClass="oi-home"/>
+    <MenuItemComponent Href="/users/login" Label="Login" CssClass="oi-home"/>
 }
 else
 {
-    <menuitem Href="/articles" Label="Articles" CssClass="oi-document">
-        <menuitem Href="/articles/add" Label="Add" CssClass="oi-plus"/>
-    </menuItem>
+    <MenuItemComponent Href="/articles" Label="Articles" CssClass="oi-document">
+        <MenuItemComponent Href="/articles/add" Label="Add" CssClass="oi-plus"/>
+    </MenuItemComponent>
     
-    <menuitem Href="/customers" Label="Customers" CssClass="oi-people">
-        <menuitem Href="/customers/add" Label="Add" CssClass="oi-plus"/>
-    </menuItem>
+    <MenuItemComponent Href="/customers" Label="Customers" CssClass="oi-people">
+        <MenuItemComponent Href="/customers/add" Label="Add" CssClass="oi-plus"/>
+    </MenuItemComponent>
     
-    <menuitem Href="/invoices" Label="Invoices" CssClass="oi-list-rich">
-        <menuitem Href="/invoices/add" Label="Add" CssClass="oi-plus"/>
-    </menuItem>
+    <MenuItemComponent Href="/invoices" Label="Invoices" CssClass="oi-list-rich">
+        <MenuItemComponent Href="/invoices/add" Label="Add" CssClass="oi-plus"/>
+    </MenuItemComponent>
 }
