@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Claimini.Shared", "src\Clai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Claimini.Shared.Tests", "test\Claimini.Shared.Tests\Claimini.Shared.Tests.csproj", "{18637F7D-C4BE-4448-BE6A-BB50FDB9E25C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9F7A85EE-E84D-40EE-9F38-4F9606F32449}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,5 +63,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FAE86EB-9897-42A9-BD5C-21D001383A18}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B7A8E023-C5AB-4AEB-B3C8-04A5859A8E4C} = {9F7A85EE-E84D-40EE-9F38-4F9606F32449}
+		{18637F7D-C4BE-4448-BE6A-BB50FDB9E25C} = {9F7A85EE-E84D-40EE-9F38-4F9606F32449}
 	EndGlobalSection
 EndGlobal
