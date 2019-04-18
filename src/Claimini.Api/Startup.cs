@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using Claimini.Api.Configuration;
 using Claimini.Api.Data;
@@ -12,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace Claimini.Api
 {
@@ -27,9 +29,37 @@ namespace Claimini.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Entity framework configuration
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
+            var sqlServerConnectionString = this.Configuration.GetConnectionString("DefaultConnection");
+            var mySqlConnectionString = this.Configuration.GetConnectionString("MySqlConnection");
+            
+
+            if (false == string.IsNullOrWhiteSpace(sqlServerConnectionString))
+            {
+                // Entity framework configuration
+                services.AddDbContext<ApplicationDbContext>(options =>
+                {
+                    options.UseSqlServer(sqlServerConnectionString);
+                });
+
+            }
+            else if (false == string.IsNullOrWhiteSpace(mySqlConnectionString))
+            {
+                services.AddDbContextPool<ApplicationDbContext>(
+                    options =>
+                    {
+                        options.UseMySql(mySqlConnectionString,
+                            mysqlOptions =>
+                            {
+                                mysqlOptions.ServerVersion(new Version(5, 6, 41),
+                                    ServerType.MySql);
+                            }
+                        );
+                    });
+            }
+            else
+            {
+                throw new ApplicationException("No database context initialized");
+            }
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
